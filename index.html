@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- PRIMARY SEO -->
+    <title>Floatex Solar | India's Leading Floating Solar Energy Company</title>
+    <meta name="description" content="Floatex Solar delivers cutting-edge floating solar energy solutions across India. 10M+ watts installed. Eco-friendly, reliable, and cost-effective clean energy for a sustainable tomorrow." />
+    <meta name="keywords" content="floating solar, floatex solar, solar energy india, floating solar panels, clean energy, renewable energy india, solar power plant" />
+    <meta name="author" content="Floatex Solar" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://floatexsolar.com/" />
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Floatex Solar" />
+    <meta property="og:title" content="Floatex Solar | India's Leading Floating Solar Energy Company" />
+    <meta property="og:description" content="Delivering reliable, eco-friendly floating solar solutions designed to reduce energy costs while minimizing environmental impact. 10M+ watts installed across India." />
+    <meta property="og:image" content="https://floatexsolar.com/assets/images/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content="https://floatexsolar.com/" />
+    <meta property="og:locale" content="en_IN" />
+
+    <!-- TWITTER CARD -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Floatex Solar | Floating Solar Energy Solutions" />
+    <meta name="twitter:description" content="India's leading floating solar company. Clean energy solutions that balance performance, design, and responsibility." />
+    <meta name="twitter:image" content="https://floatexsolar.com/assets/images/og-image.jpg" />
+
+    <!-- FAVICON -->
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png" />
+    <meta name="theme-color" content="#FCAF17" />
+
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Caveat:wght@600;700&display=swap" rel="stylesheet" />
+
+    <!-- CDN LIBRARIES -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/split-type@0.3.4/umd/index.min.js"></script>
+
+    <!-- STYLESHEET -->
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+
+  <body>
+
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- ============================================
+         HEADER / NAV
+         - Floats over hero (position: fixed)
+         - Glassmorphism dark pill style
+         - Logo left | Links center | CTA right
+         - Submenu on About and Projects
+    ============================================ -->
+    <header class="site-header" id="site-header">
+      <nav class="nav" aria-label="Main navigation">
+
+        <!-- Inner pill wrapper -->
+        <div class="nav__inner">
+
+          <!-- Logo -->
+          <a href="/" class="nav__logo" aria-label="Floatex Solar — Home">
+            <img
+              src="assets/images/logo.png"
+              alt="Floatex Solar"
+              width="140"
+              height="44"
+              loading="eager"
+            />
+          </a>
+
+          <!-- Desktop Links -->
+          <ul class="nav__links" role="list">
+
+            <li class="nav__item">
+              <a href="/" class="nav__link nav__link--active" aria-current="page">Home</a>
+            </li>
+
+            <!-- About — has submenu -->
+            <li class="nav__item nav__item--dropdown">
+              <button
+                class="nav__link nav__link--trigger"
+                aria-haspopup="true"
+                aria-expanded="false"
+                aria-controls="dropdown-about"
+              >
+                About
+                <svg class="nav__chevron" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                  <path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <div class="nav__dropdown" id="dropdown-about" role="region" aria-label="About submenu">
+                <ul class="nav__dropdown-list" role="list">
+                  <li>
+                    <a href="/about" class="nav__dropdown-link">
+                      <!-- <span class="nav__dropdown-icon" aria-hidden="true">🏢</span> -->
+                      <span>
+                        <strong>Our Company</strong>
+                        <small>Story, mission & vision</small>
+                      </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/team" class="nav__dropdown-link">
+                      <!-- <span class="nav__dropdown-icon" aria-hidden="true">👥</span> -->
+                      <span>
+                        <strong>Our Team</strong>
+                        <small>Meet the experts</small>
+                      </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/sustainability" class="nav__dropdown-link">
+                      <!-- <span class="nav__dropdown-icon" aria-hidden="true">🌱</span> -->
+                      <span>
+                        <strong>Sustainability</strong>
+                        <small>Our green commitment</small>
+                      </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="nav__item">
+              <a href="/services" class="nav__link">Projects</a>
+            </li>
+
+            <!-- Projects — has submenu -->
+            <li class="nav__item nav__item--dropdown">
+              <button
+                class="nav__link nav__link--trigger"
+                aria-haspopup="true"
+                aria-expanded="false"
+                aria-controls="dropdown-projects"
+              >
+                Services
+                <svg class="nav__chevron" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                  <path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <div class="nav__dropdown" id="dropdown-projects" role="region" aria-label="Projects submenu">
+                <ul class="nav__dropdown-list" role="list">
+                  <li>
+                    <a href="#" class="nav__dropdown-link">
+                      <!-- <span class="nav__dropdown-icon" aria-hidden="true">⚡</span> -->
+                      <span>
+                        <strong>FSPV</strong>
+                        <!-- <small>Madhya Pradesh — 600MW</small> -->
+                      </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" class="nav__dropdown-link">
+                      <!-- <span class="nav__dropdown-icon" aria-hidden="true">🌊</span> -->
+                      <span>
+                        <strong>Electical Utility Barges</strong>
+                        <!-- <small>Telangana — 100MW</small> -->
+                      </span>
+                    </a>
+                  </li>
+                  <!-- <li>
+                    <a href="/projects" class="nav__dropdown-link nav__dropdown-link--all"> -->
+                      <!-- <span class="nav__dropdown-icon" aria-hidden="true">📂</span> -->
+                      <!-- <span>
+                        <strong>All Projects</strong>
+                        <small>View complete portfolio</small>
+                      </span>
+                    </a>
+                  </li> -->
+                </ul>
+              </div>
+            </li>
+
+            <li class="nav__item">
+              <a href="/news" class="nav__link">News</a>
+            </li>
+
+            <li class="nav__item">
+              <a href="/enquiry" class="nav__link">Enquiry</a>
+            </li>
+
+          </ul><!-- /nav__links -->
+
+          <!-- CTA Button -->
+          <a href="/contact" class="nav__cta" aria-label="Get started with Floatex Solar">
+            let's Start Now
+          </a>
+
+          <!-- Hamburger — mobile only -->
+          <button
+            class="nav__hamburger"
+            id="nav-hamburger"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+          >
+            <span class="nav__hamburger-bar"></span>
+            <span class="nav__hamburger-bar"></span>
+            <span class="nav__hamburger-bar"></span>
+          </button>
+
+        </div><!-- /nav__inner -->
+
+        <!-- Mobile Menu -->
+        <div class="nav__mobile" id="mobile-menu" aria-hidden="true">
+          <ul class="nav__mobile-links" role="list">
+            <li><a href="/" class="nav__mobile-link">Home</a></li>
+
+            <li class="nav__mobile-item--accordion">
+              <button class="nav__mobile-link nav__mobile-trigger" aria-expanded="false">
+                About
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                  <path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <ul class="nav__mobile-submenu" role="list">
+                <li><a href="/about" class="nav__mobile-sublink">Our Company</a></li>
+                <li><a href="/team" class="nav__mobile-sublink">Our Team</a></li>
+                <li><a href="/sustainability" class="nav__mobile-sublink">Sustainability</a></li>
+              </ul>
+            </li>
+
+            <li><a href="/projects" class="nav__mobile-link">Projects</a></li>
+
+            <li class="nav__mobile-item--accordion">
+              <button class="nav__mobile-link nav__mobile-trigger" aria-expanded="false">
+                Services
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                  <path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <ul class="nav__mobile-submenu" role="list">
+                <li><a href="#" class="nav__mobile-sublink">FSPV</a></li>
+                <li><a href="#" class="nav__mobile-sublink">Electrical Utility Barges</a></li>
+              </ul>
+            </li>
+
+            <li><a href="/news" class="nav__mobile-link">News</a></li>
+            <li><a href="/enquiry" class="nav__mobile-link">Enquiry</a></li>
+
+            <li>
+              <a href="/contact" class="nav__mobile-cta">let's Start Now</a>
+            </li>
+          </ul>
+        </div><!-- /nav__mobile -->
+
+      </nav>
+    </header>
+
+    <!-- ============================================
+         MAIN CONTENT
+    ============================================ -->
+    <main id="main-content">
+
+      <!-- HERO SECTION -->
+      <section class="hero" id="hero" aria-label="Hero — Powering India with 1GW+ Floats">
+
+        <div class="hero__video-wrap" aria-hidden="true">
+          <video class="hero__video" autoplay muted loop playsinline poster="assets/images/hero-poster.jpg" preload="none">
+            <source src="assets/videos/hero.webm" type="video/webm" />
+            <source src="assets/videos/hero.mp4"  type="video/mp4"  />
+          </video>
+          <div class="hero__overlay" aria-hidden="true"></div>
+        </div>
+
+        <div class="hero__content">
+
+          <div class="hero__left">
+            <h1 class="hero__title">
+              <span class="hero__title-line">Powering India</span>
+              <span class="hero__title-line">
+                <span class="hero__title-inline"> with</span>
+                <em class="hero__title-script">1GW+ </em>
+                <span class="hero__title-inline"> Floats.</span>
+              </span>
+              <!-- <span class="hero__title-line">Floats.</span> -->
+            </h1>
+
+            <a href="#solutions" class="hero__cta" aria-label="Learn how Floatex Solar works">
+              <span class="hero__cta-text">How it works</span>
+              <span class="hero__cta-icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4.5 11H17.5M17.5 11L11.5 5M17.5 11L11.5 17" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </a>
+
+            <div class="hero__bottom">
+              <div class="hero__avatars" aria-label="Floatex team">
+                <img class="hero__avatar" src="https://img.freepik.com/free-photo/close-up-portrait-young-bearded-man-white-shirt-jacket-posing-camera-with-broad-smile-isolated-gray_171337-629.jpg?semt=ais_incoming&w=740&q=80" alt="" width="40" height="40" loading="eager" />
+                <img class="hero__avatar" src="https://t4.ftcdn.net/jpg/04/31/64/75/360_F_431647519_usrbQ8Z983hTYe8zgA7t1XVc5fEtqcpa.jpg" alt="" width="40" height="40" loading="eager" />
+                <img class="hero__avatar" src="https://img.freepik.com/free-photo/indoor-picture-cheerful-handsome-young-man-having-folded-hands-looking-directly-smiling-sincerely-wearing-casual-clothes_176532-10257.jpg?semt=ais_incoming&w=740&q=80" alt="" width="40" height="40" loading="eager" />
+              </div>
+              <div class="hero__stat">
+                <strong class="hero__stat-number">10 M+</strong>
+                <span class="hero__stat-label">Watts Installed</span>
+              </div>
+            </div>
+            <p class="hero__stat-desc">India's leading floating photovoltaic solutions — turning idle water surfaces into powerful, sustainable energy sources.</p>
+          </div>
+
+          <div class="hero__right">
+            <div class="hero__card" role="complementary" aria-label="Where sustainability meets style">
+              <img class="hero__card-img" src="https://assets.ratedpower.com/1710418535-solar-power-station-float-water.jpg?auto=format&dpr=0.22&w=6016" alt="Aerial view of Floatex floating solar installation" width="130" height="100" loading="eager" />
+              <div class="hero__card-body">
+                <h2 class="hero__card-title">Dams Turned Power Plants</h2>
+                <p class="hero__card-text">Professional Floating Photovoltaic (FPV) systems are solar panels mounted on buoyant structures across water bodies.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Future sections -->
+      <section class="solutions" id="solutions" aria-label="Business solutions"></section>
+      <section class="projects"  id="projects"  aria-label="Our projects"></section>
+      <section class="process"   id="process"   aria-label="Our process"></section>
+      <section class="gallery"   id="gallery"   aria-label="Project gallery"></section>
+      <section class="contact"   id="contact"   aria-label="Contact us"></section>
+
+    </main>
+
+    <footer class="site-footer" aria-label="Site footer"></footer>
+
+    <script src="js/main.js" defer></script>
+  </body>
+</html>
