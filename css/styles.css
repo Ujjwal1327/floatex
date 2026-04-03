@@ -331,7 +331,7 @@ h6 {
 
 /* When page is scrolled — slight shrink */
 .site-header.scrolled {
-  padding: 0.6rem var(--container-pad);
+  /* padding: 0.6rem var(--container-pad); */
 }
 
 /* ---- Nav inner — the pill/capsule ---- */
@@ -415,7 +415,7 @@ h6 {
   font-size: 0.9rem;
   font-weight: var(--fw-medium);
   color: rgba(255, 255, 255, 0.82);
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-sm);
   white-space: nowrap;
   transition:
     color var(--ease-fast),
@@ -494,7 +494,7 @@ h6 {
   align-items: center;
   gap: var(--space-sm);
   padding: var(--space-sm) var(--space-md);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   color: rgba(255, 255, 255, 0.8);
   transition:
     background var(--ease-fast),
@@ -658,7 +658,6 @@ h6 {
   flex-direction: column;
   /* gap: var(--space-xs); */
   /* border: 2px solid black; */
-
 }
 
 .nav__mobile-link {
@@ -787,6 +786,7 @@ h6 {
   position: relative;
   z-index: var(--z-raised);
   width: 100%;
+  /* border: 1px solid red; */
   padding-left: clamp(2.5rem, 7vw, 6rem);
   padding-right: clamp(2.5rem, 7vw, 6rem);
   padding-bottom: clamp(4rem, 8vw, 7rem);
@@ -930,7 +930,7 @@ h6 {
 
 .hero__card {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--space-md);
   background: rgba(255, 255, 255, 0.97);
   backdrop-filter: blur(20px);
@@ -938,7 +938,7 @@ h6 {
   border-radius: var(--radius-sm);
   padding: var(--space-sm);
   box-shadow: var(--shadow-card);
-  width: clamp(320px, 28vw, 620px);
+  width: clamp(320px, 34vw, 650px);
   transition:
     transform var(--ease-base),
     box-shadow var(--ease-base);
@@ -950,8 +950,10 @@ h6 {
 }
 
 .hero__card-img {
+  /* border: 2px solid red; */
   width: clamp(95px, 9vw, 155px);
-  height: clamp(75px, 7vw, 120px);
+  /* height: clamp(75px, 7vw, 120px); */
+  height: 100%;
   object-fit: cover;
   border-radius: var(--radius-md);
   flex-shrink: 0;
@@ -960,6 +962,7 @@ h6 {
 
 .hero__card-body {
   display: flex;
+/* border: 2px solid red; */
   flex-direction: column;
   gap: var(--space-xs);
 }
@@ -979,7 +982,162 @@ h6 {
 }
 
 /* ============================================
-   10. RESPONSIVE
+   10. SOLUTIONS SECTION
+============================================ */
+
+.solutions {
+  background: #ffffff;
+  padding-block: clamp(5rem, 10vw, 8rem);
+}
+
+.solutions__inner {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  align-items: center;
+  gap: clamp(3rem, 6vw, 6rem);
+  /* max-width: var(--container-max); */
+  margin: 0 auto;
+  width: 100%;
+  /* border: 1px solid red; */
+  padding-left: clamp(2.5rem, 7vw, 6rem);
+  padding-right: clamp(2.5rem, 7vw, 6rem);
+}
+
+/* ---- Left — Text ---- */
+.solutions__left {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.solutions__title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: var(--fw-bold);
+  line-height: 1.19;
+  /* letter-spacing: -0.025em; */
+  color: var(--color-text-dark);
+}
+
+.solutions__title-accent {
+  color: var(--color-primary);
+}
+
+.solutions__title-plain {
+  color: var(--color-text-dark);
+}
+
+.solutions__desc {
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  color: #555;
+  line-height: 1.75;
+  max-width: 82ch;
+}
+
+/* CTA button — yellow pill matching design */
+.solutions__cta {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 0.7rem 2.2rem;
+  background: var(--color-primary);
+  color: var(--color-text-dark);
+  font-size: 1.1rem;
+  font-weight: var(--fw-semibold);
+  border-radius: var(--radius-md);
+  transition:
+    background var(--ease-base),
+    transform var(--ease-bounce),
+    box-shadow var(--ease-base);
+}
+
+.solutions__cta:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(252, 175, 23, 0.35);
+}
+
+.solutions__cta:active {
+  transform: translateY(0);
+}
+
+/* ---- Right — Image + Tags ---- */
+.solutions__right {
+  position: relative;
+
+}
+
+.solutions__img-wrap {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: visible; /* tags can spill out */
+}
+
+.solutions__img {
+  height: clamp(320px, 42vw, 520px);
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  display: block;
+  /* Placeholder bg while image loads */
+  background: #e8f0e4;
+}
+
+/* ---- Floating tags ---- */
+.solutions__tag {
+  position: absolute;
+  background: rgba(252, 175, 23, 0.88);
+  color: #1a1a1a;
+  font-size: 1rem;
+  font-weight: var(--fw-semibold);
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius-md);
+  white-space: nowrap;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  /* Subtle float animation */
+  animation: tagFloat 3s ease-in-out infinite;
+}
+
+/* Stagger each tag's float so they don't all move together */
+.solutions__tag--1 {
+  top: 12%;
+  left: -1.5rem;
+  animation-delay: 0s;
+}
+.solutions__tag--2 {
+  top: 22%;
+  right: -1rem;
+  animation-delay: 0.6s;
+}
+.solutions__tag--3 {
+  bottom: 22%;
+  left: -1.5rem;
+  animation-delay: 1.2s;
+}
+.solutions__tag--4 {
+  bottom: 12%;
+  right: -1rem;
+  animation-delay: 1.8s;
+}
+
+@keyframes tagFloat {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .solutions__tag {
+    animation: none;
+  }
+}
+
+/* ============================================
+   11. RESPONSIVE
 ============================================ */
 
 /* Hide desktop nav on mobile, show hamburger */
@@ -1000,6 +1158,7 @@ h6 {
 
 @media (max-width: 1024px) {
   .hero__content {
+    /* border: 1px solid red; */
     grid-template-columns: 1fr;
     padding-bottom: 3rem;
     padding-left: clamp(1.5rem, 5vw, 3rem);
@@ -1057,6 +1216,84 @@ h6 {
     font-size: clamp(2.7rem, 8vw, 2.8rem);
   }
   .hero__cta {
+    justify-content: center;
+  }
+}
+
+/* ---- Solutions responsive ---- */
+
+/* Tablet — stack on medium screens */
+@media (max-width: 1024px) {
+  .solutions__inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-3xl);
+    /* border: 1px solid red; */
+      padding-left: clamp(1.5rem, 5vw, 3rem);
+    padding-right: clamp(1.5rem, 5vw, 3rem);
+  }
+
+  .solutions__right {
+    order: -1; /* Image on top on tablet */
+  }
+
+  .solutions__img {
+    height: clamp(280px, 50vw, 420px);
+  }
+
+  /* Pull tags a bit closer on tablet */
+  .solutions__tag--1,
+  .solutions__tag--3 {
+    left: 0.5rem;
+  }
+  .solutions__tag--2,
+  .solutions__tag--4 {
+    right: 0.5rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .solutions {
+    padding-block: clamp(3rem, 8vw, 5rem);
+  }
+
+  .solutions__inner {
+    gap: var(--space-2xl);
+  }
+
+  .solutions__title {
+    font-size: clamp(1.7rem, 6vw, 2.2rem);
+  }
+
+  .solutions__img {
+    height: clamp(220px, 55vw, 320px);
+  }
+
+  /* On very small screens keep tags inside */
+  .solutions__tag {
+    font-size: 0.72rem;
+    padding: 0.3rem 0.7rem;
+  }
+
+  .solutions__tag--1 {
+    left: 0.5rem;
+    top: 8%;
+  }
+  .solutions__tag--2 {
+    right: 0.5rem;
+    top: 20%;
+  }
+  .solutions__tag--3 {
+    left: 0.5rem;
+    bottom: 20%;
+  }
+  .solutions__tag--4 {
+    right: 0.5rem;
+    bottom: 10%;
+  }
+
+  .solutions__cta {
+    width: 100%;
     justify-content: center;
   }
 }

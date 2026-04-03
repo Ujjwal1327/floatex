@@ -104,7 +104,7 @@ function initNav() {
   if (!header) return;
 
   /* ---- 5a. Scroll shrink ---- */
-  const SCROLL_THRESHOLD = 30;
+  const SCROLL_THRESHOLD = 150;
 
   function onScroll() {
     const scrollY = lenis ? lenis.scroll : window.scrollY;
@@ -243,10 +243,83 @@ function debounce(fn, wait = 200) {
 
 
 /* ============================================
-   7. SECTION INITS — placeholders
+   7. SECTION INITS
 ============================================ */
-function initHero()      { /* Task 2B — animations */ }
-function initSolutions() { /* Task 4 */ }
+
+/* ---- HERO — 1GW+ typewriter on page load ---- */
+function initHero() {
+  if (prefersReducedMotion()) return;
+
+  const scriptEl = document.querySelector('.hero__title-script');
+  if (!scriptEl) return;
+
+  // Store original text, clear element
+  const originalText = scriptEl.textContent; // "1GW+ "
+  scriptEl.textContent = '';
+
+  // Wrap each char in a span
+  originalText.split('').forEach((char) => {
+    const span = document.createElement('span');
+    span.textContent   = char;
+    span.style.opacity = '0';
+    span.style.display = 'inline-block';
+    scriptEl.appendChild(span);
+  });
+
+  const charSpans = scriptEl.querySelectorAll('span');
+
+  // GSAP typewriter — each char appears one by one
+  gsap.timeline({ delay: 0.5 })
+    .to(charSpans, {
+      opacity:  1,
+      duration: 0.001,   // instant per char
+      stagger:  0.12,    // 120ms gap between chars
+      ease:     'none',
+    });
+}
+
+
+/* ---- SOLUTIONS — each tag appears one by one as you scroll ---- */
+function initSolutions() {
+  if (prefersReducedMotion()) return;
+
+  const tags = document.querySelectorAll('.solutions__tag');
+  if (!tags.length) return;
+
+  /*
+    HOW IT WORKS:
+    - Each tag has its own ScrollTrigger
+    - start offset increases per tag (tag1 earliest, tag4 latest)
+    - So as user scrolls down → tags pop in one by one
+    - All come from bottom (y: 30) with opacity 0 → 1
+    - Easy to tweak: change startOffset gap or y/duration below
+  */
+
+  tags.forEach((tag, i) => {
+
+    // Hide all tags initially
+    gsap.set(tag, {
+      opacity: 0,
+      y:60,    // starts 30px below its natural position
+    });
+
+    gsap.to(tag, {
+      opacity:  1,
+      y:        0,    // slides up to original CSS position
+      duration: 0.5,
+      ease:     'power2.out',
+      scrollTrigger: {
+        trigger: '.solutions__img-wrap',       // watch the image container
+        start:   `top ${50 - i * 12}%`,        // tag1=70%, tag2=62%, tag3=54%, tag4=46%
+        // ↑ Each tag triggers a bit earlier in the scroll — creating the
+        //   one-by-one reveal as user scrolls deeper into the section
+        once:    true,                         // animate only once
+        // markers: true,                      // ← uncomment to debug trigger points
+      },
+    });
+
+  });
+}
 function initProjects()  { /* Task 5 */ }
 function initProcess()   { /* Task 6 */ }
 function initGallery()   { /* Task 7 */ }
@@ -276,7 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initGallery();
   initContact();
   initFooter();
-
+  
   console.log('%c🚀 Floatex Solar | Ready!', 'color:#FCAF17;font-weight:bold;font-size:14px;');
 });
 
