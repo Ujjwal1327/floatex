@@ -1,105 +1,104 @@
 /* ============================================
-   FLOATEX SOLAR — main.js
-   Structure:
-   1.  Library Verification
-   2.  Lenis Setup
-   3.  GSAP + ScrollTrigger Setup
-   4.  SplitType Check
-   5.  NAV — Scroll shrink, Dropdown, Mobile menu
-   6.  Global Helpers
-   7.  Section Inits (placeholders)
-   8.  DOMContentLoaded
-   9.  Resize Handler
-============================================ */
-
+    FLOATEX SOLAR — main.js
+    Structure:
+    1.  Library Verification
+    2.  Lenis Setup
+    3.  GSAP + ScrollTrigger Setup
+    4.  SplitType Check
+    5.  NAV — Scroll shrink, Dropdown, Mobile menu
+    6.  Global Helpers
+    7.  Section Inits
+    8.  DOMContentLoaded
+    9.  Resize Handler
+  ============================================ */
 
 /* ============================================
-   1. LIBRARY VERIFICATION
-============================================ */
+    1. LIBRARY VERIFICATION
+  ============================================ */
 function verifyLibraries() {
   const libs = {
-    GSAP:          typeof gsap          !== 'undefined',
-    ScrollTrigger: typeof ScrollTrigger !== 'undefined',
-    Lenis:         typeof Lenis         !== 'undefined',
-    SplitType:     typeof SplitType     !== 'undefined',
+    GSAP: typeof gsap !== "undefined",
+    ScrollTrigger: typeof ScrollTrigger !== "undefined",
+    Lenis: typeof Lenis !== "undefined",
+    SplitType: typeof SplitType !== "undefined",
   };
   const allLoaded = Object.values(libs).every(Boolean);
   if (allLoaded) {
-    console.log('%c✅ Floatex | All libraries loaded', 'color:#FCAF17;font-weight:bold;font-size:14px;');
+    console.log(
+      "%c✅ Floatex | All libraries loaded",
+      "color:#FCAF17;font-weight:bold;font-size:14px;",
+    );
     console.table(libs);
   } else {
-    console.error('❌ Floatex | Some libraries failed:', libs);
+    console.error("❌ Floatex | Some libraries failed:", libs);
   }
   return libs;
 }
 
-
 /* ============================================
-   2. LENIS SMOOTH SCROLL
-============================================ */
+    2. LENIS SMOOTH SCROLL
+  ============================================ */
 let lenis;
 
 function initLenis() {
   lenis = new Lenis({
-    duration:         1.2,
-    easing:           (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    direction:        'vertical',
-    gestureDirection: 'vertical',
-    smooth:           true,
-    smoothTouch:      false,
-    touchMultiplier:  2,
-    infinite:         false,
+    duration: 1.5,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    direction: "vertical",
+    gestureDirection: "vertical",
+    smooth: true,
+    smoothTouch: false,
+    touchMultiplier: 2,
+    infinite: false,
   });
 
-  gsap.ticker.add((time) => { lenis.raf(time * 1000); });
-  gsap.ticker.lagSmoothing(0);
-  console.log('%c✅ Lenis ready', 'color:#00b894;font-size:12px;');
+  // FIX: Use rAF loop — correct Lenis 1.x + GSAP integration pattern.
+  function rafLoop(time) {
+    lenis.raf(time);
+    requestAnimationFrame(rafLoop);
+  }
+  requestAnimationFrame(rafLoop);
+
+  console.log("%c✅ Lenis ready", "color:#00b894;font-size:12px;");
 }
 
-
 /* ============================================
-   3. GSAP + SCROLLTRIGGER
-============================================ */
+    3. GSAP + SCROLLTRIGGER
+  ============================================ */
 function initGSAP() {
   gsap.registerPlugin(ScrollTrigger);
-  gsap.defaults({ ease: 'power2.out', duration: 1 });
+  gsap.defaults({ ease: "power2.out", duration: 1 });
 
-  ScrollTrigger.scrollerProxy(document.body, {
-    scrollTop(value) {
-      if (arguments.length && lenis) lenis.scrollTo(value);
-      return lenis ? lenis.scroll : window.scrollY;
-    },
-    getBoundingClientRect() {
-      return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
-    },
-  });
+  // FIX: Removed deprecated scrollerProxy. Lenis 1.x bridge:
+  lenis.on("scroll", ScrollTrigger.update);
 
-  if (lenis) lenis.on('scroll', ScrollTrigger.update);
-  ScrollTrigger.addEventListener('refresh', () => { if (lenis) lenis.resize(); });
+  ScrollTrigger.addEventListener("refresh", () => lenis.resize());
   ScrollTrigger.refresh();
-  console.log('%c✅ GSAP + ScrollTrigger ready', 'color:#00b894;font-size:12px;');
+
+  console.log(
+    "%c✅ GSAP + ScrollTrigger ready",
+    "color:#00b894;font-size:12px;",
+  );
 }
 
-
 /* ============================================
-   4. SPLITTYPE CHECK
-============================================ */
+    4. SPLITTYPE CHECK
+  ============================================ */
 function initSplitType() {
-  if (typeof SplitType === 'undefined') {
-    console.error('❌ SplitType not loaded');
+  if (typeof SplitType === "undefined") {
+    console.error("❌ SplitType not loaded");
     return;
   }
-  console.log('%c✅ SplitType ready', 'color:#00b894;font-size:12px;');
+  console.log("%c✅ SplitType ready", "color:#00b894;font-size:12px;");
 }
 
-
 /* ============================================
-   5. NAV — All interactions
-============================================ */
+    5. NAV — All interactions
+  ============================================ */
 function initNav() {
-  const header     = document.getElementById('site-header');
-  const hamburger  = document.getElementById('nav-hamburger');
-  const mobileMenu = document.getElementById('mobile-menu');
+  const header = document.getElementById("site-header");
+  const hamburger = document.getElementById("nav-hamburger");
+  const mobileMenu = document.getElementById("mobile-menu");
 
   if (!header) return;
 
@@ -108,125 +107,134 @@ function initNav() {
 
   function onScroll() {
     const scrollY = lenis ? lenis.scroll : window.scrollY;
-    header.classList.toggle('scrolled', scrollY > SCROLL_THRESHOLD);
+    header.classList.toggle("scrolled", scrollY > SCROLL_THRESHOLD);
   }
 
   if (lenis) {
-    lenis.on('scroll', onScroll);
+    lenis.on("scroll", onScroll);
   } else {
-    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
   }
-  onScroll(); // run once on load
+  onScroll();
 
   /* ---- 5b. Desktop Dropdowns ---- */
-  const dropdownItems = document.querySelectorAll('.nav__item--dropdown');
+  const dropdownItems = document.querySelectorAll(".nav__item--dropdown");
 
   dropdownItems.forEach((item) => {
-    const trigger = item.querySelector('.nav__link--trigger');
+    const trigger = item.querySelector(".nav__link--trigger");
     let closeTimer = null;
 
     function openDropdown() {
       clearTimeout(closeTimer);
       dropdownItems.forEach((other) => {
         if (other !== item) {
-          other.classList.remove('is-open');
-          other.querySelector('.nav__link--trigger')?.setAttribute('aria-expanded', 'false');
+          other.classList.remove("is-open");
+          other
+            .querySelector(".nav__link--trigger")
+            ?.setAttribute("aria-expanded", "false");
         }
       });
-      item.classList.add('is-open');
-      trigger?.setAttribute('aria-expanded', 'true');
+      item.classList.add("is-open");
+      trigger?.setAttribute("aria-expanded", "true");
     }
 
     function closeDropdown() {
       closeTimer = setTimeout(() => {
-        item.classList.remove('is-open');
-        trigger?.setAttribute('aria-expanded', 'false');
+        item.classList.remove("is-open");
+        trigger?.setAttribute("aria-expanded", "false");
       }, 120);
     }
 
-    item.addEventListener('mouseenter', openDropdown);
-    item.addEventListener('mouseleave', closeDropdown);
+    item.addEventListener("mouseenter", openDropdown);
+    item.addEventListener("mouseleave", closeDropdown);
 
-    trigger?.addEventListener('click', () => {
-      const isOpen = item.classList.contains('is-open');
+    trigger?.addEventListener("click", () => {
+      const isOpen = item.classList.contains("is-open");
       dropdownItems.forEach((d) => {
-        d.classList.remove('is-open');
-        d.querySelector('.nav__link--trigger')?.setAttribute('aria-expanded', 'false');
+        d.classList.remove("is-open");
+        d.querySelector(".nav__link--trigger")?.setAttribute(
+          "aria-expanded",
+          "false",
+        );
       });
       if (!isOpen) {
-        item.classList.add('is-open');
-        trigger.setAttribute('aria-expanded', 'true');
+        item.classList.add("is-open");
+        trigger.setAttribute("aria-expanded", "true");
       }
     });
   });
 
-  // Close on outside click
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('.nav__item--dropdown')) {
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".nav__item--dropdown")) {
       dropdownItems.forEach((item) => {
-        item.classList.remove('is-open');
-        item.querySelector('.nav__link--trigger')?.setAttribute('aria-expanded', 'false');
+        item.classList.remove("is-open");
+        item
+          .querySelector(".nav__link--trigger")
+          ?.setAttribute("aria-expanded", "false");
       });
     }
   });
 
-  // Close on Escape
-  document.addEventListener('keydown', (e) => {
-    if (e.key !== 'Escape') return;
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape") return;
     dropdownItems.forEach((item) => {
-      item.classList.remove('is-open');
-      item.querySelector('.nav__link--trigger')?.setAttribute('aria-expanded', 'false');
+      item.classList.remove("is-open");
+      item
+        .querySelector(".nav__link--trigger")
+        ?.setAttribute("aria-expanded", "false");
     });
     if (mobileMenu) {
-      mobileMenu.classList.remove('is-open');
-      mobileMenu.setAttribute('aria-hidden', 'true');
-      hamburger?.classList.remove('is-open');
-      hamburger?.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
+      mobileMenu.classList.remove("is-open");
+      mobileMenu.setAttribute("aria-hidden", "true");
+      hamburger?.classList.remove("is-open");
+      hamburger?.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
     }
   });
 
   /* ---- 5c. Mobile Hamburger ---- */
   if (hamburger && mobileMenu) {
-    hamburger.addEventListener('click', () => {
-      const isOpen = hamburger.classList.contains('is-open');
-      hamburger.classList.toggle('is-open');
-      mobileMenu.classList.toggle('is-open');
-      hamburger.setAttribute('aria-expanded', String(!isOpen));
-      mobileMenu.setAttribute('aria-hidden', String(isOpen));
-      document.body.style.overflow = isOpen ? '' : 'hidden';
+    hamburger.addEventListener("click", () => {
+      const isOpen = hamburger.classList.contains("is-open");
+      hamburger.classList.toggle("is-open");
+      mobileMenu.classList.toggle("is-open");
+      hamburger.setAttribute("aria-expanded", String(!isOpen));
+      mobileMenu.setAttribute("aria-hidden", String(isOpen));
+      document.body.style.overflow = isOpen ? "" : "hidden";
     });
   }
 
   /* ---- 5d. Mobile Accordion ---- */
-  const accordions = document.querySelectorAll('.nav__mobile-item--accordion');
+  const accordions = document.querySelectorAll(".nav__mobile-item--accordion");
 
   accordions.forEach((accordion) => {
-    const trigger = accordion.querySelector('.nav__mobile-trigger');
+    const trigger = accordion.querySelector(".nav__mobile-trigger");
     if (!trigger) return;
 
-    trigger.addEventListener('click', () => {
-      const isOpen = accordion.classList.contains('is-open');
+    trigger.addEventListener("click", () => {
+      const isOpen = accordion.classList.contains("is-open");
       accordions.forEach((a) => {
-        a.classList.remove('is-open');
-        a.querySelector('.nav__mobile-trigger')?.setAttribute('aria-expanded', 'false');
+        a.classList.remove("is-open");
+        a.querySelector(".nav__mobile-trigger")?.setAttribute(
+          "aria-expanded",
+          "false",
+        );
       });
       if (!isOpen) {
-        accordion.classList.add('is-open');
-        trigger.setAttribute('aria-expanded', 'true');
+        accordion.classList.add("is-open");
+        trigger.setAttribute("aria-expanded", "true");
       }
     });
   });
 
-  console.log('%c✅ Nav initialized', 'color:#00b894;font-size:12px;');
+  console.log("%c✅ Nav initialized", "color:#00b894;font-size:12px;");
 }
 
-
 /* ============================================
-   6. GLOBAL HELPERS
-============================================ */
+    6. GLOBAL HELPERS
+  ============================================ */
 function prefersReducedMotion() {
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
 function scrollTo(target, offset = 0) {
@@ -241,132 +249,281 @@ function debounce(fn, wait = 200) {
   };
 }
 
-
 /* ============================================
-   7. SECTION INITS
-============================================ */
+    7. SECTION INITS
+  ============================================ */
 
-/* ---- HERO — 1GW+ typewriter on page load ---- */
+/* ---- HERO — typewriter on page load ---- */
 function initHero() {
   if (prefersReducedMotion()) return;
 
-  const scriptEl = document.querySelector('.hero__title-script');
+  const scriptEl = document.querySelector(".hero__title-script");
   if (!scriptEl) return;
 
-  // Store original text, clear element
-  const originalText = scriptEl.textContent; // "1GW+ "
-  scriptEl.textContent = '';
+  const originalText = scriptEl.textContent;
+  scriptEl.textContent = "";
 
-  // Wrap each char in a span
-  originalText.split('').forEach((char) => {
-    const span = document.createElement('span');
-    span.textContent   = char;
-    span.style.opacity = '0';
-    span.style.display = 'inline-block';
+  originalText.split("").forEach((char) => {
+    const span = document.createElement("span");
+    span.textContent = char;
+    span.style.opacity = "0";
+    span.style.display = "inline-block";
     scriptEl.appendChild(span);
   });
 
-  const charSpans = scriptEl.querySelectorAll('span');
+  const charSpans = scriptEl.querySelectorAll("span");
 
-  // GSAP typewriter — each char appears one by one
-  gsap.timeline({ delay: 0.5 })
-    .to(charSpans, {
-      opacity:  1,
-      duration: 0.001,   // instant per char
-      stagger:  0.12,    // 120ms gap between chars
-      ease:     'none',
+  // Wait for window load so fonts/images are ready
+  window.addEventListener("load", () => {
+    gsap.timeline({ delay: 0.4 }).to(charSpans, {
+      opacity: 1,
+      duration: 0.001,
+      stagger: 0.22,
+      ease: "none",
     });
+  }, { once: true });
 }
 
-
-/* ---- SOLUTIONS — each tag appears one by one as you scroll ---- */
+/* ---- SOLUTIONS — tags scroll in one by one ---- */
 function initSolutions() {
   if (prefersReducedMotion()) return;
 
-  const tags = document.querySelectorAll('.solutions__tag');
+  const tags = document.querySelectorAll(".solutions__tag");
   if (!tags.length) return;
 
-  /*
-    HOW IT WORKS:
-    - Each tag has its own ScrollTrigger
-    - start offset increases per tag (tag1 earliest, tag4 latest)
-    - So as user scrolls down → tags pop in one by one
-    - All come from bottom (y: 30) with opacity 0 → 1
-    - Easy to tweak: change startOffset gap or y/duration below
-  */
+  // Disable CSS float animation so GSAP owns transform exclusively
+  tags.forEach((tag) => {
+    tag.style.animationName = "none";
+  });
 
   tags.forEach((tag, i) => {
-
-    // Hide all tags initially
-    gsap.set(tag, {
-      opacity: 0,
-      y:60,    // starts 30px below its natural position
-    });
+    gsap.set(tag, { opacity: 0, y: 60 });
 
     gsap.to(tag, {
-      opacity:  1,
-      y:        0,    // slides up to original CSS position
+      opacity: 1,
+      y: 0,
       duration: 0.5,
-      ease:     'power2.out',
+      ease: "power2.out",
       scrollTrigger: {
-        trigger: '.solutions__img-wrap',       // watch the image container
-        start:   `top ${50 - i * 12}%`,        // tag1=70%, tag2=62%, tag3=54%, tag4=46%
-        // ↑ Each tag triggers a bit earlier in the scroll — creating the
-        //   one-by-one reveal as user scrolls deeper into the section
-        once:    true,                         // animate only once
-        // markers: true,                      // ← uncomment to debug trigger points
+        trigger: ".solutions__img-wrap",
+        start: `top ${50 - i * 12}%`,
+        once: true,
+      },
+      onComplete: () => {
+        tag.style.animationName = "";
       },
     });
-
   });
 }
-function initProjects()  { /* Task 5 */ }
-function initProcess()   { /* Task 6 */ }
-function initGallery()   { /* Task 7 */ }
-function initContact()   { /* Task 8 */ }
-function initFooter()    { /* Task 9 */ }
 
+/* ---- VIDEO SCALE — scroll-driven expand ---- */
+function initVideoScale() {
+  if (prefersReducedMotion()) return;
+
+  const video = document.querySelector(".video-scale__video");
+  if (!video) return;
+
+  gsap.to(video, {
+    width: "100vw",
+    height: "100vh",
+    borderRadius: 0,
+    ease: "none",
+    scrollTrigger: {
+      trigger: ".video-scale",
+      start: "top 30%",
+      end: "bottom bottom",
+      scrub: true,
+    },
+  });
+}
+
+/* ---- PROJECTS — cursor-following hover image preview ---- */
+function initProjects() {
+  const rows       = document.querySelectorAll(".projects__row");
+  const preview    = document.getElementById("projects-preview");
+  const previewImg = document.getElementById("projects-preview-img");
+
+  if (!rows.length || !preview || !previewImg) return;
+
+  /*
+    How the follow works:
+    - mousemove updates raw mouseX/mouseY
+    - followLoop() runs in rAF and lerps currentX/Y toward mouse + offset
+    - gsap.set() applies the smoothed position every frame
+    - LERP = 0.1 gives that distinctive "lagging behind" premium feel
+    - The loop starts on first mouseenter, stops after hide animation ends
+  */
+
+  let isVisible  = false;
+  let currentSrc = "";
+  let mouseX     = 0;
+  let mouseY     = 0;
+  let currentX   = 0;
+  let currentY   = 0;
+  let rafId      = null;
+
+  const LERP     = 0.1;   // smoothing factor — lower = more lag
+  const OFFSET_X = 24;    // px right of cursor
+  const OFFSET_Y = -90;   // px above cursor
+
+  function lerp(a, b, t) {
+    return a + (b - a) * t;
+  }
+
+  function followLoop() {
+    currentX = lerp(currentX, mouseX + OFFSET_X, LERP);
+    currentY = lerp(currentY, mouseY + OFFSET_Y, LERP);
+    gsap.set(preview, { x: currentX, y: currentY });
+    rafId = requestAnimationFrame(followLoop);
+  }
+
+  function startFollow() {
+    if (!rafId) rafId = requestAnimationFrame(followLoop);
+  }
+
+  function stopFollow() {
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+  }
+
+  // Track cursor globally for smooth updates even near list edges
+  document.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+
+  /* ---- Show: fade + scale in ---- */
+  function showPreview(src, alt) {
+    if (!isVisible) {
+      // First appearance
+      previewImg.src = src;
+      previewImg.alt = alt;
+      currentSrc     = src;
+
+      // Seed position so it doesn't jump from (0,0)
+      currentX = mouseX + OFFSET_X;
+      currentY = mouseY + OFFSET_Y;
+      gsap.set(preview, { x: currentX, y: currentY });
+
+      gsap.killTweensOf(preview);
+      gsap.to(preview, {
+        opacity: 1,
+        scale: 1,
+        rotation: 0,
+        duration: 0.45,
+        ease: "power3.out",
+      });
+
+      isVisible = true;
+      startFollow();
+
+    } else if (src !== currentSrc) {
+      // Already visible, different project — cross-fade
+      gsap.killTweensOf(previewImg);
+      gsap.to(previewImg, {
+        opacity: 0,
+        duration: 0.15,
+        ease: "power1.in",
+        onComplete: () => {
+          previewImg.src = src;
+          previewImg.alt = alt;
+          currentSrc     = src;
+          gsap.to(previewImg, {
+            opacity: 1,
+            duration: 0.28,
+            ease: "power2.out",
+          });
+        },
+      });
+    }
+  }
+
+  /* ---- Hide: fade + scale out ---- */
+  function hidePreview() {
+    if (!isVisible) return;
+    isVisible = false;
+
+    gsap.killTweensOf(preview);
+    gsap.to(preview, {
+      opacity: 0,
+      scale: 0.88,
+      rotation: -2,
+      duration: 0.38,
+      ease: "power3.in",
+      onComplete: stopFollow,
+    });
+  }
+
+  /* ---- Attach events ---- */
+  rows.forEach((row) => {
+    const src = row.dataset.image || "";
+    const alt = row.dataset.alt   || "";
+
+    row.addEventListener("mouseenter", () => {
+      if (src) showPreview(src, alt);
+    });
+
+    row.addEventListener("mouseleave", hidePreview);
+  });
+
+  console.log("%c✅ Projects initialized", "color:#00b894;font-size:12px;");
+}
+
+function initProcess() { /* Task 6 */ }
+function initGallery()  { /* Task 7 */ }
+function initContact()  { /* Task 8 */ }
+function initFooter()   { /* Task 9 */ }
 
 /* ============================================
-   8. MAIN INIT
-============================================ */
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('%c🌊 Floatex Solar | Initializing...', 'color:#FCAF17;font-weight:bold;font-size:16px;');
+    8. MAIN INIT
+  ============================================ */
+document.addEventListener("DOMContentLoaded", () => {
+  console.log(
+    "%c🌊 Floatex Solar | Initializing...",
+    "color:#FCAF17;font-weight:bold;font-size:16px;",
+  );
 
   const libs = verifyLibraries();
 
-  if (libs.Lenis)                      initLenis();
+  if (libs.Lenis) initLenis();
+
+  // GSAP must come after Lenis so the bridge is live
   if (libs.GSAP && libs.ScrollTrigger) initGSAP();
-  if (libs.SplitType)                  initSplitType();
+  if (libs.SplitType) initSplitType();
 
-  // Nav after Lenis so scroll sync works
   initNav();
-
   initHero();
   initSolutions();
+  initVideoScale();   // FIX: inside DOMContentLoaded — not at file root
   initProjects();
   initProcess();
   initGallery();
   initContact();
   initFooter();
-  
-  console.log('%c🚀 Floatex Solar | Ready!', 'color:#FCAF17;font-weight:bold;font-size:14px;');
+
+  console.log(
+    "%c🚀 Floatex Solar | Ready!",
+    "color:#FCAF17;font-weight:bold;font-size:14px;",
+  );
 });
 
-
 /* ============================================
-   9. RESIZE HANDLER
-============================================ */
-window.addEventListener('resize', debounce(() => {
-  ScrollTrigger.refresh();
-  if (lenis) lenis.resize();
+    9. RESIZE HANDLER
+  ============================================ */
+window.addEventListener(
+  "resize",
+  debounce(() => {
+    ScrollTrigger.refresh();
+    if (lenis) lenis.resize();
 
-  // Auto-close mobile menu on resize to desktop
-  if (window.innerWidth > 900) {
-    const hamburger  = document.getElementById('nav-hamburger');
-    const mobileMenu = document.getElementById('mobile-menu');
-    hamburger?.classList.remove('is-open');
-    mobileMenu?.classList.remove('is-open');
-    document.body.style.overflow = '';
-  }
-}, 250));
+    if (window.innerWidth > 900) {
+      const hamburger   = document.getElementById("nav-hamburger");
+      const mobileMenu  = document.getElementById("mobile-menu");
+      hamburger?.classList.remove("is-open");
+      mobileMenu?.classList.remove("is-open");
+      document.body.style.overflow = "";
+    }
+  }, 250),
+);

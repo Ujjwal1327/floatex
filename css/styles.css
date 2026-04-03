@@ -133,7 +133,7 @@ body {
   font-size: var(--text-base);
   line-height: 1.6;
   color: var(--color-text);
-  background-color: var(--color-dark);
+  background-color: #f5eded;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -962,7 +962,7 @@ h6 {
 
 .hero__card-body {
   display: flex;
-/* border: 2px solid red; */
+  /* border: 2px solid red; */
   flex-direction: column;
   gap: var(--space-xs);
 }
@@ -1063,7 +1063,6 @@ h6 {
 /* ---- Right — Image + Tags ---- */
 .solutions__right {
   position: relative;
-
 }
 
 .solutions__img-wrap {
@@ -1228,7 +1227,7 @@ h6 {
     grid-template-columns: 1fr;
     gap: var(--space-3xl);
     /* border: 1px solid red; */
-      padding-left: clamp(1.5rem, 5vw, 3rem);
+    padding-left: clamp(1.5rem, 5vw, 3rem);
     padding-right: clamp(1.5rem, 5vw, 3rem);
   }
 
@@ -1295,5 +1294,246 @@ h6 {
   .solutions__cta {
     width: 100%;
     justify-content: center;
+  }
+}
+
+/* ******************************************************** */
+
+/* ============================================
+   VIDEO SCALE SECTION
+============================================ */
+
+.video-scale {
+  height: 300vh; /* gives scroll space */
+  position: relative;
+  background: rgb(245, 241, 241);
+}
+
+.video-scale__wrapper {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.video-scale__video {
+  width: 100%; /* initial small size */
+  height: 500px;
+  object-fit: cover;
+  will-change: transform, width, height;
+}
+
+/* ============================================
+   12. PROJECTS SECTION — Hover preview list
+============================================ */
+
+.projects {
+  background: #f7f7f5;
+  padding-block: clamp(5rem, 10vw, 8rem);
+}
+
+.projects__inner {
+  position: relative;
+  /* max-width: 1180px; */
+  width: 100%;
+  margin: 0 auto;
+  /* border: 1px solid red; */
+  padding-left: clamp(2.5rem, 7vw, 6rem);
+  padding-right: clamp(2.5rem, 7vw, 6rem);
+  /* padding-inline: clamp(1.5rem, 5vw, 4rem); */
+}
+
+/* ---- Header ---- */
+.projects__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  flex-direction: column;
+  gap: var(--space-lg);
+  /* text-align: right; */
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  padding-left: 45%;
+}
+
+.projects__title {
+  font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+  font-weight: var(--fw-bold);
+  line-height: 1.22;
+  color: var(--color-text-dark);
+  /* letter-spacing: -0.025em; */
+}
+
+.projects__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.65rem 1.8rem;
+  background: var(--color-primary);
+  color: white;
+  font-size: 0.95rem;
+  font-weight: var(--fw-semibold);
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  transition:
+    background var(--ease-base),
+    transform var(--ease-bounce),
+    box-shadow var(--ease-base);
+}
+
+.projects__cta:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(252, 175, 23, 0.35);
+}
+
+.projects__cta svg {
+  transition: transform var(--ease-base);
+  flex-shrink: 0;
+}
+
+.projects__cta:hover svg {
+  transform: translateX(3px);
+}
+
+/* ---- List ---- */
+.projects__list {
+  list-style: none;
+  border-top: 1px solid #d8d8d4;
+}
+
+/* ---- Row ---- */
+.projects__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xl);
+  padding: clamp(1.2rem, 2.5vw, 1.8rem) 0;
+  border-bottom: 1px solid #d8d8d4;
+  cursor: default;
+  position: relative;
+  /* Row text colour transition on hover */
+  transition: background var(--ease-base);
+}
+
+.projects__row::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(252, 175, 23, 0.04);
+  opacity: 0;
+  transition: opacity var(--ease-base);
+  pointer-events: none;
+}
+
+.projects__row:hover::after {
+  opacity: 1;
+}
+
+.projects__name {
+  font-size: clamp(1.05rem, 2vw, 1.5rem);
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-dark);
+  letter-spacing: -0.015em;
+  transition: color var(--ease-base);
+  flex-shrink: 0;
+}
+
+.projects__row:hover .projects__name {
+  color: #000;
+}
+
+/* ---- Tags ---- */
+.projects__tags {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.projects__tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.9rem;
+  border: 1.5px solid #c8c8c4;
+  border-radius: var(--radius-full);
+  font-size: clamp(0.72rem, 1vw, 0.82rem);
+  font-weight: var(--fw-medium);
+  color: #444;
+  white-space: nowrap;
+  background: transparent;
+  transition:
+    border-color var(--ease-base),
+    color var(--ease-base),
+    background var(--ease-base);
+}
+
+.projects__row:hover .projects__tag {
+  border-color: var(--color-primary);
+  color: var(--color-dark);
+  background: rgba(252, 175, 23, 0.08);
+}
+
+/* ---- Floating image preview ---- */
+/*
+  - Fixed position so it follows cursor across the whole page
+  - Pointer-events: none so it never blocks row hover events
+  - Visibility controlled by JS via .is-visible class
+*/
+.projects__preview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 280px;
+  height: 450px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  pointer-events: none;
+  z-index: var(--z-overlay);
+  /* Start hidden — JS drives opacity/scale via GSAP */
+  opacity: 0;
+  transform: scale(0.88) rotate(-2deg);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.22),
+    0 4px 16px rgba(0, 0, 0, 0.12);
+  will-change: transform, opacity;
+}
+
+.projects__preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  /* Cross-fade between images handled by GSAP opacity on the img itself */
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .projects__inner {
+    padding-left: clamp(1.5rem, 5vw, 3rem);
+    padding-right: clamp(1.5rem, 5vw, 3rem);
+  }
+  .projects__header {
+    padding-left: 0;
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .projects__row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+
+  .projects__tags {
+    justify-content: flex-start;
+  }
+
+  /* Hide preview on touch devices — hover doesn't work there */
+  .projects__preview {
+    display: none;
   }
 }
