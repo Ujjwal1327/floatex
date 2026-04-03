@@ -274,14 +274,18 @@ function initHero() {
   const charSpans = scriptEl.querySelectorAll("span");
 
   // Wait for window load so fonts/images are ready
-  window.addEventListener("load", () => {
-    gsap.timeline({ delay: 0.4 }).to(charSpans, {
-      opacity: 1,
-      duration: 0.001,
-      stagger: 0.22,
-      ease: "none",
-    });
-  }, { once: true });
+  window.addEventListener(
+    "load",
+    () => {
+      gsap.timeline({ delay: 0.4 }).to(charSpans, {
+        opacity: 1,
+        duration: 0.001,
+        stagger: 0.22,
+        ease: "none",
+      });
+    },
+    { once: true },
+  );
 }
 
 /* ---- SOLUTIONS — tags scroll in one by one ---- */
@@ -339,8 +343,8 @@ function initVideoScale() {
 
 /* ---- PROJECTS — cursor-following hover image preview ---- */
 function initProjects() {
-  const rows       = document.querySelectorAll(".projects__row");
-  const preview    = document.getElementById("projects-preview");
+  const rows = document.querySelectorAll(".projects__row");
+  const preview = document.getElementById("projects-preview");
   const previewImg = document.getElementById("projects-preview-img");
 
   if (!rows.length || !preview || !previewImg) return;
@@ -354,17 +358,17 @@ function initProjects() {
     - The loop starts on first mouseenter, stops after hide animation ends
   */
 
-  let isVisible  = false;
+  let isVisible = false;
   let currentSrc = "";
-  let mouseX     = 0;
-  let mouseY     = 0;
-  let currentX   = 0;
-  let currentY   = 0;
-  let rafId      = null;
+  let mouseX = 0;
+  let mouseY = 0;
+  let currentX = 0;
+  let currentY = 0;
+  let rafId = null;
 
-  const LERP     = 0.1;   // smoothing factor — lower = more lag
-  const OFFSET_X = 24;    // px right of cursor
-  const OFFSET_Y = -90;   // px above cursor
+  const LERP = 0.1; // smoothing factor — lower = more lag
+  const OFFSET_X = 24; // px right of cursor
+  const OFFSET_Y = -90; // px above cursor
 
   function lerp(a, b, t) {
     return a + (b - a) * t;
@@ -400,7 +404,7 @@ function initProjects() {
       // First appearance
       previewImg.src = src;
       previewImg.alt = alt;
-      currentSrc     = src;
+      currentSrc = src;
 
       // Seed position so it doesn't jump from (0,0)
       currentX = mouseX + OFFSET_X;
@@ -418,7 +422,6 @@ function initProjects() {
 
       isVisible = true;
       startFollow();
-
     } else if (src !== currentSrc) {
       // Already visible, different project — cross-fade
       gsap.killTweensOf(previewImg);
@@ -429,7 +432,7 @@ function initProjects() {
         onComplete: () => {
           previewImg.src = src;
           previewImg.alt = alt;
-          currentSrc     = src;
+          currentSrc = src;
           gsap.to(previewImg, {
             opacity: 1,
             duration: 0.28,
@@ -459,7 +462,7 @@ function initProjects() {
   /* ---- Attach events ---- */
   rows.forEach((row) => {
     const src = row.dataset.image || "";
-    const alt = row.dataset.alt   || "";
+    const alt = row.dataset.alt || "";
 
     row.addEventListener("mouseenter", () => {
       if (src) showPreview(src, alt);
@@ -471,10 +474,140 @@ function initProjects() {
   console.log("%c✅ Projects initialized", "color:#00b894;font-size:12px;");
 }
 
-function initProcess() { /* Task 6 */ }
-function initGallery()  { /* Task 7 */ }
-function initContact()  { /* Task 8 */ }
-function initFooter()   { /* Task 9 */ }
+function initProcess() {
+  /* Task 6 */
+}
+
+/* ---- GALLERY — scroll-driven lerp stagger float ---- */
+function initGallery() {
+  if (prefersReducedMotion()) return;
+
+  const cards = document.querySelectorAll("[data-gallery-card]");
+  if (!cards.length) return;
+
+  /*
+    How the lerp float works:
+    ─────────────────────────
+    Each card has a unique "target Y" offset (same as its CSS translateY
+    starting value). As the user scrolls through the section, that target
+    Y is multiplied by a parallax factor so faster-moving cards feel like
+    they're at different depths — the "premium stagger" feeling.
+
+    The lerp smoothing factor per card is intentionally different:
+      - Front card (card 1): LERP 0.06 — very silky, slow to respond
+      - Mid cards  (2, 4):   LERP 0.09 — medium
+      - Accent card (3):     LERP 0.12 — snappiest, feels closest
+      - Last card  (5):      LERP 0.07 — slow again, elegant tail
+
+    All values are chosen to feel distinct but harmonious — not random.
+  */
+
+  const config = [
+    { el: cards[0], baseY: 0, speed: 0.1, lerp: 0.06 },
+    { el: cards[1], baseY: -60, speed: 0.16, lerp: 0.09 },
+    { el: cards[2], baseY: 40, speed: 0.08, lerp: 0.12 },
+    { el: cards[3], baseY: -40, speed: 0.14, lerp: 0.085 },
+    { el: cards[4], baseY: 20, speed: 0.12, lerp: 0.07 },
+  ];
+
+  // Current lerp-smoothed Y per card
+  const currentY = config.map((c) => c.baseY);
+
+  let rafId = null;
+  let running = false;
+
+  function lerp(a, b, t) {
+    return a + (b - a) * t;
+  }
+
+  function tick() {
+    // How far the gallery section has been scrolled past its top
+    const section = document.getElementById("gallery");
+    if (!section) {
+      rafId = null;
+      return;
+    }
+
+    const rect = section.getBoundingClientRect();
+    const vh = window.innerHeight;
+    // progress: 0 when section top hits viewport bottom, 1 when top hits viewport top
+    const progress = Math.max(0, Math.min(1, 1 - rect.top / vh));
+
+    let anyMoving = false;
+
+    config.forEach((c, i) => {
+      if (!c.el) return;
+
+      // Target = baseY offset + scroll-driven parallax
+      const targetY = c.baseY - progress * 260 * c.speed;
+      const prev = currentY[i];
+      currentY[i] = lerp(prev, targetY, c.lerp);
+
+      // Apply — only use translateY, no rotation to keep it elegant
+      gsap.set(c.el, { y: currentY[i] });
+
+      // Keep running if any card is still moving meaningfully
+      if (Math.abs(currentY[i] - targetY) > 0.05) anyMoving = true;
+    });
+
+    rafId = requestAnimationFrame(tick);
+  }
+
+  function startLoop() {
+    if (!running) {
+      running = true;
+      rafId = requestAnimationFrame(tick);
+    }
+  }
+
+  function stopLoop() {
+    running = false;
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+  }
+
+  // Only run the loop when the gallery section is near the viewport
+  // (performance: don't burn rAF frames the whole page lifetime)
+  ScrollTrigger.create({
+    trigger: "#gallery",
+    start: "top bottom", // section enters viewport
+    end: "bottom top", // section leaves viewport
+    onEnter: startLoop,
+    onEnterBack: startLoop,
+    onLeave: stopLoop,
+    onLeaveBack: stopLoop,
+  });
+
+  // Scroll-in entrance: cards fade + rise when section first scrolls in
+  config.forEach((c, i) => {
+    gsap.fromTo(
+      c.el,
+      { opacity: 0, y: c.baseY + 50 },
+      {
+        opacity: 1,
+        duration: 0.9,
+        delay: i * 0.5,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: "#gallery",
+          start: "top 85%",
+          once: true,
+        },
+      },
+    );
+  });
+
+  console.log("%c✅ Gallery initialized", "color:#00b894;font-size:12px;");
+}
+
+function initContact() {
+  /* Task 8 */
+}
+function initFooter() {
+  /* Task 9 */
+}
 
 /* ============================================
     8. MAIN INIT
@@ -496,7 +629,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initNav();
   initHero();
   initSolutions();
-  initVideoScale();   // FIX: inside DOMContentLoaded — not at file root
+  initVideoScale(); // FIX: inside DOMContentLoaded — not at file root
   initProjects();
   initProcess();
   initGallery();
@@ -519,8 +652,8 @@ window.addEventListener(
     if (lenis) lenis.resize();
 
     if (window.innerWidth > 900) {
-      const hamburger   = document.getElementById("nav-hamburger");
-      const mobileMenu  = document.getElementById("mobile-menu");
+      const hamburger = document.getElementById("nav-hamburger");
+      const mobileMenu = document.getElementById("mobile-menu");
       hamburger?.classList.remove("is-open");
       mobileMenu?.classList.remove("is-open");
       document.body.style.overflow = "";

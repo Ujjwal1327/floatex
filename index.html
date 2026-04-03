@@ -685,11 +685,100 @@
       </section>
 
       <section class="process" id="process" aria-label="Our process"></section>
-      <section
-        class="gallery"
-        id="gallery"
-        aria-label="Project gallery"
-      ></section>
+      <!-- ==========================================
+           GALLERY SECTION
+           Staggered card grid with scroll-lerp float
+      =========================================== -->
+      <section class="gallery" id="gallery" aria-label="Project gallery">
+        <div class="gallery__inner">
+          <!-- Section header -->
+          <div class="gallery__header">
+            <span class="gallery__eyebrow">Our Work</span>
+            <h2 class="gallery__title">
+              Solar on water,
+              <em class="gallery__title-em">built to last.</em>
+            </h2>
+          </div>
+          <!-- 5-card staggered grid -->
+          <div class="gallery__grid">
+            <div class="gallery__card gallery__card--1" data-gallery-card>
+              <div class="gallery__card-inner">
+                <img
+                  class="gallery__card-img"
+                  src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&q=85"
+                  alt="Aerial view of floating solar panels on a reservoir"
+                  loading="lazy"
+                />
+                <div class="gallery__card-overlay">
+                  <p class="gallery__card-label">Reservoir Installation</p>
+                  <span class="gallery__card-count">266 MWp</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="gallery__card gallery__card--2" data-gallery-card>
+              <div class="gallery__card-inner">
+                <img
+                  class="gallery__card-img"
+                  src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=800&q=85"
+                  alt="Floating solar farm on calm water surface"
+                  loading="lazy"
+                />
+                <div class="gallery__card-overlay">
+                  <p class="gallery__card-label">Canal FPV Array</p>
+                  <span class="gallery__card-count">130 MWp</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="gallery__card gallery__card--3" data-gallery-card>
+              <div class="gallery__card-inner">
+                <img
+                  class="gallery__card-img"
+                  src="https://assets.ratedpower.com/1710418535-solar-power-station-float-water.jpg?auto=format&dpr=0.5&w=800"
+                  alt="Large-scale floating solar on a dam"
+                  loading="lazy"
+                />
+                <div class="gallery__card-overlay">
+                  <p class="gallery__card-label">Dam Power Plant</p>
+                  <span class="gallery__card-count">219 MWp</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="gallery__card gallery__card--4" data-gallery-card>
+              <div class="gallery__card-inner">
+                <img
+                  class="gallery__card-img"
+                  src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&q=85"
+                  alt="Solar panels reflecting on still water at dusk"
+                  loading="lazy"
+                />
+                <div class="gallery__card-overlay">
+                  <p class="gallery__card-label">Pond Solar Grid</p>
+                  <span class="gallery__card-count">216 MWp</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="gallery__card gallery__card--5" data-gallery-card>
+              <div class="gallery__card-inner">
+                <img
+                  class="gallery__card-img"
+                  src="https://images.unsplash.com/photo-1548337138-e87d889cc369?w=800&q=85"
+                  alt="Floating solar modules on Kerala backwaters"
+                  loading="lazy"
+                />
+                <div class="gallery__card-overlay">
+                  <p class="gallery__card-label">Backwater Harvest</p>
+                  <span class="gallery__card-count">92 MWp</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /gallery__grid -->
+        </div>
+      </section>
       <section class="contact" id="contact" aria-label="Contact us"></section>
     </main>
 
