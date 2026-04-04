@@ -563,10 +563,40 @@
           ></video>
         </div>
       </section>
-
       <!-- ==========================================
-           PROJECTS SECTION
-           Hover-preview project list
+            SERVICES SECTION — Stacked sticky cards Each card pins, next card slides over it, prev card scales back (goes behind) 
+     =========================================== -->
+
+      <section class="services" id="services" aria-label="Our services">
+        <div class="services__list">
+          <!-- Card 1 -->
+          <div class="services__item" data-service-card>
+            <div class="services__card">
+              <h1>1</h1>
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div class="services__item" data-service-card>
+            <div class="services__card">
+              <h2>2</h2>
+            </div>
+          </div>
+          <!-- Card 3 -->
+          <div class="services__item" data-service-card>
+            <div class="services__card">
+              <h1>3</h1>
+            </div>
+          </div>
+          <!-- card 4 -->
+          <div class="services__item" data-service-card>
+            <div class="services__card">
+              <h1>4</h1>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ==========================================
+           PROJECTS SECTION Hover-preview project list
       =========================================== -->
       <section class="projects" id="projects" aria-label="Our projects">
         <div class="projects__inner">
@@ -683,11 +713,21 @@
           </div>
         </div>
       </section>
-
-      <section class="process" id="process" aria-label="Our process"></section>
       <!-- ==========================================
-           GALLERY SECTION
-           Staggered card grid with scroll-lerp float
+           reveal text section - on scroll Y
+      =========================================== -->
+      <section class="reveal">
+        <h3 class="reveal-text">
+          Floating solar plants function as long-life on-water
+          infrastructure.Their functionality is determined by the way platforms
+          act on water,the way that anchoring systems handle load,and the way
+          that materialsreact to constant exposure to the environment.
+        </h3>
+      </section>
+
+      <!-- /services -->
+      <!-- ==========================================
+           GALLERY SECTION Staggered card grid with scroll-lerp float
       =========================================== -->
       <section class="gallery" id="gallery" aria-label="Project gallery">
         <div class="gallery__inner">
@@ -779,6 +819,7 @@
           <!-- /gallery__grid -->
         </div>
       </section>
+
       <section class="contact" id="contact" aria-label="Contact us"></section>
     </main>
 

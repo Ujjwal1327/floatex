@@ -489,7 +489,7 @@ function initGallery() {
     How the lerp float works:
     ─────────────────────────
     Each card has a unique "target Y" offset (same as its CSS translateY
-    starting value). As the user scrolls through the section, that target
+    starting value).As the user scrolls through the section, that target
     Y is multiplied by a parallax factor so faster-moving cards feel like
     they're at different depths — the "premium stagger" feeling.
 
@@ -539,7 +539,7 @@ function initGallery() {
       if (!c.el) return;
 
       // Target = baseY offset + scroll-driven parallax
-      const targetY = c.baseY - progress * 260 * c.speed;
+      const targetY = c.baseY - progress * 300 * c.speed;
       const prev = currentY[i];
       currentY[i] = lerp(prev, targetY, c.lerp);
 
@@ -660,3 +660,112 @@ window.addEventListener(
     }
   }, 250),
 );
+
+// ujjwal
+/* ---- TEXT REVEAL  ---- */
+
+/* ---- TEXT COLOR REVEAL ---- */
+function initTextReveal() {
+  const el = document.querySelector(".reveal-text");
+  if (!el) return;
+
+  // split into words
+  const letters = el.textContent.split("");
+
+  el.innerHTML = letters
+    .map((char) => {
+      if (char === " ") return " "; // preserve spaces
+      return `<span class="char">${char}</span>`;
+    })
+    .join("");
+  const spans = el.querySelectorAll(".char");
+
+  gsap.to(spans, {
+    scrollTrigger: {
+      trigger: el,
+      start: "top 80%",
+      end: "bottom 50%",
+      scrub: true,
+    },
+    stagger: 0.09, // 🔥 tighter for letters
+    onUpdate: function () {
+      const progress = this.progress();
+
+      spans.forEach((span, i) => {
+        const threshold = i / spans.length;
+
+        if (progress > threshold) {
+          span.classList.add("active");
+        } else {
+          span.classList.remove("active");
+        }
+      });
+    },
+  });
+}
+
+initTextReveal();
+
+// *******************************
+/* ---- SERVICES — Stacked sticky cards with scroll ---- */
+function initServices() {
+  if (prefersReducedMotion()) return;
+
+  const cards = document.querySelectorAll("[data-service-card]");
+  if (cards.length < 2) return;
+
+  const SCALE_BACK = 0.9;
+  const FADE_BACK = 0.01;
+  const SCRUB = 1;
+
+  cards.forEach((item, i) => {
+    const card = item.querySelector(".services__card");
+
+    // 🔥 PIN (no spacing → no white flicker)
+    ScrollTrigger.create({
+      trigger: item,
+      pin: card,
+      pinSpacing: true, // 🔥 FIX
+      start: "top top",
+      end: "bottom top",
+      scrub: SCRUB,
+      invalidateOnRefresh: true,
+    });
+
+    if (i === 0) return;
+
+    const prevCard = cards[i - 1].querySelector(".services__card");
+
+    // slide current
+    gsap.fromTo(
+      card,
+      { y: "100vh" },
+      {
+        y: 0,
+        ease: "none",
+        scrollTrigger: {
+          trigger: item,
+          start: "top bottom",
+          end: "top top",
+          scrub: SCRUB,
+          invalidateOnRefresh: true,
+        },
+      },
+    );
+
+    // scale prev
+    gsap.to(prevCard, {
+      scale: SCALE_BACK,
+      // opacity: FADE_BACK,
+      ease: "none",
+      scrollTrigger: {
+        trigger: item,
+        start: "top bottom",
+        end: "top top",
+        scrub: SCRUB,
+        invalidateOnRefresh: true,
+      },
+    });
+  });
+}
+initServices();

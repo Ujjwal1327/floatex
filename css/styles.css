@@ -321,11 +321,9 @@ h6 {
   top: 0;
   left: 0;
   right: 0;
-
-  z-index: var(--z-sticky);
-  /* Padding gives breathing room from edges */
-  padding: 1.1rem var(--container-pad);
-  /* Smooth bg transition on scroll (JS will add .scrolled) */
+  display: none;
+  z-index: var(--z-sticky); /* Padding gives breathing room from edges */
+  padding: 1.1rem var(--container-pad); /* Smooth bg transition on scroll (JS will add .scrolled) */
   transition: padding var(--ease-base);
 }
 
@@ -1307,6 +1305,7 @@ h6 {
   height: 300vh; /* gives scroll space */
   position: relative;
   background: rgb(245, 241, 241);
+  display: none;
 }
 
 .video-scale__wrapper {
@@ -1331,6 +1330,7 @@ h6 {
 ============================================ */
 
 .projects {
+  /* display: none; */
   background: #f7f7f5;
   padding-block: clamp(5rem, 10vw, 8rem);
 }
@@ -1545,7 +1545,7 @@ h6 {
 
 .gallery {
   background: #777676;
-  padding-block: clamp(5rem, 10vw, 9rem);
+  padding-block: clamp(5rem, 5vw, 6rem);
   overflow: hidden;
 }
 
@@ -1597,7 +1597,7 @@ h6 {
 */
 .gallery__grid {
   display: flex;
-  align-items: flex-end;   /* baseline of tallest card = bottom */
+  align-items: flex-end; /* baseline of tallest card = bottom */
   gap: clamp(0.75rem, 1.5vw, 1.25rem);
   width: 100%;
 }
@@ -1684,24 +1684,24 @@ h6 {
 */
 .gallery__card--1 {
   height: clamp(260px, 36vw, 520px);
-  transform: translateY(0px);     /* lerp target: 0   → start flush */
+  transform: translateY(0px); /* lerp target: 0   → start flush */
 }
 .gallery__card--2 {
   height: clamp(300px, 40vw, 580px);
-  transform: translateY(-60px);   /* lerp target: -60 → sits higher */
+  transform: translateY(-60px); /* lerp target: -60 → sits higher */
 }
 .gallery__card--3 {
   height: clamp(220px, 28vw, 400px);
-  flex: 0.72;                     /* slightly narrower — accent card */
-  transform: translateY(40px);    /* lerp target: +40 → sits lower */
+  flex: 0.72; /* slightly narrower — accent card */
+  transform: translateY(40px); /* lerp target: +40 → sits lower */
 }
 .gallery__card--4 {
   height: clamp(300px, 40vw, 580px);
-  transform: translateY(-40px);   /* lerp target: -40 → mid-high */
+  transform: translateY(-40px); /* lerp target: -40 → mid-high */
 }
 .gallery__card--5 {
   height: clamp(260px, 34vw, 500px);
-  transform: translateY(20px);    /* lerp target: +20 → slightly low */
+  transform: translateY(20px); /* lerp target: +20 → slightly low */
 }
 
 /* ---- Responsive ---- */
@@ -1742,5 +1742,201 @@ h6 {
 
   .gallery__header {
     margin-bottom: var(--space-2xl);
+  }
+}
+
+/* ujjwal*/
+.reveal h3 {
+  /* border: 1px solid red; */
+}
+.reveal-text span {
+  color: rgba(0, 0, 0, 0.4); /* light initial */
+  transition: color 0.3s ease;
+  /* font-size: clamp(2rem, 5vw, 3.5rem); */
+  font-weight: var(--fw-bold);
+  line-height: 1.19;
+}
+
+.reveal-text span.active {
+  color: var(--color-dark); /* final dark */
+}
+
+.reveal {
+  margin: auto;
+  text-align: center;
+  width: 70%;
+  /* border: 1px solid red; */
+  padding-left: clamp(2.5rem, 7vw, 6rem);
+  padding-right: clamp(2.5rem, 7vw, 6rem);
+  padding-bottom: clamp(4rem, 1vw, 7rem);
+  padding-top: clamp(4rem, 1vw, 7rem);
+}
+.char {
+  color: rgba(0, 0, 0, 0.2);
+  transition: color 0.25s linear;
+}
+
+.char.active {
+  color: #000;
+}
+@media (max-width: 1024px) {
+  .reveal {
+    width: 100%;
+    grid-template-columns: 1fr;
+    gap: var(--space-3xl);
+    /* border: 1px solid red; */
+    padding-left: clamp(1.5rem, 5vw, 3rem);
+    padding-right: clamp(1.5rem, 5vw, 3rem);
+  }
+}
+
+/* ******************************************  */
+/* ============================================
+   SERVICES SECTION — Stacked sticky cards
+   Each .services__item is taller than 100vh
+   so ScrollTrigger has room to pin + animate.
+   Cards stack on top of each other — next card
+   slides in from below, prev card scales back.
+============================================ */
+
+.services {
+  background: #f7f7f5;
+  padding-bottom: 100vh;
+}
+
+/* List = stacking context for all cards */
+.services__list {
+  position: relative;
+}
+
+/* Each item = one scroll "page" */
+.services__item {
+  /* 
+    Height gives ScrollTrigger scroll room.
+    First card: normal height (it just sticks).
+    Cards 2+ need extra so the transition has space.
+    JS sets pinSpacing=false so items don't push each other.
+  */
+  height: 100vh;
+  display: flex;
+  align-items: flex-start;
+}
+
+/* The visual card itself — fills viewport */
+.services__card {
+  position: sticky;
+  top: 0;
+  width: 90%;
+  height: 90vh;
+  display: grid;
+  margin: auto;
+  border-radius: var(--radius-xl);
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 0;
+  background: #302f2c;
+  overflow: hidden;
+  /* GPU layer — transforms will be driven by GSAP */
+  will-change: transform;
+  transform-origin: top center;
+}
+
+/* ---- Text side ---- */
+.services__card-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  padding: clamp(3rem, 7vw, 7rem);
+  z-index: 2;
+}
+
+.services__card-tag {
+  font-size: 0.72rem;
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.services__card-title {
+  font-size: clamp(1.8rem, 3.5vw, 3rem);
+  font-weight: var(--fw-bold);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: var(--color-text-dark);
+}
+
+.services__card-desc {
+  font-size: clamp(0.9rem, 1.3vw, 1.05rem);
+  color: #555;
+  line-height: 1.75;
+  max-width: 44ch;
+}
+
+.services__card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 0.95rem;
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-dark);
+  padding: 0.75rem 1.5rem;
+  border: 2px solid currentColor;
+  border-radius: var(--radius-full);
+  width: fit-content;
+  transition:
+    background var(--ease-base),
+    color var(--ease-base);
+}
+
+.services__card-cta:hover {
+  background: var(--color-text-dark);
+  color: #fff;
+}
+
+.services__card-cta--light {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.services__card-cta--light:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+/* ---- Image side ---- */
+.services__card-media {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.services__card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ============================================
+   SERVICES — Responsive
+============================================ */
+@media (max-width: 768px) {
+  .services__card {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
+  }
+
+  .services__card-media {
+    height: 45vw;
+    min-height: 200px;
+  }
+
+  .services__card-text {
+    padding: var(--space-2xl) var(--space-xl);
+    order: 2;
+  }
+
+  .services__card-media {
+    order: 1;
   }
 }
