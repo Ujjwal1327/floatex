@@ -563,38 +563,7 @@
           ></video>
         </div>
       </section>
-      <!-- ==========================================
-            SERVICES SECTION — Stacked sticky cards Each card pins, next card slides over it, prev card scales back (goes behind) 
-     =========================================== -->
 
-      <section class="services" id="services" aria-label="Our services">
-        <div class="services__list">
-          <!-- Card 1 -->
-          <div class="services__item" data-service-card>
-            <div class="services__card">
-              <h1>1</h1>
-            </div>
-          </div>
-          <!-- Card 2 -->
-          <div class="services__item" data-service-card>
-            <div class="services__card">
-              <h2>2</h2>
-            </div>
-          </div>
-          <!-- Card 3 -->
-          <div class="services__item" data-service-card>
-            <div class="services__card">
-              <h1>3</h1>
-            </div>
-          </div>
-          <!-- card 4 -->
-          <div class="services__item" data-service-card>
-            <div class="services__card">
-              <h1>4</h1>
-            </div>
-          </div>
-        </div>
-      </section>
       <!-- ==========================================
            PROJECTS SECTION Hover-preview project list
       =========================================== -->
@@ -725,101 +694,183 @@
         </h3>
       </section>
 
-      <!-- /services -->
-      <!-- ==========================================
-           GALLERY SECTION Staggered card grid with scroll-lerp float
-      =========================================== -->
-      <section class="gallery" id="gallery" aria-label="Project gallery">
-        <div class="gallery__inner">
-          <!-- Section header -->
-          <div class="gallery__header">
-            <span class="gallery__eyebrow">Our Work</span>
-            <h2 class="gallery__title">
-              Solar on water,
-              <em class="gallery__title-em">built to last.</em>
+      <section class="culture" id="culture">
+        <div class="culture__inner">
+          <!-- Left: sticky content -->
+          <div class="culture__left">
+            <span class="culture__eyebrow">
+              <span class="dot"></span> Our Culture
+            </span>
+            <h2 class="culture__heading">
+              We unlock the potential of our energies
             </h2>
+            <p class="culture__para">
+              Our aspiration is to be recognised globally as a
+              <span
+                >company of excellence, high growth, and superior returns</span
+              >, with an entrepreneurial team and a pioneering approach to
+              energy evolution.
+            </p>
+            <ul class="culture__bullets">
+              <li>Pioneer Spirit</li>
+              <li>Engineering Excellence</li>
+              <li>Sustainable Impact</li>
+              <li>Collaborative Growth</li>
+            </ul>
           </div>
-          <!-- 5-card staggered grid -->
-          <div class="gallery__grid">
-            <div class="gallery__card gallery__card--1" data-gallery-card>
-              <div class="gallery__card-inner">
-                <img
-                  class="gallery__card-img"
-                  src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&q=85"
-                  alt="Aerial view of floating solar panels on a reservoir"
-                  loading="lazy"
-                />
-                <div class="gallery__card-overlay">
-                  <p class="gallery__card-label">Reservoir Installation</p>
-                  <span class="gallery__card-count">266 MWp</span>
-                </div>
-              </div>
-            </div>
 
-            <div class="gallery__card gallery__card--2" data-gallery-card>
-              <div class="gallery__card-inner">
-                <img
-                  class="gallery__card-img"
-                  src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=800&q=85"
-                  alt="Floating solar farm on calm water surface"
-                  loading="lazy"
-                />
-                <div class="gallery__card-overlay">
-                  <p class="gallery__card-label">Canal FPV Array</p>
-                  <span class="gallery__card-count">130 MWp</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="gallery__card gallery__card--3" data-gallery-card>
-              <div class="gallery__card-inner">
-                <img
-                  class="gallery__card-img"
-                  src="https://assets.ratedpower.com/1710418535-solar-power-station-float-water.jpg?auto=format&dpr=0.5&w=800"
-                  alt="Large-scale floating solar on a dam"
-                  loading="lazy"
-                />
-                <div class="gallery__card-overlay">
-                  <p class="gallery__card-label">Dam Power Plant</p>
-                  <span class="gallery__card-count">219 MWp</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="gallery__card gallery__card--4" data-gallery-card>
-              <div class="gallery__card-inner">
-                <img
-                  class="gallery__card-img"
-                  src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&q=85"
-                  alt="Solar panels reflecting on still water at dusk"
-                  loading="lazy"
-                />
-                <div class="gallery__card-overlay">
-                  <p class="gallery__card-label">Pond Solar Grid</p>
-                  <span class="gallery__card-count">216 MWp</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="gallery__card gallery__card--5" data-gallery-card>
-              <div class="gallery__card-inner">
-                <img
-                  class="gallery__card-img"
-                  src="https://images.unsplash.com/photo-1548337138-e87d889cc369?w=800&q=85"
-                  alt="Floating solar modules on Kerala backwaters"
-                  loading="lazy"
-                />
-                <div class="gallery__card-overlay">
-                  <p class="gallery__card-label">Backwater Harvest</p>
-                  <span class="gallery__card-count">92 MWp</span>
-                </div>
-              </div>
+          <!-- Right: sticky image with color fill -->
+          <div class="culture__right">
+            <div class="culture__img-wrap">
+              <img
+                class="culture__img culture__img--bw"
+                src="assets/images/imgp.png"
+                alt=""
+              />
+              <img
+                class="culture__img culture__img--color"
+                src="assets/images/imgr.png"
+                alt=""
+              />
             </div>
           </div>
-          <!-- /gallery__grid -->
         </div>
       </section>
 
+      <!-- ==========================================
+          our work process section 
+      =========================================== -->
+      <section class="process">
+        <div class="process__inner">
+          <div class="top">
+            <div class="left">
+              <span class="process__eyebrow">
+                <span class="dot"></span> Our work process
+              </span>
+            </div>
+
+            <div class="right">
+              <h2>
+                Floatex Solar unlock the potential of our energies for a future
+                better
+              </h2>
+
+              <p>
+                Our aspiration is to be recognised globally as a
+                <span
+                  >company of excellence, high growth, and superior
+                  returns</span
+                >, with an entrepreneurial team and a pioneering approach to
+                energy evolution.
+              </p>
+              <p>
+                Our Floatex Way identifies the values that define how we operate
+                to achieve this.
+              </p>
+              <div class="process__list">
+                <div class="each__process">
+                  <div class="left">
+                    <h3 class="each__process-title">
+                      1. Site Evaluation and Assessment
+                    </h3>
+                    <p class="each__process-para">
+                      We assess water conditions, usable area, depth, and
+                      environmental factors while planning logistics and
+                      installation feasibility.
+                    </p>
+                  </div>
+                  <div class="right">
+                    <img
+                      class="each__process-image"
+                      src="https://images.unsplash.com/photo-1509395176047-4a66953fd231"
+                      alt="Floating solar site evaluation"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+
+                <div class="each__process">
+                  <div class="left">
+                    <h3 class="each__process-title">
+                      2. System Design and Optimization
+                    </h3>
+                    <p class="each__process-para">
+                      We design efficient floating layouts with optimized
+                      anchoring, mooring, and integrated electrical and
+                      mechanical systems.
+                    </p>
+                  </div>
+                  <div class="right">
+                    <img
+                      class="each__process-image"
+                      src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1"
+                      alt="Floating solar system design"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+
+                <div class="each__process">
+                  <div class="left">
+                    <h3 class="each__process-title">Component Selection</h3>
+                    <p class="each__process-para">
+                      We select durable floating structures, anchoring hardware,
+                      and electrical components for reliable performance.
+                    </p>
+                  </div>
+                  <div class="right">
+                    <img
+                      class="each__process-image"
+                      src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"
+                      alt="Floating solar components"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+
+                <div class="each__process">
+                  <div class="left">
+                    <h3 class="each__process-title">Performance Monitoring</h3>
+                    <p class="each__process-para">
+                      We ensure system efficiency through inspection,
+                      performance tracking, and operational support.
+                    </p>
+                  </div>
+                  <div class="right">
+                    <img
+                      class="each__process-image"
+                      src="https://images.unsplash.com/photo-1495562569060-2eec283d3391"
+                      alt="Solar performance monitoring"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+
+                <div class="each__process">
+                  <div class="left">
+                    <h3 class="each__process-title">
+                      Engineering and Installation
+                    </h3>
+                    <p class="each__process-para">
+                      We manage engineering, in-water installation, and full
+                      system integration with strict quality control.
+                    </p>
+                  </div>
+                  <div class="right">
+                    <img
+                      class="each__process-image"
+                      src="https://images.unsplash.com/photo-1498050108023-c5249f4df085"
+                      alt="Floating solar installation"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    
       <section class="contact" id="contact" aria-label="Contact us"></section>
     </main>
 
