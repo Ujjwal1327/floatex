@@ -71,12 +71,49 @@
       rel="stylesheet"
     />
 
-    <!-- CDN LIBRARIES -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/split-type@0.3.4/umd/index.min.js"></script>
+    <!-- STRUCTURED DATA -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Floatex Solar",
+      "url": "https://floatexsolar.com",
+      "logo": "https://floatexsolar.com/assets/images/logo.png",
+      "description": "India's leading floating photovoltaic (FPV) solar energy company. 10M+ watts installed across reservoirs, ponds, and canals.",
+      "areaServed": {
+        "@type": "Country",
+        "name": "India"
+      },
+      "sameAs": [],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Floating Solar Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Floating Solar PV (FSPV)",
+              "description": "Design and installation of floating solar photovoltaic systems on water bodies including reservoirs, ponds, and canals."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Electrical Utility Barges",
+              "description": "Electrical utility barge solutions for offshore and on-water power generation."
+            }
+          }
+        ]
+      }
+    }
+    </script>
 
+    <!-- CDN LIBRARIES -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" defer></script>
     <!-- STYLESHEET -->
     <link rel="stylesheet" href="css/styles.css" />
   </head>
@@ -220,7 +257,7 @@
                   <li>
                     <a href="#" class="nav__dropdown-link">
                       <span>
-                        <strong>Electical Utility Barges</strong>
+                        <strong>Electrical Utility Barges</strong>
                       </span>
                     </a>
                   </li>
@@ -269,6 +306,7 @@
               <button
                 class="nav__mobile-link nav__mobile-trigger"
                 aria-expanded="false"
+                aria-controls="mobile-submenu-about"
               >
                 About
                 <svg
@@ -287,7 +325,7 @@
                   />
                 </svg>
               </button>
-              <ul class="nav__mobile-submenu" role="list">
+              <ul class="nav__mobile-submenu" id="mobile-submenu-about" role="list">
                 <li>
                   <a href="/about" class="nav__mobile-sublink">Our Company</a>
                 </li>
@@ -308,6 +346,7 @@
               <button
                 class="nav__mobile-link nav__mobile-trigger"
                 aria-expanded="false"
+                aria-controls="mobile-submenu-services"
               >
                 Services
                 <svg
@@ -326,7 +365,7 @@
                   />
                 </svg>
               </button>
-              <ul class="nav__mobile-submenu" role="list">
+              <ul class="nav__mobile-submenu" id="mobile-submenu-services" role="list">
                 <li><a href="#" class="nav__mobile-sublink">FSPV</a></li>
                 <li>
                   <a href="#" class="nav__mobile-sublink"
@@ -367,7 +406,7 @@
             preload="none"
           >
             <source src="assets/videos/hero.webm" type="video/webm" />
-            <source src="assets/videos/heroo.mp4" type="video/mp4" />
+            <source src="assets/videos/hero.mp4" type="video/mp4" />
           </video>
           <div class="hero__overlay" aria-hidden="true"></div>
         </div>
@@ -514,7 +553,7 @@
               <img
                 class="solutions__img"
                 src="assets/images/solutions-visual.jpg"
-                alt="Wind turbines and solar energy infrastructure — Floatex clean energy solutions"
+                alt="Floating solar panels installed on a water reservoir — Floatex Solar clean energy solution"
                 width="700"
                 height="520"
                 loading="lazy"
@@ -565,133 +604,15 @@
       </section>
 
       <!-- ==========================================
-           PROJECTS SECTION Hover-preview project list
-      =========================================== -->
-      <section class="projects" id="projects" aria-label="Our projects">
-        <div class="projects__inner">
-          <!-- Header -->
-          <div class="projects__header">
-            <h2 class="projects__title">
-              Each Project tells its own story of collaboration and precision
-            </h2>
-            <a
-              href="/projects"
-              class="projects__cta"
-              aria-label="View all projects"
-            >
-              view all project
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                aria-hidden="true"
-              >
-                <path
-                  d="M4 10H16M16 10L10 4M16 10L10 16"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </a>
-          </div>
-
-          <!-- Project List -->
-          <ul class="projects__list" role="list" aria-label="Project list">
-            <li
-              class="projects__row"
-              data-image="https://assets.ratedpower.com/1710418535-solar-power-station-float-water.jpg?auto=format&dpr=0.5&w=800"
-              data-alt="Omkareshwar Dam floating solar installation"
-            >
-              <span class="projects__name">Omkareshwar Dam, MP</span>
-              <div class="projects__tags" aria-label="Project details">
-                <span class="projects__tag">266 MWp</span>
-                <span class="projects__tag">Rumsl</span>
-                <span class="projects__tag">AMPIN Energy</span>
-              </div>
-            </li>
-
-            <li
-              class="projects__row"
-              data-image="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=800&q=80"
-              data-alt="Ramagundam floating solar farm"
-            >
-              <span class="projects__name">Ramagundam, Telangana</span>
-              <div class="projects__tags" aria-label="Project details">
-                <span class="projects__tag">130 MWp</span>
-                <span class="projects__tag">NTPC</span>
-                <span class="projects__tag">BHEL</span>
-              </div>
-            </li>
-
-            <li
-              class="projects__row"
-              data-image="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&q=80"
-              data-alt="DVC Tilaiya solar project"
-            >
-              <span class="projects__name">DVC Tilaiya</span>
-              <div class="projects__tags" aria-label="Project details">
-                <span class="projects__tag">219 MWp</span>
-                <span class="projects__tag">GVREL</span>
-                <span class="projects__tag">Sterling &amp; Wilson</span>
-              </div>
-            </li>
-
-            <li
-              class="projects__row"
-              data-image="https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=800&q=80"
-              data-alt="Gestalsud solar project"
-            >
-              <span class="projects__name">Gestalsud</span>
-              <div class="projects__tags" aria-label="Project details">
-                <span class="projects__tag">216 MWp</span>
-                <span class="projects__tag">SECI</span>
-                <span class="projects__tag">Larsen &amp; Turbo</span>
-              </div>
-            </li>
-
-            <li
-              class="projects__row"
-              data-image="https://images.unsplash.com/photo-1548337138-e87d889cc369?w=800&q=80"
-              data-alt="Kayamkulam solar project"
-            >
-              <span class="projects__name">Kayamkulam, Kerala</span>
-              <div class="projects__tags" aria-label="Project details">
-                <span class="projects__tag">92 MWp</span>
-                <span class="projects__tag">KSEB</span>
-                <span class="projects__tag">Tata Power</span>
-              </div>
-            </li>
-          </ul>
-          <!-- /projects__list -->
-
-          <!-- Cursor-following image preview — injected and managed by JS -->
-          <div
-            class="projects__preview"
-            id="projects-preview"
-            aria-hidden="true"
-          >
-            <img
-              class="projects__preview-img"
-              id="projects-preview-img"
-              src=""
-              alt=""
-            />
-          </div>
-        </div>
-      </section>
-      <!-- ==========================================
            reveal text section - on scroll Y
       =========================================== -->
       <section class="reveal">
-        <h3 class="reveal-text">
+        <p class="reveal-text">
           Floating solar plants function as long-life on-water
-          infrastructure.Their functionality is determined by the way platforms
-          act on water,the way that anchoring systems handle load,and the way
-          that materialsreact to constant exposure to the environment.
-        </h3>
+          infrastructure. Their functionality is determined by the way platforms
+          act on water, the way that anchoring systems handle load, and the way
+          that materials react to constant exposure to the environment.
+        </p>
       </section>
 
       <section class="culture" id="culture">
@@ -725,12 +646,12 @@
               <img
                 class="culture__img culture__img--bw"
                 src="assets/images/imgp.png"
-                alt=""
+                alt="Floatex Solar team working on a floating solar project"
               />
               <img
                 class="culture__img culture__img--color"
                 src="assets/images/imgr.png"
-                alt=""
+                alt="Floatex Solar team collaborating on floating solar installation"
               />
             </div>
           </div>
@@ -871,6 +792,110 @@
         </div>
       </section>
     
+      <!-- ==========================================
+           MAGAZINE SECTION
+      =========================================== -->
+      <section class="magazine" id="magazine" aria-label="Magazine">
+        <div class="magazine__inner">
+          <!-- Header -->
+          <div class="magazine__header">
+            <div class="magazine__header-left">
+              <span class="culture__eyebrow">
+                <span class="dot"></span> News / Blogs
+              </span>
+              <h2 class="magazine__title">
+                Their vision for the future
+                of solar <span>energy</span>
+              </h2>
+            </div>
+            <p class="magazine__desc">
+              Our magazine offers you exciting articles about groundbreaking
+              technologies, pioneering projects, and valuable tips for a
+              sustainable lifestyle. Stay informed about the latest developments
+              in solar energy.
+            </p>
+          </div>
+
+          <!-- Cards Grid -->
+          <div class="magazine__grid">
+            <!-- Card 1 -->
+            <article class="magazine__card">
+              <div class="magazine__card-img-wrap">
+                <img
+                  class="magazine__card-img"
+                  src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&q=80"
+                  alt="Floating solar panels on a reservoir"
+                  loading="lazy"
+                />
+                <span class="magazine__tag">LinkedIn</span>
+              </div>
+              <div class="magazine__card-body">
+                <span class="magazine__read-time">10 minutes reading time</span>
+                <h3 class="magazine__card-title">
+                  Photovoltaic subsidies 2026: BAFA &amp; alternatives
+                </h3>
+                <p class="magazine__card-desc">
+                  Subsidies for photovoltaic systems can significantly reduce
+                  investment costs. We show you which grants, loans, and tax
+                  advantages are currently available and what you should pay
+                  attention to when applying.
+                </p>
+              </div>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="magazine__card">
+              <div class="magazine__card-img-wrap">
+                <img
+                  class="magazine__card-img"
+                  src="https://images.unsplash.com/photo-1497440001374-f26997328c1b?w=800&q=80"
+                  alt="Engineers reviewing solar panel installation plans"
+                  loading="lazy"
+                />
+                <span class="magazine__tag">LinkedIn</span>
+              </div>
+              <div class="magazine__card-body">
+                <span class="magazine__read-time">3-minute read</span>
+                <h3 class="magazine__card-title">
+                  Individual solar solution: Every roof has its own special
+                  features.
+                </h3>
+                <p class="magazine__card-desc">
+                  Every home is different — and every photovoltaic system should
+                  be too. We show why individual planning is crucial for a solar
+                  system and how a tailor-made solar solution is created.
+                </p>
+              </div>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="magazine__card">
+              <div class="magazine__card-img-wrap">
+                <img
+                  class="magazine__card-img"
+                  src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&q=80"
+                  alt="Solar panels close-up with energy concept"
+                  loading="lazy"
+                />
+                <span class="magazine__tag">Blogs</span>
+              </div>
+              <div class="magazine__card-body">
+                <span class="magazine__read-time">5-minute read</span>
+                <h3 class="magazine__card-title">
+                  Dynamic electricity tariffs — useful or not?
+                </h3>
+                <p class="magazine__card-desc">
+                  Dynamic electricity tariffs adjust the electricity price to
+                  supply and demand. We explain how they work, who they are
+                  actually worthwhile for, and how you can save on electricity
+                  costs in the long term.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <section class="contact" id="contact" aria-label="Contact us"></section>
     </main>
 

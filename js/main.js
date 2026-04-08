@@ -4,12 +4,11 @@
     1.  Library Verification
     2.  Lenis Setup
     3.  GSAP + ScrollTrigger Setup
-    4.  SplitType Check
-    5.  NAV — Scroll shrink, Dropdown, Mobile menu
-    6.  Global Helpers
-    7.  Section Inits
-    8.  DOMContentLoaded
-    9.  Resize Handler
+    4.  NAV — Scroll shrink, Dropdown, Mobile menu
+    5.  Global Helpers
+    6.  Section Inits
+    7.  DOMContentLoaded
+    8.  Resize Handler
   ============================================ */
 
 /* ============================================
@@ -20,7 +19,6 @@ function verifyLibraries() {
     GSAP: typeof gsap !== "undefined",
     ScrollTrigger: typeof ScrollTrigger !== "undefined",
     Lenis: typeof Lenis !== "undefined",
-    SplitType: typeof SplitType !== "undefined",
   };
   const allLoaded = Object.values(libs).every(Boolean);
   if (allLoaded) {
@@ -82,18 +80,7 @@ function initGSAP() {
 }
 
 /* ============================================
-    4. SPLITTYPE CHECK
-  ============================================ */
-function initSplitType() {
-  if (typeof SplitType === "undefined") {
-    console.error("❌ SplitType not loaded");
-    return;
-  }
-  console.log("%c✅ SplitType ready", "color:#00b894;font-size:12px;");
-}
-
-/* ============================================
-    5. NAV — All interactions
+    4. NAV — All interactions
   ============================================ */
 function initNav() {
   const header = document.getElementById("site-header");
@@ -341,138 +328,6 @@ function initVideoScale() {
   });
 }
 
-/* ---- PROJECTS — cursor-following hover image preview ---- */
-function initProjects() {
-  const rows = document.querySelectorAll(".projects__row");
-  const preview = document.getElementById("projects-preview");
-  const previewImg = document.getElementById("projects-preview-img");
-
-  if (!rows.length || !preview || !previewImg) return;
-
-  /*
-    How the follow works:
-    - mousemove updates raw mouseX/mouseY
-    - followLoop() runs in rAF and lerps currentX/Y toward mouse + offset
-    - gsap.set() applies the smoothed position every frame
-    - LERP = 0.1 gives that distinctive "lagging behind" premium feel
-    - The loop starts on first mouseenter, stops after hide animation ends
-  */
-
-  let isVisible = false;
-  let currentSrc = "";
-  let mouseX = 0;
-  let mouseY = 0;
-  let currentX = 0;
-  let currentY = 0;
-  let rafId = null;
-
-  const LERP = 0.1; // smoothing factor — lower = more lag
-  const OFFSET_X = 24; // px right of cursor
-  const OFFSET_Y = -90; // px above cursor
-
-  function lerp(a, b, t) {
-    return a + (b - a) * t;
-  }
-
-  function followLoop() {
-    currentX = lerp(currentX, mouseX + OFFSET_X, LERP);
-    currentY = lerp(currentY, mouseY + OFFSET_Y, LERP);
-    gsap.set(preview, { x: currentX, y: currentY });
-    rafId = requestAnimationFrame(followLoop);
-  }
-
-  function startFollow() {
-    if (!rafId) rafId = requestAnimationFrame(followLoop);
-  }
-
-  function stopFollow() {
-    if (rafId) {
-      cancelAnimationFrame(rafId);
-      rafId = null;
-    }
-  }
-
-  // Track cursor globally for smooth updates even near list edges
-  document.addEventListener("mousemove", (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-  });
-
-  /* ---- Show: fade + scale in ---- */
-  function showPreview(src, alt) {
-    if (!isVisible) {
-      // First appearance
-      previewImg.src = src;
-      previewImg.alt = alt;
-      currentSrc = src;
-
-      // Seed position so it doesn't jump from (0,0)
-      currentX = mouseX + OFFSET_X;
-      currentY = mouseY + OFFSET_Y;
-      gsap.set(preview, { x: currentX, y: currentY });
-
-      gsap.killTweensOf(preview);
-      gsap.to(preview, {
-        opacity: 1,
-        scale: 1,
-        rotation: 0,
-        duration: 0.45,
-        ease: "power3.out",
-      });
-
-      isVisible = true;
-      startFollow();
-    } else if (src !== currentSrc) {
-      // Already visible, different project — cross-fade
-      gsap.killTweensOf(previewImg);
-      gsap.to(previewImg, {
-        opacity: 0,
-        duration: 0.15,
-        ease: "power1.in",
-        onComplete: () => {
-          previewImg.src = src;
-          previewImg.alt = alt;
-          currentSrc = src;
-          gsap.to(previewImg, {
-            opacity: 1,
-            duration: 0.28,
-            ease: "power2.out",
-          });
-        },
-      });
-    }
-  }
-
-  /* ---- Hide: fade + scale out ---- */
-  function hidePreview() {
-    if (!isVisible) return;
-    isVisible = false;
-
-    gsap.killTweensOf(preview);
-    gsap.to(preview, {
-      opacity: 0,
-      scale: 0.88,
-      rotation: -2,
-      duration: 0.38,
-      ease: "power3.in",
-      onComplete: stopFollow,
-    });
-  }
-
-  /* ---- Attach events ---- */
-  rows.forEach((row) => {
-    const src = row.dataset.image || "";
-    const alt = row.dataset.alt || "";
-
-    row.addEventListener("mouseenter", () => {
-      if (src) showPreview(src, alt);
-    });
-
-    row.addEventListener("mouseleave", hidePreview);
-  });
-
-  console.log("%c✅ Projects initialized", "color:#00b894;font-size:12px;");
-}
 
 function initProcess() {
   /* Task 6 */
@@ -500,17 +355,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // GSAP must come after Lenis so the bridge is live
   if (libs.GSAP && libs.ScrollTrigger) initGSAP();
-  if (libs.SplitType) initSplitType();
 
   initNav();
   initHero();
   initSolutions();
   initVideoScale(); // FIX: inside DOMContentLoaded — not at file root
-  initProjects();
-  initProcess();
+initProcess();
   initContact();
   initFooter();
   initTextReveal();
+  initCulture();
   console.log(
     "%c🚀 Floatex Solar | Ready!",
     "color:#FCAF17;font-weight:bold;font-size:14px;",
@@ -536,7 +390,6 @@ window.addEventListener(
   }, 250),
 );
 
-// ujjwal
 /* ---- TEXT REVEAL  ---- */
 
 /* ---- TEXT COLOR REVEAL ---- */
@@ -558,10 +411,10 @@ function initTextReveal() {
   gsap.to(spans, {
     scrollTrigger: {
       trigger: el,
-      start: "top 80%",
-      end: "bottom 50%",
+      start: "top 90%",
+      end: "bottom 60%",
       scrub: true,
-      // markers: true,
+      markers: true,
     },
     stagger: 0.09, // 🔥 tighter for letters
     onUpdate: function () {
@@ -590,8 +443,8 @@ function initCulture() {
     const sectionHeight = section.offsetHeight;
     const viewportHeight = window.innerHeight;
 
-    // scrolled = kitna section scroll hua viewport ke andar
-    // rect.top negative hone lagta hai jab section scroll hota hai
+    // scrolled = how much of the section has scrolled into the viewport
+    // rect.top becomes negative as the section scrolls up
     const scrolled = -rect.top;
 
     // Total scrollable distance = section height - viewport height
@@ -605,7 +458,7 @@ function initCulture() {
     colorImg.style.clipPath = `inset(${clip.toFixed(2)}% 0 0 0)`;
   }
 
-  // Lenis ke saath
+  // Use Lenis scroll event if available, otherwise fallback to native scroll
   if (typeof lenis !== "undefined") {
     lenis.on("scroll", onScroll);
   } else {
@@ -615,7 +468,6 @@ function initCulture() {
   onScroll();
   console.log("%c✅ Culture initialized", "color:#00b894;font-size:12px;");
 }
-initCulture();
 
 
 
