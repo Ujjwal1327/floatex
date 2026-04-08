@@ -89,12 +89,29 @@ function initNav() {
 
   if (!header) return;
 
-  /* ---- 5a. Scroll shrink ---- */
+  /* ---- Scroll: dark bg + hide/show ---- */
   const SCROLL_THRESHOLD = 150;
+  let lastScrollY = 0;
 
   function onScroll() {
     const scrollY = lenis ? lenis.scroll : window.scrollY;
+
+    // Dark bg after hero
     header.classList.toggle("scrolled", scrollY > SCROLL_THRESHOLD);
+
+    // Hide on scroll down, show on scroll up
+    // Only activate after scrolled past the hero area
+    if (scrollY > SCROLL_THRESHOLD) {
+      if (scrollY > lastScrollY) {
+        header.classList.add("nav--hidden");
+      } else {
+        header.classList.remove("nav--hidden");
+      }
+    } else {
+      header.classList.remove("nav--hidden");
+    }
+
+    lastScrollY = scrollY;
   }
 
   if (lenis) {
