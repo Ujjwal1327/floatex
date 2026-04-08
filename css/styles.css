@@ -348,11 +348,6 @@ h6 {
   transition: padding var(--ease-base);
 }
 
-/* When page is scrolled — slight shrink */
-.site-header.scrolled {
-  /* padding: 0.6rem var(--container-pad); */
-}
-
 /* ---- Nav inner — the pill/capsule ---- */
 .nav__inner {
   display: flex;
@@ -489,6 +484,12 @@ h6 {
     opacity var(--ease-base),
     transform var(--ease-base),
     visibility var(--ease-base);
+}
+
+/* Dropdown matches dark navbar when scrolled */
+.site-header.scrolled .nav__dropdown {
+  background: rgba(10, 15, 25, 0.95);
+  border-color: rgba(255, 255, 255, 0.08);
 }
 
 /* Open state — toggled by JS */
@@ -1337,6 +1338,110 @@ h6 {
     justify-content: center;
   }
 }
+
+/* ******************************************************** */
+
+/* ============================================
+   CLIENTS TICKER
+============================================ */
+.clients {
+  background: #ffffff;
+
+  overflow: hidden;
+}
+
+.clients__inner {
+  margin-block: 20px;
+  display: flex;
+  align-items: stretch;
+  height: clamp(120px, 18vw, 180px);
+}
+
+/* ---- Ticker wrap ---- */
+.clients__ticker-wrap {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Soft fade edges */
+.clients__ticker-wrap::before,
+.clients__ticker-wrap::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+.clients__ticker-wrap::before {
+  left: 0;
+  background: linear-gradient(to right, #ffffff, transparent);
+}
+.clients__ticker-wrap::after {
+  right: 0;
+  background: linear-gradient(to left, #ffffff, transparent);
+}
+
+/* ---- Ticker animation ---- */
+@keyframes clients-ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.clients__track {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: max-content;
+  animation: clients-ticker 24s linear infinite;
+  will-change: transform;
+}
+
+.clients.is-paused .clients__track {
+  animation-play-state: paused;
+}
+
+/* ---- Logo item ---- */
+.clients__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 clamp(2rem, 4vw, 3.5rem);
+  height: 100%;
+  cursor: pointer;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 3px;
+  transition: background 0.3s ease;
+}
+
+.clients__item:hover {
+  background: var(--color-primary);
+}
+
+.clients__item img {
+  height: 120px;
+  width: auto;
+  max-width: 130px;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  display: block;
+  transition:
+    transform 0.35s ease,
+    filter 0.35s ease;
+}
+
+/* .clients__item:hover img,
+.clients__item.is-active img {
+  transform: translate(-35%, -35%) scale(0.5);
+  transform-origin: center center;
+  filter: grayscale(0%) opacity(1);
+} */
+
+/* ---- Responsive ---- */
 
 /* ******************************************************** */
 

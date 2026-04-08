@@ -240,6 +240,65 @@ function debounce(fn, wait = 200) {
     7. SECTION INITS
   ============================================ */
 
+/* ---- CLIENTS — infinite ticker with hover info card ---- */
+function initClients() {
+  const section = document.getElementById("clients");
+  const track   = document.getElementById("clients-track");
+
+  if (!section || !track) return;
+
+  const clients = [
+    { img: "assets/images/client.png", alt: "NTPC Limited" },
+    { img: "assets/images/client2.png", alt: "SECI" },
+    { img: "assets/images/client.png", alt: "AMPIN Energy" },
+    { img: "assets/images/client2.png", alt: "BHEL" },
+    { img: "assets/images/client.png", alt: "Tata Power" },
+    { img: "assets/images/client2.png", alt: "Sterling & Wilson" },
+  ];
+
+  // Build one logo item
+  function buildItem(client, idx) {
+    const div = document.createElement("div");
+    div.className = "clients__item";
+    div.dataset.idx = idx;
+    const img = document.createElement("img");
+    img.src = client.img;
+    img.alt = client.alt;
+    img.loading = "lazy";
+    div.appendChild(img);
+    return div;
+  }
+
+  // Duplicate for seamless infinite loop
+  [...clients, ...clients].forEach((c, i) =>
+    track.appendChild(buildItem(c, i % clients.length))
+  );
+
+  // Pause ticker when mouse is inside the section
+  section.addEventListener("mouseenter", () =>
+    section.classList.add("is-paused")
+  );
+  section.addEventListener("mouseleave", () => {
+    section.classList.remove("is-paused");
+    track
+      .querySelectorAll(".clients__item.is-active")
+      .forEach((el) => el.classList.remove("is-active"));
+  });
+
+  // Individual logo hover
+  track.addEventListener("mouseover", (e) => {
+    const item = e.target.closest(".clients__item");
+    if (!item) return;
+    const idx = +item.dataset.idx;
+    track
+      .querySelectorAll(".clients__item.is-active")
+      .forEach((el) => el.classList.remove("is-active"));
+    track
+      .querySelectorAll(`.clients__item[data-idx="${idx}"]`)
+      .forEach((el) => el.classList.add("is-active"));
+  });
+}
+
 /* ---- HERO — typewriter on page load ---- */
 function initHero() {
   if (prefersReducedMotion()) return;
@@ -358,6 +417,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   initNav();
   initHero();
+  initClients();
   initSolutions();
   initVideoScale(); // FIX: inside DOMContentLoaded — not at file root
 initProcess();
