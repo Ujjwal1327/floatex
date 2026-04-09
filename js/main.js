@@ -351,6 +351,45 @@ function initHero() {
   );
 }
 
+/* ---- CUSTOM CURSOR — smooth lerp follow ---- */
+function initCursor() {
+  // Only on devices with a fine pointer (mouse), not touch
+  if (!window.matchMedia("(pointer: fine)").matches) return;
+
+  const cursor = document.getElementById("cursor");
+  if (!cursor) return;
+
+  let mouseX = 0, mouseY = 0;
+  let curX = 0, curY = 0;
+  const LERP = 0.22;
+
+  document.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursor.classList.add("is-visible");
+  });
+
+  document.addEventListener("mouseleave", () =>
+    cursor.classList.remove("is-visible")
+  );
+
+  // Grow on hoverable elements
+  const hoverables = "a, button, [role='button'], .nav__link, .clients__item, .projects__row, input, label";
+  document.querySelectorAll(hoverables).forEach((el) => {
+    el.addEventListener("mouseenter", () => cursor.classList.add("is-hovering"));
+    el.addEventListener("mouseleave", () => cursor.classList.remove("is-hovering"));
+  });
+
+  function loop() {
+    curX += (mouseX - curX) * LERP;
+    curY += (mouseY - curY) * LERP;
+    cursor.style.left = curX + "px";
+    cursor.style.top  = curY + "px";
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+}
+
 /* ---- SOLUTIONS — tags scroll in one by one ---- */
 function initSolutions() {
   if (prefersReducedMotion()) return;
@@ -359,27 +398,24 @@ function initSolutions() {
   if (!tags.length) return;
 
   // Disable CSS float animation so GSAP owns transform exclusively
-  tags.forEach((tag) => {
-    tag.style.animationName = "none";
-  });
+  tags.forEach((tag) => (tag.style.animationName = "none"));
 
-  tags.forEach((tag, i) => {
-    gsap.set(tag, { opacity: 0, y: 60 });
+  gsap.set(tags, { opacity: 0, y: 50 });
 
-    gsap.to(tag, {
-      opacity: 1,
-      y: 0,
-      duration: 0.5,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: ".solutions__img-wrap",
-        start: `top ${50 - i * 12}%`,
-        once: true,
-      },
-      onComplete: () => {
-        tag.style.animationName = "";
-      },
-    });
+  gsap.to(tags, {
+    opacity: 1,
+    y: 0,
+    duration: 0.55,
+    ease: "power2.out",
+    stagger: 0.18,
+    scrollTrigger: {
+      trigger: ".solutions__img-wrap",
+      start: "top 60%",
+      once: true,
+    },
+    onComplete() {
+      tags.forEach((tag) => (tag.style.animationName = ""));
+    },
   });
 }
 
@@ -432,6 +468,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // GSAP must come after Lenis so the bridge is live
   if (libs.GSAP && libs.ScrollTrigger) initGSAP();
 
+  initCursor();
   initNav();
   initHero();
   initClients();
