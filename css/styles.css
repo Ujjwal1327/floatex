@@ -1502,7 +1502,8 @@ h6 {
   /* gives scroll space */
   position: relative;
   background: rgb(245, 241, 241);
-  display: none;
+  background-color: #FFF;
+  /* display: none; */
 }
 
 .video-scale__wrapper {
@@ -1971,7 +1972,7 @@ h6 {
   height: 80%;
   /* border-radius: var(--radius-lg); */
   overflow: hidden;
-  outline: 2px solid blue;
+  /* outline: 2px solid blue; */
 }
 
 .culture__img {
@@ -1981,7 +1982,7 @@ h6 {
   height: 100%;
   object-fit: cover;
   display: block;
-  border: 2px solid red;
+  /* border: 2px solid red; */
 }
 
 /* Bottom: grayscale */
