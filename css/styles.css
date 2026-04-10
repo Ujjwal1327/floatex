@@ -1499,11 +1499,8 @@ h6 {
 
 .video-scale {
   height: 300vh;
-  /* gives scroll space */
   position: relative;
-  background: rgb(245, 241, 241);
-  background-color: #FFF;
-  /* display: none; */
+  background: #fff;
 }
 
 .video-scale__wrapper {
@@ -1516,12 +1513,63 @@ h6 {
   overflow: hidden;
 }
 
+/* The card — starts rounded, expands to full bleed */
+.video-scale__card {
+  position: relative;
+  width: 72vw;
+  height: 58vh;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255,255,255,0.05);
+  will-change: width, height, border-radius;
+}
+
 .video-scale__video {
   width: 100%;
-  /* initial small size */
-  height: 500px;
+  height: 100%;
   object-fit: cover;
-  will-change: transform, width, height;
+  display: block;
+}
+
+/* Dark overlay with label + caption at the bottom */
+.video-scale__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 45%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2rem 2.25rem;
+  gap: 0.4rem;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.video-scale__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.video-scale__tag .dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  box-shadow: 0 0 6px rgba(252, 175, 23, 0.8);
+}
+
+.video-scale__caption {
+  font-size: clamp(1rem, 3vw, 2.35rem);
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+  line-height: 1.3;
 }
 
 /* ============================================

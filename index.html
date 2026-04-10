@@ -119,7 +119,7 @@
         </button>
       </div>
       <div class="vmodal__video-wrap">
-        <video class="vmodal__video" id="vmodal-video" src="assets/videos/v.mp4" controls playsinline
+        <video class="vmodal__video" id="vmodal-video" src="assets/videos/v.webm" controls playsinline
           preload="none"></video>
         <div class="vmodal__play-hint" id="vmodal-play-hint" aria-hidden="true">
           <svg width="56" height="56" viewBox="0 0 24 24" fill="currentColor">
@@ -317,7 +317,7 @@
         <video class="hero__video" autoplay muted loop playsinline poster="assets/images/hero-poster.jpg"
           preload="none">
           <source src="assets/videos/hero.webm" type="video/webm" />
-          <source src="assets/videos/v.mp4" type="video/mp4" />
+          <source src="assets/videos/v.webm" type="video/mp4" />
         </video>
         <div class="hero__overlay" aria-hidden="true"></div>
       </div>
@@ -457,7 +457,13 @@
       =========================================== -->
     <section class="video-scale" id="video-scale">
       <div class="video-scale__wrapper">
-        <video class="video-scale__video" src="assets/videos/V.mp4" muted autoplay loop playsinline></video>
+        <div class="video-scale__card">
+          <video class="video-scale__video" src="assets/videos/v.webm" muted autoplay loop playsinline></video>
+          <div class="video-scale__overlay" aria-hidden="true">
+            <span class="video-scale__tag"><span class="dot"></span> Floatex Solar</span>
+            <p class="video-scale__caption">Powering India's water bodies</p>
+          </div>
+        </div>
       </div>
     </section>
 

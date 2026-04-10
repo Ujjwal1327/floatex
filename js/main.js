@@ -439,21 +439,30 @@ function initSolutions() {
 function initVideoScale() {
   if (prefersReducedMotion()) return;
 
-  const video = document.querySelector(".video-scale__video");
-  if (!video) return;
+  const card    = document.querySelector(".video-scale__card");
+  const overlay = document.querySelector(".video-scale__overlay");
+  if (!card) return;
 
-  gsap.to(video, {
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".video-scale",
+      start: "top top",
+      end: "bottom bottom",
+      scrub: 1.2,
+    },
+  });
+
+  tl.to(card, {
     width: "100vw",
     height: "100vh",
     borderRadius: 0,
     ease: "none",
-    scrollTrigger: {
-      trigger: ".video-scale",
-      start: "top 30%",
-      end: "bottom bottom",
-      scrub: true,
-    },
   });
+
+  // Fade overlay out as card goes fullscreen
+  if (overlay) {
+    tl.to(overlay, { opacity: 0, ease: "none" }, 0.4);
+  }
 }
 
 
