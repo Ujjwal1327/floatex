@@ -50,7 +50,6 @@ function initLenis() {
     infinite: false,
   });
 
-  // FIX: Use rAF loop — correct Lenis 1.x + GSAP integration pattern.
   function rafLoop(time) {
     lenis.raf(time);
     requestAnimationFrame(rafLoop);
@@ -67,7 +66,6 @@ function initGSAP() {
   gsap.registerPlugin(ScrollTrigger);
   gsap.defaults({ ease: "power2.out", duration: 1 });
 
-  // FIX: Removed deprecated scrollerProxy. Lenis 1.x bridge:
   lenis.on("scroll", ScrollTrigger.update);
 
   ScrollTrigger.addEventListener("refresh", () => lenis.resize());
@@ -549,6 +547,259 @@ function initProjectsModal() {
   console.log("%c✅ Projects modal ready", "color:#00b894;font-size:12px;");
 }
 
+/* ---- PROJECTS V2 — drag scroll + prev/next ---- */
+function initProjectsV2() {
+  const track   = document.getElementById("pv2-track");
+  const btnPrev = document.getElementById("pv2-prev");
+  const btnNext = document.getElementById("pv2-next");
+  if (!track) return;
+
+  // Drag to scroll
+  let isDown = false, startX, scrollLeft;
+
+  track.addEventListener("mousedown", (e) => {
+    isDown = true;
+    startX = e.pageX - track.offsetLeft;
+    scrollLeft = track.scrollLeft;
+  });
+  track.addEventListener("mouseleave", () => isDown = false);
+  track.addEventListener("mouseup",    () => isDown = false);
+  track.addEventListener("mousemove",  (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x    = e.pageX - track.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    track.scrollLeft = scrollLeft - walk;
+  });
+
+  // Prev / Next buttons — scroll by one card width
+  const CARD_W = () => track.querySelector(".projects-v2__card")?.offsetWidth + 20 || 380;
+
+  btnPrev?.addEventListener("click", () => {
+    track.scrollBy({ left: -CARD_W(), behavior: "smooth" });
+  });
+  btnNext?.addEventListener("click", () => {
+    track.scrollBy({ left: CARD_W(), behavior: "smooth" });
+  });
+}
+
+
+/* ---- PROJECTS V3 — Full-screen showcase ---- */
+function initProjectsV3() {
+  const section  = document.getElementById("projects-v3");
+  const navEl    = document.getElementById("pv3-nav");
+  const slidesEl = document.getElementById("pv3-slides");
+  if (!section || !navEl) return;
+
+  const PROJECTS = [
+    {
+      name:       "Omkareshwar",
+      slug:       "omkareshwar",
+      mw:         "600",
+      location:   "Narmada River, Madhya Pradesh",
+      status:     "commissioned",
+      statusLabel:"Commissioned",
+      year:       "2023",
+      state:      "Madhya Pradesh",
+      reservoir:  "Omkareshwar Dam",
+      feature:    "World's Largest FSPV",
+      depth:      "Up to 25 m",
+      client:     "NHDC",
+      capacity:   "600 MW",
+      type:       "FSPV",
+      stats: [
+        { num: "12,00,000+", lbl: "Solar Panels" },
+        { num: "600 AC",     lbl: "Capacity" },
+        { num: "8,00,000+",  lbl: "Sq. Metres" },
+        { num: "1,060 MU",   lbl: "Energy / yr" },
+      ],
+    },
+    {
+      name:       "Ramagundam",
+      slug:       "ntpc-ramagundam",
+      mw:         "100",
+      location:   "Ramagundam Reservoir, Telangana",
+      status:     "commissioned",
+      statusLabel:"Commissioned",
+      year:       "2022",
+      state:      "Telangana",
+      reservoir:  "Ramagundam Reservoir",
+      feature:    "NTPC Flagship FSPV",
+      depth:      "Up to 15 m",
+      client:     "NTPC",
+      capacity:   "100 MW",
+      type:       "FSPV",
+      stats: [
+        { num: "2,20,000+", lbl: "Solar Panels" },
+        { num: "100 AC",    lbl: "Capacity" },
+        { num: "1,00,000+", lbl: "Sq. Metres" },
+        { num: "200 MU",    lbl: "Energy / yr" },
+      ],
+    },
+    {
+      name:       "SECI Bisalpur",
+      slug:       "seci-reservoir",
+      mw:         "50",
+      location:   "Bisalpur Reservoir, Rajasthan",
+      status:     "commissioned",
+      statusLabel:"Commissioned",
+      year:       "2023",
+      state:      "Rajasthan",
+      reservoir:  "Bisalpur Dam",
+      feature:    "Arid Zone Pioneer",
+      depth:      "Up to 20 m",
+      client:     "SECI",
+      capacity:   "50 MW",
+      type:       "FSPV",
+      stats: [
+        { num: "90,000+",  lbl: "Solar Panels" },
+        { num: "50 AC",    lbl: "Capacity" },
+        { num: "50,000+",  lbl: "Sq. Metres" },
+        { num: "98 MU",    lbl: "Energy / yr" },
+      ],
+    },
+    {
+      name:       "Tata Canal",
+      slug:       "tata-power-canal",
+      mw:         "25",
+      location:   "Narmada Canal, Gujarat",
+      status:     "commissioned",
+      statusLabel:"Commissioned",
+      year:       "2023",
+      state:      "Gujarat",
+      reservoir:  "Narmada Irrigation Canal",
+      feature:    "Canal-Top Innovation",
+      depth:      "Flowing — 3 m",
+      client:     "Tata Power",
+      capacity:   "25 MW",
+      type:       "Canal Top",
+      stats: [
+        { num: "55,000+",  lbl: "Solar Panels" },
+        { num: "25 AC",    lbl: "Capacity" },
+        { num: "30,000+",  lbl: "Sq. Metres" },
+        { num: "48 MU",    lbl: "Energy / yr" },
+      ],
+    },
+    {
+      name:       "AMPIN Pawna",
+      slug:       "ampin-energy-lake",
+      mw:         "75",
+      location:   "Pawna Lake, Maharashtra",
+      status:     "ongoing",
+      statusLabel:"In Progress",
+      year:       "2024",
+      state:      "Maharashtra",
+      reservoir:  "Pawna Lake",
+      feature:    "Monsoon-Resilient Design",
+      depth:      "Up to 30 m",
+      client:     "AMPIN Energy",
+      capacity:   "75 MW",
+      type:       "FSPV",
+      stats: [
+        { num: "1,65,000+", lbl: "Solar Panels" },
+        { num: "75 AC",     lbl: "Capacity" },
+        { num: "75,000+",   lbl: "Sq. Metres" },
+        { num: "148 MU",    lbl: "Energy / yr" },
+      ],
+    },
+  ];
+
+  let current = 0;
+  let busy = false;
+
+  const slides = Array.from(slidesEl.querySelectorAll(".pv3__slide"));
+  const ghostEl   = document.getElementById("pv3-ghost-num");
+  const counterEl = document.getElementById("pv3-counter-cur");
+  const totalEl   = document.getElementById("pv3-counter-total");
+  const projLink  = section.querySelector(".pv3__proj-link");
+
+  if (totalEl) totalEl.textContent = PROJECTS.length;
+
+  // Build nav tabs
+  PROJECTS.forEach((p, i) => {
+    const btn = document.createElement("button");
+    btn.className = "pv3__nav-btn" + (i === 0 ? " is-active" : "");
+    btn.setAttribute("aria-label", `View project: ${p.name}`);
+    btn.dataset.idx = i;
+    btn.innerHTML = `
+      <span class="pv3__nav-num">${String(i+1).padStart(2,"0")} / ${PROJECTS.length}</span>
+      <span class="pv3__nav-details">
+        <span class="pv3__nav-name">${p.name}</span>
+        <span class="pv3__nav-sub">${p.mw} MW &bull; ${p.year}</span>
+      </span>`;
+    btn.addEventListener("click", () => goTo(i));
+    navEl.appendChild(btn);
+  });
+
+  function render(idx) {
+    const p = PROJECTS[idx];
+
+    // Text content
+    if (counterEl) counterEl.textContent = String(idx + 1).padStart(2, "0");
+    if (ghostEl)   ghostEl.textContent   = String(idx + 1).padStart(2, "0");
+    if (projLink)  projLink.href         = `/projects/${p.slug}`;
+
+    document.getElementById("pv3-state").textContent        = p.state;
+    document.getElementById("pv3-reservoir").textContent    = p.reservoir;
+    document.getElementById("pv3-feature").textContent      = p.feature;
+    document.getElementById("pv3-depth").textContent        = p.depth;
+    document.getElementById("pv3-mw-num").textContent       = p.mw;
+    document.getElementById("pv3-proj-name").textContent    = p.name;
+    document.getElementById("pv3-proj-loc").textContent     = p.location;
+    document.getElementById("pv3-client").textContent       = p.client;
+    document.getElementById("pv3-capacity").textContent     = p.capacity;
+    document.getElementById("pv3-type").textContent         = p.type;
+    document.getElementById("pv3-status-badge").textContent = p.statusLabel;
+    document.getElementById("pv3-year").textContent         = p.year;
+
+    const badge = document.getElementById("pv3-proj-badge");
+    badge.textContent    = p.statusLabel;
+    badge.dataset.status = p.status;
+
+    p.stats.forEach((s, j) => {
+      document.getElementById(`pv3-s${j+1}`).textContent = s.num;
+      document.getElementById(`pv3-l${j+1}`).textContent = s.lbl;
+    });
+
+    // Nav tabs
+    navEl.querySelectorAll(".pv3__nav-btn").forEach((btn, j) =>
+      btn.classList.toggle("is-active", j === idx)
+    );
+
+    // BG slides
+    slides.forEach((s, j) => s.classList.toggle("is-active", j === idx));
+  }
+
+  function goTo(idx) {
+    if (idx === current || busy) return;
+    busy = true;
+    section.classList.add("pv3--transitioning");
+
+    setTimeout(() => {
+      current = idx;
+      render(idx);
+      section.classList.remove("pv3--transitioning");
+      busy = false;
+    }, 280);
+  }
+
+  // Keyboard support
+  section.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowLeft"  || e.key === "ArrowUp")   goTo((current - 1 + PROJECTS.length) % PROJECTS.length);
+    if (e.key === "ArrowRight" || e.key === "ArrowDown")  goTo((current + 1) % PROJECTS.length);
+  });
+
+  document.getElementById("pv3-prev")?.addEventListener("click", () =>
+    goTo((current - 1 + PROJECTS.length) % PROJECTS.length)
+  );
+  document.getElementById("pv3-next")?.addEventListener("click", () =>
+    goTo((current + 1) % PROJECTS.length)
+  );
+
+  render(0);
+  console.log("%c✅ Projects V3 initialized", "color:#00b894;font-size:12px;");
+}
+
 function initProcess() {
   /* Task 6 */
 }
@@ -587,6 +838,7 @@ initProcess();
   initContact();
   initFooter();
   initProjectsModal();
+  initProjectsV2();
   initTextReveal();
   initCulture();
   console.log(
