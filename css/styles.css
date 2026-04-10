@@ -1539,7 +1539,7 @@ h6 {
   padding: clamp(7rem, 13vw, 11rem) clamp(1.5rem, 8vw, 10rem);
 
   /* Floating solar bg image */
-  background-image: url("https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1800&q=85");
+  background-image: url("https://floatexsolar.com/wp-content/uploads/2024/04/IMG-8.jpeg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -1553,6 +1553,19 @@ h6 {
   background:
     linear-gradient(to bottom, rgba(4,4,4,0.55) 0%, rgba(4,4,4,0.35) 50%, rgba(4,4,4,0.65) 100%);
   z-index: 0;
+  pointer-events: none;
+}
+
+/* Grid overlay — 4 vertical + 3 horizontal gold lines */
+.reveal::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(252, 175, 23, 0.22) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(252, 175, 23, 0.22) 1px, transparent 1px);
+  background-size: 25% 33.33%;
+  z-index: 1;
   pointer-events: none;
 }
 
