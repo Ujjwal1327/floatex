@@ -351,6 +351,22 @@ function initHero() {
   );
 }
 
+/* ---- CTA BANNER — fade-in content ---- */
+function initCtaBanner() {
+  const section = document.querySelector(".cta-banner");
+  const content = document.querySelector(".cta-banner__content");
+
+  if (!section || !content) return;
+
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) content.classList.add("is-visible");
+    },
+    { threshold: 0.2 }
+  );
+  observer.observe(section);
+}
+
 /* ---- CUSTOM CURSOR — smooth lerp follow ---- */
 function initCursor() {
   // Only on devices with a fine pointer (mouse), not touch
@@ -441,6 +457,56 @@ function initVideoScale() {
 }
 
 
+/* ---- PROJECTS VIDEO MODAL ---- */
+function initProjectsModal() {
+  const modal     = document.getElementById("projects-modal");
+  const openBtn   = document.getElementById("open-projects-modal");
+  const closeBtn  = document.getElementById("vmodal-close");
+  const backdrop  = document.getElementById("vmodal-backdrop");
+  const video     = document.getElementById("vmodal-video");
+  const playHint  = document.getElementById("vmodal-play-hint");
+
+  if (!modal || !openBtn || !video) return;
+
+  function openModal() {
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    if (lenis) lenis.stop();
+    // Short delay so the animation plays before the video starts
+    setTimeout(() => {
+      video.play().catch(() => {});
+      playHint.classList.add("is-hidden");
+    }, 350);
+    closeBtn.focus();
+  }
+
+  function closeModal() {
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+    if (lenis) lenis.start();
+    video.pause();
+    video.currentTime = 0;
+    playHint.classList.remove("is-hidden");
+    openBtn.focus();
+  }
+
+  openBtn.addEventListener("click", openModal);
+  closeBtn.addEventListener("click", closeModal);
+  backdrop.addEventListener("click", closeModal);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
+  });
+
+  // Hide play hint once video is actually playing
+  video.addEventListener("play", () => playHint.classList.add("is-hidden"));
+  video.addEventListener("pause", () => playHint.classList.remove("is-hidden"));
+
+  console.log("%c✅ Projects modal ready", "color:#00b894;font-size:12px;");
+}
+
 function initProcess() {
   /* Task 6 */
 }
@@ -469,6 +535,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (libs.GSAP && libs.ScrollTrigger) initGSAP();
 
   initCursor();
+  initCtaBanner();
   initNav();
   initHero();
   initClients();
@@ -477,6 +544,7 @@ document.addEventListener("DOMContentLoaded", () => {
 initProcess();
   initContact();
   initFooter();
+  initProjectsModal();
   initTextReveal();
   initCulture();
   console.log(
@@ -522,26 +590,14 @@ function initTextReveal() {
     .join("");
   const spans = el.querySelectorAll(".char");
 
-  gsap.to(spans, {
-    scrollTrigger: {
-      trigger: el,
-      start: "top 90%",
-      end: "bottom 60%",
-      scrub: true,
-      markers: true,
-    },
-    stagger: 0.09, // 🔥 tighter for letters
-    onUpdate: function () {
-      const progress = this.progress();
-
+  ScrollTrigger.create({
+    trigger: el,
+    start: "top 90%",
+    end: "bottom 20%",
+    scrub: true,
+    onUpdate(self) {
       spans.forEach((span, i) => {
-        const threshold = i / spans.length;
-
-        if (progress > threshold) {
-          span.classList.add("active");
-        } else {
-          span.classList.remove("active");
-        }
+        span.classList.toggle("active", self.progress > i / spans.length);
       });
     },
   });
