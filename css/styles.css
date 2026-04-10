@@ -906,7 +906,7 @@ h6 {
   font-weight: var(--fw-semibold);
   padding: var(--space-sm) var(--space-xl);
   border-radius: var(--radius-sm);
-  margin-bottom: 60px;
+  margin-bottom: 150px;
   width: fit-content;
   transition:
     background var(--ease-base),
@@ -934,50 +934,6 @@ h6 {
   transform: translateX(4px);
 }
 
-.hero__bottom {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-}
-
-.hero__avatars {
-  display: flex;
-}
-
-.hero__avatar {
-  width: 44px;
-  height: 44px;
-  border-radius: var(--radius-full);
-  border: 2.5px solid var(--color-primary);
-  object-fit: cover;
-  background: var(--color-dark-3);
-  margin-left: -10px;
-}
-
-.hero__avatar:first-child {
-  margin-left: 0;
-}
-
-.hero__stat {
-  display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
-}
-
-.hero__stat-number {
-  font-size: var(--text-2xl);
-  font-weight: var(--fw-extrabold);
-  color: var(--color-light);
-  line-height: 1;
-}
-
-.hero__stat-label {
-  font-size: var(--text-xs);
-  color: var(--color-primary);
-  font-weight: var(--fw-semibold);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
 
 .hero__stat-desc {
   font-size: var(--text-sm);
@@ -1263,14 +1219,6 @@ h6 {
     white-space: normal;
   }
 
-  .hero__bottom {
-    align-items: flex-start;
-    gap: var(--space-md);
-  }
-
-  .hero__stat-desc {
-    max-width: 100%;
-  }
 
   .hero__card {
     width: 100%;
@@ -1498,30 +1446,24 @@ h6 {
 ============================================ */
 
 .video-scale {
-  height: 300vh;
+  height: 800vh;
   position: relative;
-  background: #fff;
+  background: #060606;
 }
 
 .video-scale__wrapper {
   position: sticky;
   top: 0;
   height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
 }
 
-/* The card — starts rounded, expands to full bleed */
+/* Card — always full viewport, no scaling */
 .video-scale__card {
   position: relative;
-  width: 72vw;
-  height: 58vh;
-  border-radius: 10px;
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
-  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255,255,255,0.05);
-  will-change: width, height, border-radius;
 }
 
 .video-scale__video {

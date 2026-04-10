@@ -439,29 +439,62 @@ function initSolutions() {
 function initVideoScale() {
   if (prefersReducedMotion()) return;
 
-  const card    = document.querySelector(".video-scale__card");
-  const overlay = document.querySelector(".video-scale__overlay");
-  if (!card) return;
+  const video = document.querySelector(".video-scale__video");
+  if (!video) return;
 
-  const tl = gsap.timeline({
-    scrollTrigger: {
+  // Keep video paused — we drive currentTime manually
+  video.pause();
+
+  const VIDEO_DURATION = 8;
+  let targetTime = 0;
+  let seeking = false;
+
+  function doSeek() {
+    if (Math.abs(video.currentTime - targetTime) < 0.04) {
+      seeking = false;
+      return;
+    }
+    // fastSeek is much lighter than currentTime on supported browsers
+    if (video.fastSeek) {
+      video.fastSeek(targetTime);
+    } else {
+      video.currentTime = targetTime;
+    }
+    // Wait for seeked event before next seek — avoids queuing up seeks
+    video.addEventListener("seeked", onSeeked, { once: true });
+  }
+
+  function onSeeked() {
+    seeking = false;
+    // If target moved while we were seeking, seek again
+    if (Math.abs(video.currentTime - targetTime) > 0.04) {
+      seeking = true;
+      doSeek();
+    }
+  }
+
+  function setupScrub() {
+    const duration = Math.min(video.duration || VIDEO_DURATION, VIDEO_DURATION);
+
+    ScrollTrigger.create({
       trigger: ".video-scale",
       start: "top top",
       end: "bottom bottom",
-      scrub: 1.2,
-    },
-  });
+      scrub: true,
+      onUpdate(self) {
+        targetTime = self.progress * duration;
+        if (!seeking) {
+          seeking = true;
+          doSeek();
+        }
+      },
+    });
+  }
 
-  tl.to(card, {
-    width: "100vw",
-    height: "100vh",
-    borderRadius: 0,
-    ease: "none",
-  });
-
-  // Fade overlay out as card goes fullscreen
-  if (overlay) {
-    tl.to(overlay, { opacity: 0, ease: "none" }, 0.4);
+  if (video.readyState >= 1) {
+    setupScrub();
+  } else {
+    video.addEventListener("loadedmetadata", setupScrub, { once: true });
   }
 }
 

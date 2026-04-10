@@ -343,27 +343,11 @@
             </span>
           </a>
 
-          <div class="hero__bottom">
-            <div class="hero__avatars" aria-label="Floatex team">
-              <img class="hero__avatar"
-                src="https://img.freepik.com/free-photo/close-up-portrait-young-bearded-man-white-shirt-jacket-posing-camera-with-broad-smile-isolated-gray_171337-629.jpg?semt=ais_incoming&w=740&q=80"
-                alt="" width="40" height="40" loading="eager" />
-              <img class="hero__avatar"
-                src="https://t4.ftcdn.net/jpg/04/31/64/75/360_F_431647519_usrbQ8Z983hTYe8zgA7t1XVc5fEtqcpa.jpg" alt=""
-                width="40" height="40" loading="eager" />
-              <img class="hero__avatar"
-                src="https://img.freepik.com/free-photo/indoor-picture-cheerful-handsome-young-man-having-folded-hands-looking-directly-smiling-sincerely-wearing-casual-clothes_176532-10257.jpg?semt=ais_incoming&w=740&q=80"
-                alt="" width="40" height="40" loading="eager" />
-            </div>
-            <div class="hero__stat">
-              <strong class="hero__stat-number">10 M+</strong>
-              <span class="hero__stat-label">Watts Installed</span>
-            </div>
-          </div>
           <p class="hero__stat-desc">
             India's leading floating photovoltaic solutions — turning idle
             water surfaces into powerful, sustainable energy sources.
           </p>
+
         </div>
 
         <div class="hero__right">
@@ -458,7 +442,10 @@
     <section class="video-scale" id="video-scale">
       <div class="video-scale__wrapper">
         <div class="video-scale__card">
-          <video class="video-scale__video" src="assets/videos/v.webm" muted autoplay loop playsinline></video>
+          <video class="video-scale__video" muted playsinline preload="auto">
+            <!-- <source src="assets/videos/v.webm" type="video/webm" /> -->
+            <source src="assets/videos/v.mp4"  type="video/mp4"  />
+          </video>
           <div class="video-scale__overlay" aria-hidden="true">
             <span class="video-scale__tag"><span class="dot"></span> Floatex Solar</span>
             <p class="video-scale__caption">Powering India's water bodies</p>
