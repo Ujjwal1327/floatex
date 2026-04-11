@@ -3156,24 +3156,30 @@ h6 {
   inset: 0;
   margin: 0;
   overflow: hidden;
+  /* Ken Burns on the whole figure on hover */
+  transform: scale(1.06);
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
+.pv3__card:hover .pv3__card-fig {
+  transform: scale(1);
+}
+
+/* All images stacked, only .is-active shown */
 .pv3__card-fig img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  transform: scale(1.08) translateX(0px);
-  transition:
-    transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-    filter 0.6s ease;
-  will-change: transform;
+  opacity: 0;
+  transition: opacity 0.7s ease;
   filter: brightness(0.75) saturate(0.9);
 }
 
-.pv3__card:hover .pv3__card-fig img {
-  transform: scale(1) translateX(-4px);
-  /* filter: brightness(0.45) saturate(1.1); */
+.pv3__card-fig img.is-active {
+  opacity: 1;
 }
 
 /* ---- Permanent gradient at bottom (keeps idle info legible) ---- */
@@ -3375,6 +3381,192 @@ h6 {
   .pv3__grid { grid-template-columns: 1fr; }
   .pv3__card { height: 300px; }
   .pv3__head { flex-direction: column; align-items: flex-start; gap: 1rem; }
+}
+
+/* ============================================
+   PROJECTS V4 — Scroll-Driven Blinds Reveal
+============================================ */
+.pv4 {
+  position: relative;
+  height: 100vh;          /* single viewport unit — pinned as one block */
+  overflow: hidden;
+  background: #0a1428;
+}
+
+/* All slides stacked absolutely inside the pinned section */
+.pv4__slide {
+  position: absolute;
+  inset: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Background image */
+.pv4__bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  will-change: transform;
+}
+
+/* Deep navy gradient overlay */
+.pv4__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(8, 16, 35, 0.92) 0%,
+    rgba(8, 16, 35, 0.35) 55%,
+    rgba(8, 16, 35, 0.1) 100%
+  );
+  z-index: 1;
+}
+
+/* Blinds container — 10 strips that cover the bg and retract on scroll */
+.pv4__blinds {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+}
+
+.pv4__strip {
+  flex: 1;
+  background: #0a1428;
+  transform-origin: center top;
+  will-change: transform;
+}
+
+/* Slide info — bottom of each slide */
+.pv4__slide-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 6vw, 6rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.pv4__slide-tag {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #111;
+  background: var(--color-primary);
+  border-radius: 3px;
+  padding: 3px 10px;
+  align-self: flex-start;
+}
+
+.pv4__slide-tag--gold {
+  background: #fff;
+}
+
+.pv4__slide-mw {
+  font-size: clamp(4rem, 10vw, 8rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  margin-top: 0.2rem;
+}
+
+.pv4__slide-mw em {
+  font-style: normal;
+  font-size: 0.35em;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: 0.06em;
+  margin-left: 6px;
+}
+
+.pv4__slide-name {
+  font-size: clamp(1.4rem, 3vw, 2.4rem);
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+  line-height: 1.15;
+}
+
+.pv4__slide-loc {
+  font-size: clamp(0.72rem, 1.2vw, 0.88rem);
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.04em;
+}
+
+.pv4__slide-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  text-decoration: none;
+  align-self: flex-start;
+  transition: gap 0.25s ease;
+}
+
+.pv4__slide-cta svg { transition: transform 0.25s ease; }
+.pv4__slide-cta:hover { gap: 0.75rem; }
+.pv4__slide-cta:hover svg { transform: translate(3px, -3px); }
+
+/* Fixed slide counter — bottom right, shown only during pv4 section */
+.pv4__counter {
+  position: fixed;
+  bottom: 2.5rem;
+  right: 2.5rem;
+  z-index: 9999;
+  display: flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+}
+
+.pv4__counter.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pv4__counter-cur {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.pv4__counter-sep {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.pv4__counter-total {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.05em;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .pv4__slide-mw { font-size: clamp(3rem, 18vw, 5rem); }
+  .pv4__counter { bottom: 1.5rem; right: 1.5rem; }
+  .pv4__counter-cur { font-size: 1.6rem; }
 }
 
 /* ============================================

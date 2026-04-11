@@ -800,30 +800,154 @@ function initProjectsV3() {
   console.log("%c✅ Projects V3 initialized", "color:#00b894;font-size:12px;");
 }
 
-/* ---- PROJECTS V3 — Grid entrance animation ---- */
+/* ---- PROJECTS V3 — Grid entrance + image cycling on hover ---- */
 function initProjectsV3() {
   const cards = document.querySelectorAll(".pv3__card");
   if (!cards.length) return;
 
+  // Scroll entrance animation
   gsap.set(cards, { opacity: 0, y: 40, scale: 0.97 });
-
   ScrollTrigger.create({
     trigger: ".pv3__grid",
     start: "top 80%",
     once: true,
     onEnter() {
       gsap.to(cards, {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 0.7,
-        ease: "power3.out",
+        opacity: 1, y: 0, scale: 1,
+        duration: 0.7, ease: "power3.out",
         stagger: { amount: 0.5, from: "start" },
       });
     },
   });
 
+  // Image cycling on hover
+  cards.forEach((card) => {
+    const imgs = Array.from(card.querySelectorAll(".pv3__card-fig img"));
+    if (imgs.length < 2) return;
+
+    let idx = 0;
+    let timer = null;
+
+    card.addEventListener("mouseenter", () => {
+      // Start cycling immediately from image 1 → 2 → 0 → ...
+      timer = setInterval(() => {
+        imgs[idx].classList.remove("is-active");
+        idx = (idx + 1) % imgs.length;
+        imgs[idx].classList.add("is-active");
+      }, 900);
+    });
+
+    card.addEventListener("mouseleave", () => {
+      clearInterval(timer);
+      // Reset to first image
+      imgs.forEach(img => img.classList.remove("is-active"));
+      idx = 0;
+      imgs[0].classList.add("is-active");
+    });
+  });
+
   console.log("%c✅ Projects V3 grid ready", "color:#00b894;font-size:12px;");
+}
+
+/* ---- PROJECTS V4 — Single-pin scroll-driven blinds reveal ---- */
+function initProjectsV4() {
+  const section = document.getElementById("projects-v4");
+  if (!section) return;
+
+  const slides = Array.from(section.querySelectorAll(".pv4__slide"));
+  if (!slides.length) return;
+
+  const STRIP_COUNT = 10;
+  const counter     = document.getElementById("pv4-counter");
+  const curEl       = document.getElementById("pv4-cur");
+  const N           = slides.length;
+
+  // ── Build strips ──────────────────────────────────────────────
+  slides.forEach((slide) => {
+    const blinds = slide.querySelector(".pv4__blinds");
+    if (!blinds || blinds.children.length) return;
+    for (let s = 0; s < STRIP_COUNT; s++) {
+      const div = document.createElement("div");
+      div.className = "pv4__strip";
+      blinds.appendChild(div);
+    }
+  });
+
+  const allStrips = slides.map((slide) =>
+    Array.from(slide.querySelectorAll(".pv4__strip"))
+  );
+
+  // ── Initial state ──────────────────────────────────────────────
+  // Slide 0: fully visible, blinds open (scaleY 0)
+  gsap.set(slides[0], { autoAlpha: 1 });
+  gsap.set(allStrips[0], { scaleY: 0, transformOrigin: "50% 0%" });
+  // Slides 1–N: hidden, blinds closed (scaleY 1)
+  for (let i = 1; i < N; i++) {
+    gsap.set(slides[i], { autoAlpha: 0 });
+    gsap.set(allStrips[i], { scaleY: 1, transformOrigin: "50% 0%" });
+  }
+
+  // ── Master timeline (scrub drives it) ─────────────────────────
+  // Per transition i → i+1:
+  //   hold (0.5) → close blinds (1.6) → instant swap (0.01) → open blinds (1.6)
+  const masterTl = gsap.timeline({ paused: true });
+
+  // Opening hold so first slide sits fully visible for a beat
+  masterTl.to({}, { duration: 0.5 });
+
+  for (let i = 0; i < N - 1; i++) {
+    // 1. Close current slide — strips scale up top-to-bottom
+    masterTl.to(allStrips[i], {
+      scaleY: 1,
+      duration: 1,
+      stagger: { amount: 0.6, from: "start" },
+      ease: "power2.inOut",
+    });
+
+    // 2. Instant swap: hide exhausted slide, surface the next
+    masterTl
+      .to(slides[i],     { autoAlpha: 0, duration: 0.01, ease: "none" }, ">")
+      .to(slides[i + 1], { autoAlpha: 1, duration: 0.01, ease: "none" }, "<");
+
+    // 3. Open next slide — strips scale down top-to-bottom
+    masterTl.to(allStrips[i + 1], {
+      scaleY: 0,
+      duration: 1,
+      stagger: { amount: 0.6, from: "start" },
+      ease: "power2.inOut",
+    });
+
+    // Brief hold between consecutive slides (skip after final transition)
+    if (i < N - 2) masterTl.to({}, { duration: 0.4 });
+  }
+
+  // Closing hold — last slide stays fully visible before unpinning
+  masterTl.to({}, { duration: 0.5 });
+
+  // ── Counter ────────────────────────────────────────────────────
+  function updateCounter(progress) {
+    if (!curEl) return;
+    curEl.textContent = String(Math.min(Math.floor(progress * N), N - 1) + 1).padStart(2, "0");
+  }
+
+  // ── Single pinned ScrollTrigger ────────────────────────────────
+  ScrollTrigger.create({
+    trigger:       section,
+    start:         "top top",
+    end:           `+=${N * 150}%`,
+    pin:           true,
+    anticipatePin: 1,
+    scrub:         1,
+    animation:     masterTl,
+    onEnter()      { counter?.classList.add("is-visible");    },
+    onLeave()      { counter?.classList.remove("is-visible"); },
+    onEnterBack()  { counter?.classList.add("is-visible");    },
+    onLeaveBack()  { counter?.classList.remove("is-visible"); },
+    onUpdate(self) { updateCounter(self.progress);            },
+  });
+
+  window.addEventListener("load", () => ScrollTrigger.refresh(), { once: true });
+  console.log("%c✅ Projects V4 initialized", "color:#00b894;font-size:12px;");
 }
 
 function initProcess() {
@@ -866,6 +990,7 @@ initProcess();
   initProjectsModal();
   initProjectsV2();
   initProjectsV3();
+  initProjectsV4();
   initTextReveal();
   initCulture();
   console.log(
