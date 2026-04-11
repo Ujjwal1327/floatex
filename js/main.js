@@ -90,6 +90,16 @@ function initNav() {
   /* ---- Scroll: dark bg + hide/show ---- */
   const SCROLL_THRESHOLD = 150;
   let lastScrollY = 0;
+  let isNavHovered = false;
+
+  header.addEventListener("mouseenter", () => {
+    isNavHovered = true;
+    document.getElementById("cursor")?.classList.add("is-on-nav");
+  });
+  header.addEventListener("mouseleave", () => {
+    isNavHovered = false;
+    document.getElementById("cursor")?.classList.remove("is-on-nav");
+  });
 
   function onScroll() {
     const scrollY = lenis ? lenis.scroll : window.scrollY;
@@ -98,9 +108,9 @@ function initNav() {
     header.classList.toggle("scrolled", scrollY > SCROLL_THRESHOLD);
 
     // Hide on scroll down, show on scroll up
-    // Only activate after scrolled past the hero area
+    // Skip hiding if mouse is over the nav
     if (scrollY > SCROLL_THRESHOLD) {
-      if (scrollY > lastScrollY) {
+      if (scrollY > lastScrollY && !isNavHovered) {
         header.classList.add("nav--hidden");
       } else {
         header.classList.remove("nav--hidden");
@@ -228,6 +238,55 @@ function initNav() {
       }
     });
   });
+
+  /* ---- Magic sliding pill ---- */
+  const navList  = header.querySelector(".nav__links");
+  const pill     = header.querySelector(".nav__pill");
+  const navLinks = Array.from(header.querySelectorAll(".nav__link"));
+
+  if (navList && pill && navLinks.length) {
+    // Position pill over a given element
+    function movePill(el, duration = 0.28) {
+      const listRect = navList.getBoundingClientRect();
+      const elRect   = el.getBoundingClientRect();
+      gsap.to(pill, {
+        left:     elRect.left - listRect.left,
+        width:    elRect.width,
+        duration,
+        ease:     "power2.out",
+      });
+    }
+
+    // Snap pill to active link instantly on load (no animation)
+    const activeLink = navList.querySelector(".nav__link--active") || navLinks[0];
+    // Wait one frame so layout is settled
+    requestAnimationFrame(() => {
+      movePill(activeLink, 0);
+      gsap.set(pill, { opacity: 1 });
+    });
+
+    // Hover: slide pill to hovered link
+    navLinks.forEach((link) => {
+      link.addEventListener("mouseenter", () => movePill(link, 0.28));
+    });
+
+    // Mouse leaves the whole list: only return pill if no dropdown is open
+    navList.addEventListener("mouseleave", () => {
+      const anyOpen = header.querySelector(".nav__item--dropdown.is-open");
+      if (!anyOpen) movePill(activeLink, 0.35);
+    });
+
+    // When a dropdown closes (is-open removed): return pill to active
+    // Use a MutationObserver to watch dropdown items losing is-open
+    const dropdownItems = header.querySelectorAll(".nav__item--dropdown");
+    const observer = new MutationObserver(() => {
+      const anyOpen = header.querySelector(".nav__item--dropdown.is-open");
+      if (!anyOpen) movePill(activeLink, 0.35);
+    });
+    dropdownItems.forEach((item) =>
+      observer.observe(item, { attributes: true, attributeFilter: ["class"] })
+    );
+  }
 
   console.log("%c✅ Nav initialized", "color:#00b894;font-size:12px;");
 }
@@ -388,8 +447,10 @@ function initCursor() {
   );
 
   // Grow on hoverable elements
-  const hoverables = "a, button, [role='button'], .nav__link, .clients__item, .projects__row, input, label";
+  const hoverables = "a, button, [role='button'], .clients__item, .projects__row, input, label";
   document.querySelectorAll(hoverables).forEach((el) => {
+    // Skip anything inside the nav — pill handles nav hover visually
+    if (el.closest("#site-header")) return;
     el.addEventListener("mouseenter", () => cursor.classList.add("is-hovering"));
     el.addEventListener("mouseleave", () => cursor.classList.remove("is-hovering"));
   });

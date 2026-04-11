@@ -22,7 +22,7 @@
   <meta property="og:title" content="Floatex Solar | India's Leading Floating Solar Energy Company" />
   <meta property="og:description"
     content="Delivering reliable, eco-friendly floating solar solutions designed to reduce energy costs while minimizing environmental impact. 10M+ watts installed across India." />
-  <meta property="og:image" content="https://floatexsolar.com/assets/images/og-image.jpg" />
+  <meta property="og:image" content="https://floatexsolar.com/assets/images/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:url" content="https://floatexsolar.com/" />
@@ -33,11 +33,14 @@
   <meta name="twitter:title" content="Floatex Solar | Floating Solar Energy Solutions" />
   <meta name="twitter:description"
     content="India's leading floating solar company. Clean energy solutions that balance performance, design, and responsibility." />
-  <meta name="twitter:image" content="https://floatexsolar.com/assets/images/og-image.jpg" />
+  <meta name="twitter:image" content="https://floatexsolar.com/assets/images/og-image.png" />
 
   <!-- FAVICON -->
-  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png" />
+  <link rel="icon" type="image/x-icon" href="assets/favicons/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/favicons/favicon-48x48.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png" />
   <meta name="theme-color" content="#FCAF17" />
 
   <!-- FONTS -->
@@ -49,18 +52,42 @@
 
   <!-- STRUCTURED DATA -->
   <script type="application/ld+json">
+  [
     {
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "Floatex Solar",
       "url": "https://floatexsolar.com",
-      "logo": "https://floatexsolar.com/assets/images/logo.png",
-      "description": "India's leading floating photovoltaic (FPV) solar energy company. 10M+ watts installed across reservoirs, ponds, and canals.",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://floatexsolar.com/assets/images/logo.png",
+        "width": 280,
+        "height": 88
+      },
+      "image": "https://floatexsolar.com/assets/images/og-image.png",
+      "description": "India's leading floating photovoltaic (FPV) solar energy company. 1GW+ installed across reservoirs, ponds, and canals.",
+      "foundingDate": "2015",
       "areaServed": {
         "@type": "Country",
         "name": "India"
       },
-      "sameAs": [],
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "1st Floor, City Tower, Netaji Subhash Place, Pitampura",
+        "addressLocality": "Delhi",
+        "postalCode": "110034",
+        "addressCountry": "IN"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+91-84488-06092",
+        "contactType": "customer service",
+        "availableLanguage": ["English", "Hindi"]
+      },
+      "sameAs": [
+        "https://www.linkedin.com/company/floatexsolar",
+        "https://www.youtube.com/@floatexsolar"
+      ],
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
         "name": "Floating Solar Services",
@@ -70,7 +97,7 @@
             "itemOffered": {
               "@type": "Service",
               "name": "Floating Solar PV (FSPV)",
-              "description": "Design and installation of floating solar photovoltaic systems on water bodies including reservoirs, ponds, and canals."
+              "description": "Design and installation of floating solar photovoltaic systems on reservoirs, ponds, and canals."
             }
           },
           {
@@ -83,8 +110,23 @@
           }
         ]
       }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Floatex Solar",
+      "url": "https://floatexsolar.com",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://floatexsolar.com/search?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
     }
-    </script>
+  ]
+  </script>
 
   <!-- CDN LIBRARIES -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
@@ -150,6 +192,7 @@
 
         <!-- Desktop Links -->
         <ul class="nav__links" role="list">
+          <span class="nav__pill" aria-hidden="true"></span>
           <li class="nav__item">
             <a href="/" class="nav__link nav__link--active" aria-current="page">Home</a>
           </li>
@@ -195,7 +238,7 @@
           </li>
 
           <li class="nav__item">
-            <a href="/services" class="nav__link">Projects</a>
+            <a href="projects.html" class="nav__link">Projects</a>
           </li>
 
           <!-- Services — has submenu -->
@@ -507,8 +550,13 @@
 
           <!-- Card 4 -->
           <a href="/projects/bhel-pond" class="projects__card projects__card--wide">
-            <img class="projects__card-img" src="https://images.unsplash.com/photo-1548337138-e87d889cc369?w=900&q=80"
-              alt="BHEL Pond Solar Installation" loading="lazy" />
+            <!-- <img class="projects__card-img" src="https://images.unsplash.com/photo-1548337138-e87d889cc369?w=900&q=80"
+              alt="BHEL Pond Solar Installation" loading="lazy" /> -->
+            <video class="hero__video" autoplay muted loop playsinline poster="assets/images/hero-poster.jpg"
+              preload="none">
+              <source src="assets/videos/hero.webm" type="video/webm" />
+              <source src="assets/videos/v.webm" type="video/mp4" />
+            </video>
             <div class="projects__card-body">
               <span class="projects__card-tag">Pond Solar</span>
               <h3 class="projects__card-title">BHEL Pond Installation</h3>

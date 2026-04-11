@@ -156,6 +156,10 @@
   height: 40px;
 } */
 
+.cursor.is-on-nav {
+  opacity: 0 !important;
+}
+
 html {
   scroll-behavior: auto;
   -webkit-text-size-adjust: 100%;
@@ -459,7 +463,20 @@ h6 {
   gap: var(--space-xs);
   list-style: none;
   margin: 0 auto;
-  /* push to center */
+  position: relative; /* pill is positioned relative to this */
+}
+
+/* Sliding pill — JS sets left + width */
+.nav__pill {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: calc(100% - 6px);
+  background: var(--color-primary);
+  border-radius: var(--radius-sm);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0; /* JS sets to 1 once measured */
 }
 
 /* Base link style */
@@ -467,27 +484,22 @@ h6 {
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
-  padding: 0.45rem 0.9rem;
+  padding: 0.55rem 0.9rem;
   font-size: 0.9rem;
   font-weight: var(--fw-medium);
   color: rgba(255, 255, 255, 0.82);
   border-radius: var(--radius-sm);
   white-space: nowrap;
-  transition:
-    color var(--ease-fast),
-    background var(--ease-fast);
   cursor: pointer;
   background: transparent;
   border: none;
   font-family: var(--font-primary);
+  position: relative;
+  z-index: 1;
+  transition: color var(--ease-fast);
 }
 
 .nav__link:hover,
-.nav__link--active {
-  color: var(--color-light);
-  background: var(--color-primary);
-}
-
 .nav__link--active {
   color: var(--color-light);
 }
@@ -1446,6 +1458,7 @@ h6 {
 ============================================ */
 
 .video-scale {
+  display: none;
   height: 800vh;
   position: relative;
   background: #060606;
