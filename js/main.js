@@ -270,22 +270,12 @@ function initNav() {
       link.addEventListener("mouseenter", () => movePill(link, 0.28));
     });
 
-    // Mouse leaves the whole list: only return pill if no dropdown is open
-    navList.addEventListener("mouseleave", () => {
-      const anyOpen = header.querySelector(".nav__item--dropdown.is-open");
-      if (!anyOpen) movePill(activeLink, 0.35);
-    });
+    // Only return pill when mouse leaves the ENTIRE header (not just navList)
+    // This way moving from dropdown → any nav link never triggers a return
+    header.addEventListener("mouseleave", () => movePill(activeLink, 0.35));
 
-    // When a dropdown closes (is-open removed): return pill to active
-    // Use a MutationObserver to watch dropdown items losing is-open
-    const dropdownItems = header.querySelectorAll(".nav__item--dropdown");
-    const observer = new MutationObserver(() => {
-      const anyOpen = header.querySelector(".nav__item--dropdown.is-open");
-      if (!anyOpen) movePill(activeLink, 0.35);
-    });
-    dropdownItems.forEach((item) =>
-      observer.observe(item, { attributes: true, attributeFilter: ["class"] })
-    );
+    // When dropdown closes: do nothing — pill stays wherever it is
+    // It will return naturally when mouse leaves the header
   }
 
   console.log("%c✅ Nav initialized", "color:#00b894;font-size:12px;");

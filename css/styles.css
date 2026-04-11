@@ -800,7 +800,7 @@ h6 {
   margin-top: var(--space-xl);
   padding: var(--space-md) var(--space-xl);
   background: var(--color-primary);
-  color: var(--color-dark);
+  color: #fff;
   font-weight: var(--fw-bold);
   font-size: 1rem;
   border-radius: var(--radius-full);
@@ -913,7 +913,7 @@ h6 {
   align-items: center;
   gap: var(--space-sm);
   background: var(--color-primary);
-  color: var(--color-dark);
+  color: #fff;
   font-size: var(--text-md);
   font-weight: var(--fw-semibold);
   padding: var(--space-sm) var(--space-xl);
@@ -948,8 +948,8 @@ h6 {
 
 
 .hero__stat-desc {
-  font-size: var(--text-sm);
-  color: rgba(255, 255, 255, 0.58);
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.9);
   line-height: 1.65;
   max-width: 370px;
 }
@@ -1071,7 +1071,7 @@ h6 {
   width: fit-content;
   padding: 0.7rem 2.2rem;
   background: var(--color-primary);
-  color: var(--color-text-dark);
+  color: #fff;
   font-size: 1.1rem;
   font-weight: var(--fw-semibold);
   border-radius: var(--radius-md);
@@ -1116,7 +1116,7 @@ h6 {
 .solutions__tag {
   position: absolute;
   background: rgba(252, 175, 23, 0.88);
-  color: #1a1a1a;
+  color: #fff;
   font-size: 1rem;
   font-weight: var(--fw-semibold);
   padding: 0.4rem 0.9rem;
@@ -2137,7 +2137,7 @@ h6 {
   top: 1rem;
   left: 1rem;
   background: var(--color-primary);
-  color: var(--color-dark);
+  color: #fff;
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.1em;
