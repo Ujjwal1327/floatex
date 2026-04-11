@@ -129,6 +129,27 @@
 }
 
 /* ============================================
+   PAGE TRANSITION CURTAIN
+============================================ */
+#pg-transition {
+  position: fixed;
+  inset: 0;
+  background: #0a1428;
+  z-index: 99998;
+  transform: translateY(0);          /* starts covering — JS animates it away */
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pg-transition__logo {
+  width: clamp(100px, 14vw, 180px);
+  /* filter: brightness(0) invert(1);   force white regardless of logo colour */
+  user-select: none;
+}
+
+/* ============================================
    CUSTOM CURSOR
 ============================================ */
 .cursor {

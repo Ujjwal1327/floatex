@@ -619,6 +619,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "color:#FCAF17;font-weight:bold;font-size:16px;",
   );
 
+  initPageTransitions();   // first — curtain reveal plays immediately
+
   const libs = verifyLibraries();
 
   if (libs.Lenis) initLenis();
@@ -729,6 +731,58 @@ function initCulture() {
 
   onScroll();
   console.log("%c✅ Culture initialized", "color:#00b894;font-size:12px;");
+}
+
+/* ---- PAGE TRANSITIONS ---- */
+function initPageTransitions() {
+  const curtain = document.getElementById("pg-transition");
+  if (!curtain) return;
+
+  // ── Enter: curtain is covering screen, slide it up off screen
+  gsap.to(curtain, {
+    y: "-100%",
+    duration: 0.9,
+    ease: "power3.inOut",
+    delay: 0.05,
+    onComplete() {
+      curtain.style.pointerEvents = "none";
+    },
+  });
+
+  // ── Exit: intercept internal link clicks
+  document.addEventListener("click", (e) => {
+    const link = e.target.closest("a");
+    if (!link) return;
+
+    const href = link.getAttribute("href");
+    if (!href) return;
+
+    // Skip: external, hash-only, mailto, tel, target=_blank, same page
+    const isExternal   = link.hostname && link.hostname !== window.location.hostname;
+    const isHash       = href.startsWith("#");
+    const isMailOrTel  = href.startsWith("mailto:") || href.startsWith("tel:");
+    const isBlank      = link.target === "_blank";
+    const isSamePage   = link.href === window.location.href;
+
+    if (isExternal || isHash || isMailOrTel || isBlank || isSamePage) return;
+
+    e.preventDefault();
+
+    // Reset curtain below screen, then slide UP to cover
+    gsap.fromTo(
+      curtain,
+      { y: "100%" },
+      {
+        y: "0%",
+        duration: 0.65,
+        ease: "power3.inOut",
+        onStart() { curtain.style.pointerEvents = "all"; },
+        onComplete() { window.location.href = href; },
+      }
+    );
+  });
+
+  console.log("%c✅ Page transitions ready", "color:#00b894;font-size:12px;");
 }
 
 
