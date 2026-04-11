@@ -800,6 +800,32 @@ function initProjectsV3() {
   console.log("%c✅ Projects V3 initialized", "color:#00b894;font-size:12px;");
 }
 
+/* ---- PROJECTS V3 — Grid entrance animation ---- */
+function initProjectsV3() {
+  const cards = document.querySelectorAll(".pv3__card");
+  if (!cards.length) return;
+
+  gsap.set(cards, { opacity: 0, y: 40, scale: 0.97 });
+
+  ScrollTrigger.create({
+    trigger: ".pv3__grid",
+    start: "top 80%",
+    once: true,
+    onEnter() {
+      gsap.to(cards, {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.7,
+        ease: "power3.out",
+        stagger: { amount: 0.5, from: "start" },
+      });
+    },
+  });
+
+  console.log("%c✅ Projects V3 grid ready", "color:#00b894;font-size:12px;");
+}
+
 function initProcess() {
   /* Task 6 */
 }
@@ -839,6 +865,7 @@ initProcess();
   initFooter();
   initProjectsModal();
   initProjectsV2();
+  initProjectsV3();
   initTextReveal();
   initCulture();
   console.log(
