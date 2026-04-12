@@ -90,6 +90,16 @@ function initNav() {
   /* ---- Scroll: dark bg + hide/show ---- */
   const SCROLL_THRESHOLD = 150;
   let lastScrollY = 0;
+  let isNavHovered = false;
+
+  header.addEventListener("mouseenter", () => {
+    isNavHovered = true;
+    document.getElementById("cursor")?.classList.add("is-on-nav");
+  });
+  header.addEventListener("mouseleave", () => {
+    isNavHovered = false;
+    document.getElementById("cursor")?.classList.remove("is-on-nav");
+  });
 
   function onScroll() {
     const scrollY = lenis ? lenis.scroll : window.scrollY;
@@ -98,9 +108,9 @@ function initNav() {
     header.classList.toggle("scrolled", scrollY > SCROLL_THRESHOLD);
 
     // Hide on scroll down, show on scroll up
-    // Only activate after scrolled past the hero area
+    // Skip hiding if mouse is over the nav
     if (scrollY > SCROLL_THRESHOLD) {
-      if (scrollY > lastScrollY) {
+      if (scrollY > lastScrollY && !isNavHovered) {
         header.classList.add("nav--hidden");
       } else {
         header.classList.remove("nav--hidden");
@@ -228,6 +238,45 @@ function initNav() {
       }
     });
   });
+
+  /* ---- Magic sliding pill ---- */
+  const navList  = header.querySelector(".nav__links");
+  const pill     = header.querySelector(".nav__pill");
+  const navLinks = Array.from(header.querySelectorAll(".nav__link"));
+
+  if (navList && pill && navLinks.length) {
+    // Position pill over a given element
+    function movePill(el, duration = 0.28) {
+      const listRect = navList.getBoundingClientRect();
+      const elRect   = el.getBoundingClientRect();
+      gsap.to(pill, {
+        left:     elRect.left - listRect.left,
+        width:    elRect.width,
+        duration,
+        ease:     "power2.out",
+      });
+    }
+
+    // Snap pill to active link instantly on load (no animation)
+    const activeLink = navList.querySelector(".nav__link--active") || navLinks[0];
+    // Wait one frame so layout is settled
+    requestAnimationFrame(() => {
+      movePill(activeLink, 0);
+      gsap.set(pill, { opacity: 1 });
+    });
+
+    // Hover: slide pill to hovered link
+    navLinks.forEach((link) => {
+      link.addEventListener("mouseenter", () => movePill(link, 0.28));
+    });
+
+    // Only return pill when mouse leaves the ENTIRE header (not just navList)
+    // This way moving from dropdown → any nav link never triggers a return
+    header.addEventListener("mouseleave", () => movePill(activeLink, 0.35));
+
+    // When dropdown closes: do nothing — pill stays wherever it is
+    // It will return naturally when mouse leaves the header
+  }
 
   console.log("%c✅ Nav initialized", "color:#00b894;font-size:12px;");
 }
@@ -388,8 +437,10 @@ function initCursor() {
   );
 
   // Grow on hoverable elements
-  const hoverables = "a, button, [role='button'], .nav__link, .clients__item, .projects__row, input, label";
+  const hoverables = "a, button, [role='button'], .clients__item, .projects__row, input, label";
   document.querySelectorAll(hoverables).forEach((el) => {
+    // Skip anything inside the nav — pill handles nav hover visually
+    if (el.closest("#site-header")) return;
     el.addEventListener("mouseenter", () => cursor.classList.add("is-hovering"));
     el.addEventListener("mouseleave", () => cursor.classList.remove("is-hovering"));
   });
@@ -547,408 +598,6 @@ function initProjectsModal() {
   console.log("%c✅ Projects modal ready", "color:#00b894;font-size:12px;");
 }
 
-/* ---- PROJECTS V2 — drag scroll + prev/next ---- */
-function initProjectsV2() {
-  const track   = document.getElementById("pv2-track");
-  const btnPrev = document.getElementById("pv2-prev");
-  const btnNext = document.getElementById("pv2-next");
-  if (!track) return;
-
-  // Drag to scroll
-  let isDown = false, startX, scrollLeft;
-
-  track.addEventListener("mousedown", (e) => {
-    isDown = true;
-    startX = e.pageX - track.offsetLeft;
-    scrollLeft = track.scrollLeft;
-  });
-  track.addEventListener("mouseleave", () => isDown = false);
-  track.addEventListener("mouseup",    () => isDown = false);
-  track.addEventListener("mousemove",  (e) => {
-    if (!isDown) return;
-    e.preventDefault();
-    const x    = e.pageX - track.offsetLeft;
-    const walk = (x - startX) * 1.5;
-    track.scrollLeft = scrollLeft - walk;
-  });
-
-  // Prev / Next buttons — scroll by one card width
-  const CARD_W = () => track.querySelector(".projects-v2__card")?.offsetWidth + 20 || 380;
-
-  btnPrev?.addEventListener("click", () => {
-    track.scrollBy({ left: -CARD_W(), behavior: "smooth" });
-  });
-  btnNext?.addEventListener("click", () => {
-    track.scrollBy({ left: CARD_W(), behavior: "smooth" });
-  });
-}
-
-
-/* ---- PROJECTS V3 — Full-screen showcase ---- */
-function initProjectsV3() {
-  const section  = document.getElementById("projects-v3");
-  const navEl    = document.getElementById("pv3-nav");
-  const slidesEl = document.getElementById("pv3-slides");
-  if (!section || !navEl) return;
-
-  const PROJECTS = [
-    {
-      name:       "Omkareshwar",
-      slug:       "omkareshwar",
-      mw:         "600",
-      location:   "Narmada River, Madhya Pradesh",
-      status:     "commissioned",
-      statusLabel:"Commissioned",
-      year:       "2023",
-      state:      "Madhya Pradesh",
-      reservoir:  "Omkareshwar Dam",
-      feature:    "World's Largest FSPV",
-      depth:      "Up to 25 m",
-      client:     "NHDC",
-      capacity:   "600 MW",
-      type:       "FSPV",
-      stats: [
-        { num: "12,00,000+", lbl: "Solar Panels" },
-        { num: "600 AC",     lbl: "Capacity" },
-        { num: "8,00,000+",  lbl: "Sq. Metres" },
-        { num: "1,060 MU",   lbl: "Energy / yr" },
-      ],
-    },
-    {
-      name:       "Ramagundam",
-      slug:       "ntpc-ramagundam",
-      mw:         "100",
-      location:   "Ramagundam Reservoir, Telangana",
-      status:     "commissioned",
-      statusLabel:"Commissioned",
-      year:       "2022",
-      state:      "Telangana",
-      reservoir:  "Ramagundam Reservoir",
-      feature:    "NTPC Flagship FSPV",
-      depth:      "Up to 15 m",
-      client:     "NTPC",
-      capacity:   "100 MW",
-      type:       "FSPV",
-      stats: [
-        { num: "2,20,000+", lbl: "Solar Panels" },
-        { num: "100 AC",    lbl: "Capacity" },
-        { num: "1,00,000+", lbl: "Sq. Metres" },
-        { num: "200 MU",    lbl: "Energy / yr" },
-      ],
-    },
-    {
-      name:       "SECI Bisalpur",
-      slug:       "seci-reservoir",
-      mw:         "50",
-      location:   "Bisalpur Reservoir, Rajasthan",
-      status:     "commissioned",
-      statusLabel:"Commissioned",
-      year:       "2023",
-      state:      "Rajasthan",
-      reservoir:  "Bisalpur Dam",
-      feature:    "Arid Zone Pioneer",
-      depth:      "Up to 20 m",
-      client:     "SECI",
-      capacity:   "50 MW",
-      type:       "FSPV",
-      stats: [
-        { num: "90,000+",  lbl: "Solar Panels" },
-        { num: "50 AC",    lbl: "Capacity" },
-        { num: "50,000+",  lbl: "Sq. Metres" },
-        { num: "98 MU",    lbl: "Energy / yr" },
-      ],
-    },
-    {
-      name:       "Tata Canal",
-      slug:       "tata-power-canal",
-      mw:         "25",
-      location:   "Narmada Canal, Gujarat",
-      status:     "commissioned",
-      statusLabel:"Commissioned",
-      year:       "2023",
-      state:      "Gujarat",
-      reservoir:  "Narmada Irrigation Canal",
-      feature:    "Canal-Top Innovation",
-      depth:      "Flowing — 3 m",
-      client:     "Tata Power",
-      capacity:   "25 MW",
-      type:       "Canal Top",
-      stats: [
-        { num: "55,000+",  lbl: "Solar Panels" },
-        { num: "25 AC",    lbl: "Capacity" },
-        { num: "30,000+",  lbl: "Sq. Metres" },
-        { num: "48 MU",    lbl: "Energy / yr" },
-      ],
-    },
-    {
-      name:       "AMPIN Pawna",
-      slug:       "ampin-energy-lake",
-      mw:         "75",
-      location:   "Pawna Lake, Maharashtra",
-      status:     "ongoing",
-      statusLabel:"In Progress",
-      year:       "2024",
-      state:      "Maharashtra",
-      reservoir:  "Pawna Lake",
-      feature:    "Monsoon-Resilient Design",
-      depth:      "Up to 30 m",
-      client:     "AMPIN Energy",
-      capacity:   "75 MW",
-      type:       "FSPV",
-      stats: [
-        { num: "1,65,000+", lbl: "Solar Panels" },
-        { num: "75 AC",     lbl: "Capacity" },
-        { num: "75,000+",   lbl: "Sq. Metres" },
-        { num: "148 MU",    lbl: "Energy / yr" },
-      ],
-    },
-  ];
-
-  let current = 0;
-  let busy = false;
-
-  const slides = Array.from(slidesEl.querySelectorAll(".pv3__slide"));
-  const ghostEl   = document.getElementById("pv3-ghost-num");
-  const counterEl = document.getElementById("pv3-counter-cur");
-  const totalEl   = document.getElementById("pv3-counter-total");
-  const projLink  = section.querySelector(".pv3__proj-link");
-
-  if (totalEl) totalEl.textContent = PROJECTS.length;
-
-  // Build nav tabs
-  PROJECTS.forEach((p, i) => {
-    const btn = document.createElement("button");
-    btn.className = "pv3__nav-btn" + (i === 0 ? " is-active" : "");
-    btn.setAttribute("aria-label", `View project: ${p.name}`);
-    btn.dataset.idx = i;
-    btn.innerHTML = `
-      <span class="pv3__nav-num">${String(i+1).padStart(2,"0")} / ${PROJECTS.length}</span>
-      <span class="pv3__nav-details">
-        <span class="pv3__nav-name">${p.name}</span>
-        <span class="pv3__nav-sub">${p.mw} MW &bull; ${p.year}</span>
-      </span>`;
-    btn.addEventListener("click", () => goTo(i));
-    navEl.appendChild(btn);
-  });
-
-  function render(idx) {
-    const p = PROJECTS[idx];
-
-    // Text content
-    if (counterEl) counterEl.textContent = String(idx + 1).padStart(2, "0");
-    if (ghostEl)   ghostEl.textContent   = String(idx + 1).padStart(2, "0");
-    if (projLink)  projLink.href         = `/projects/${p.slug}`;
-
-    document.getElementById("pv3-state").textContent        = p.state;
-    document.getElementById("pv3-reservoir").textContent    = p.reservoir;
-    document.getElementById("pv3-feature").textContent      = p.feature;
-    document.getElementById("pv3-depth").textContent        = p.depth;
-    document.getElementById("pv3-mw-num").textContent       = p.mw;
-    document.getElementById("pv3-proj-name").textContent    = p.name;
-    document.getElementById("pv3-proj-loc").textContent     = p.location;
-    document.getElementById("pv3-client").textContent       = p.client;
-    document.getElementById("pv3-capacity").textContent     = p.capacity;
-    document.getElementById("pv3-type").textContent         = p.type;
-    document.getElementById("pv3-status-badge").textContent = p.statusLabel;
-    document.getElementById("pv3-year").textContent         = p.year;
-
-    const badge = document.getElementById("pv3-proj-badge");
-    badge.textContent    = p.statusLabel;
-    badge.dataset.status = p.status;
-
-    p.stats.forEach((s, j) => {
-      document.getElementById(`pv3-s${j+1}`).textContent = s.num;
-      document.getElementById(`pv3-l${j+1}`).textContent = s.lbl;
-    });
-
-    // Nav tabs
-    navEl.querySelectorAll(".pv3__nav-btn").forEach((btn, j) =>
-      btn.classList.toggle("is-active", j === idx)
-    );
-
-    // BG slides
-    slides.forEach((s, j) => s.classList.toggle("is-active", j === idx));
-  }
-
-  function goTo(idx) {
-    if (idx === current || busy) return;
-    busy = true;
-    section.classList.add("pv3--transitioning");
-
-    setTimeout(() => {
-      current = idx;
-      render(idx);
-      section.classList.remove("pv3--transitioning");
-      busy = false;
-    }, 280);
-  }
-
-  // Keyboard support
-  section.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowLeft"  || e.key === "ArrowUp")   goTo((current - 1 + PROJECTS.length) % PROJECTS.length);
-    if (e.key === "ArrowRight" || e.key === "ArrowDown")  goTo((current + 1) % PROJECTS.length);
-  });
-
-  document.getElementById("pv3-prev")?.addEventListener("click", () =>
-    goTo((current - 1 + PROJECTS.length) % PROJECTS.length)
-  );
-  document.getElementById("pv3-next")?.addEventListener("click", () =>
-    goTo((current + 1) % PROJECTS.length)
-  );
-
-  render(0);
-  console.log("%c✅ Projects V3 initialized", "color:#00b894;font-size:12px;");
-}
-
-/* ---- PROJECTS V3 — Grid entrance + image cycling on hover ---- */
-function initProjectsV3() {
-  const cards = document.querySelectorAll(".pv3__card");
-  if (!cards.length) return;
-
-  // Scroll entrance animation
-  gsap.set(cards, { opacity: 0, y: 40, scale: 0.97 });
-  ScrollTrigger.create({
-    trigger: ".pv3__grid",
-    start: "top 80%",
-    once: true,
-    onEnter() {
-      gsap.to(cards, {
-        opacity: 1, y: 0, scale: 1,
-        duration: 0.7, ease: "power3.out",
-        stagger: { amount: 0.5, from: "start" },
-      });
-    },
-  });
-
-  // Image cycling on hover
-  cards.forEach((card) => {
-    const imgs = Array.from(card.querySelectorAll(".pv3__card-fig img"));
-    if (imgs.length < 2) return;
-
-    let idx = 0;
-    let timer = null;
-
-    card.addEventListener("mouseenter", () => {
-      // Start cycling immediately from image 1 → 2 → 0 → ...
-      timer = setInterval(() => {
-        imgs[idx].classList.remove("is-active");
-        idx = (idx + 1) % imgs.length;
-        imgs[idx].classList.add("is-active");
-      }, 900);
-    });
-
-    card.addEventListener("mouseleave", () => {
-      clearInterval(timer);
-      // Reset to first image
-      imgs.forEach(img => img.classList.remove("is-active"));
-      idx = 0;
-      imgs[0].classList.add("is-active");
-    });
-  });
-
-  console.log("%c✅ Projects V3 grid ready", "color:#00b894;font-size:12px;");
-}
-
-/* ---- PROJECTS V4 — Single-pin scroll-driven blinds reveal ---- */
-function initProjectsV4() {
-  const section = document.getElementById("projects-v4");
-  if (!section) return;
-
-  const slides = Array.from(section.querySelectorAll(".pv4__slide"));
-  if (!slides.length) return;
-
-  const STRIP_COUNT = 10;
-  const counter     = document.getElementById("pv4-counter");
-  const curEl       = document.getElementById("pv4-cur");
-  const N           = slides.length;
-
-  // ── Build strips ──────────────────────────────────────────────
-  slides.forEach((slide) => {
-    const blinds = slide.querySelector(".pv4__blinds");
-    if (!blinds || blinds.children.length) return;
-    for (let s = 0; s < STRIP_COUNT; s++) {
-      const div = document.createElement("div");
-      div.className = "pv4__strip";
-      blinds.appendChild(div);
-    }
-  });
-
-  const allStrips = slides.map((slide) =>
-    Array.from(slide.querySelectorAll(".pv4__strip"))
-  );
-
-  // ── Initial state ──────────────────────────────────────────────
-  // Slide 0: fully visible, blinds open (scaleY 0)
-  gsap.set(slides[0], { autoAlpha: 1 });
-  gsap.set(allStrips[0], { scaleY: 0, transformOrigin: "50% 0%" });
-  // Slides 1–N: hidden, blinds closed (scaleY 1)
-  for (let i = 1; i < N; i++) {
-    gsap.set(slides[i], { autoAlpha: 0 });
-    gsap.set(allStrips[i], { scaleY: 1, transformOrigin: "50% 0%" });
-  }
-
-  // ── Master timeline (scrub drives it) ─────────────────────────
-  // Per transition i → i+1:
-  //   hold (0.5) → close blinds (1.6) → instant swap (0.01) → open blinds (1.6)
-  const masterTl = gsap.timeline({ paused: true });
-
-  // Opening hold so first slide sits fully visible for a beat
-  masterTl.to({}, { duration: 0.5 });
-
-  for (let i = 0; i < N - 1; i++) {
-    // 1. Close current slide — strips scale up top-to-bottom
-    masterTl.to(allStrips[i], {
-      scaleY: 1,
-      duration: 1,
-      stagger: { amount: 0.6, from: "start" },
-      ease: "power2.inOut",
-    });
-
-    // 2. Instant swap: hide exhausted slide, surface the next
-    masterTl
-      .to(slides[i],     { autoAlpha: 0, duration: 0.01, ease: "none" }, ">")
-      .to(slides[i + 1], { autoAlpha: 1, duration: 0.01, ease: "none" }, "<");
-
-    // 3. Open next slide — strips scale down top-to-bottom
-    masterTl.to(allStrips[i + 1], {
-      scaleY: 0,
-      duration: 1,
-      stagger: { amount: 0.6, from: "start" },
-      ease: "power2.inOut",
-    });
-
-    // Brief hold between consecutive slides (skip after final transition)
-    if (i < N - 2) masterTl.to({}, { duration: 0.4 });
-  }
-
-  // Closing hold — last slide stays fully visible before unpinning
-  masterTl.to({}, { duration: 0.5 });
-
-  // ── Counter ────────────────────────────────────────────────────
-  function updateCounter(progress) {
-    if (!curEl) return;
-    curEl.textContent = String(Math.min(Math.floor(progress * N), N - 1) + 1).padStart(2, "0");
-  }
-
-  // ── Single pinned ScrollTrigger ────────────────────────────────
-  ScrollTrigger.create({
-    trigger:       section,
-    start:         "top top",
-    end:           `+=${N * 150}%`,
-    pin:           true,
-    anticipatePin: 1,
-    scrub:         1,
-    animation:     masterTl,
-    onEnter()      { counter?.classList.add("is-visible");    },
-    onLeave()      { counter?.classList.remove("is-visible"); },
-    onEnterBack()  { counter?.classList.add("is-visible");    },
-    onLeaveBack()  { counter?.classList.remove("is-visible"); },
-    onUpdate(self) { updateCounter(self.progress);            },
-  });
-
-  window.addEventListener("load", () => ScrollTrigger.refresh(), { once: true });
-  console.log("%c✅ Projects V4 initialized", "color:#00b894;font-size:12px;");
-}
 
 function initProcess() {
   /* Task 6 */
@@ -970,6 +619,9 @@ document.addEventListener("DOMContentLoaded", () => {
     "color:#FCAF17;font-weight:bold;font-size:16px;",
   );
 
+  initPageTransitions();   // first — curtain reveal plays immediately
+  initProjHero();
+
   const libs = verifyLibraries();
 
   if (libs.Lenis) initLenis();
@@ -988,9 +640,6 @@ initProcess();
   initContact();
   initFooter();
   initProjectsModal();
-  initProjectsV2();
-  initProjectsV3();
-  initProjectsV4();
   initTextReveal();
   initCulture();
   console.log(
@@ -1083,6 +732,118 @@ function initCulture() {
 
   onScroll();
   console.log("%c✅ Culture initialized", "color:#00b894;font-size:12px;");
+}
+
+/* ---- PROJECTS HERO — mosaic tile flip reveal ---- */
+function initProjHero() {
+  const section  = document.getElementById("proj-hero");
+  const tileWrap = document.getElementById("proj-hero-tiles");
+  const content  = document.getElementById("proj-hero-content");
+  if (!section || !tileWrap || !content) return;
+
+  const COLS = 6, ROWS = 5, TOTAL = COLS * ROWS; // 30 tiles
+
+  // Build tiles
+  for (let i = 0; i < TOTAL; i++) {
+    const tile = document.createElement("div");
+    tile.className = "proj-hero__tile";
+    tileWrap.appendChild(tile);
+  }
+
+  const tiles = Array.from(tileWrap.querySelectorAll(".proj-hero__tile"));
+
+  // Shuffle helper
+  function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  // Pick 1 random tile to start already open (opacity 0)
+  const openIdx = Math.floor(Math.random() * TOTAL);
+  gsap.set(tiles[openIdx], { opacity: 0 });
+
+  // Remaining 11 tiles flip away in random order after a short pause
+  const remaining = shuffle(tiles.filter((_, i) => i !== openIdx));
+
+  const tl = gsap.timeline({ delay: 0.6 });
+
+  remaining.forEach((tile, i) => {
+    tl.to(tile, {
+      rotateX:         -90,
+      opacity:         0,
+      duration:        0.55,
+      ease:            "power2.in",
+      transformOrigin: "50% 0%",
+    }, i * 0.08);   // 0.08s between each tile = ~0.88s total
+  });
+
+  // Content fades in as last tiles flip away
+  tl.to(content, {
+    opacity:  1,
+    y:        0,
+    duration: 0.7,
+    ease:     "power3.out",
+  }, "-=0.3");
+
+  // Set content start position
+  gsap.set(content, { y: 24 });
+
+  console.log("%c✅ Projects hero ready", "color:#00b894;font-size:12px;");
+}
+
+/* ---- PAGE TRANSITIONS ---- */
+function initPageTransitions() {
+  const curtain = document.getElementById("pg-transition");
+  if (!curtain) return;
+
+  // ── Enter: curtain is covering screen, slide it up off screen
+  gsap.to(curtain, {
+    y: "-100%",
+    duration: 0.9,
+    ease: "power3.inOut",
+    delay: 0.05,
+    onComplete() {
+      curtain.style.pointerEvents = "none";
+    },
+  });
+
+  // ── Exit: intercept internal link clicks
+  document.addEventListener("click", (e) => {
+    const link = e.target.closest("a");
+    if (!link) return;
+
+    const href = link.getAttribute("href");
+    if (!href) return;
+
+    // Skip: external, hash-only, mailto, tel, target=_blank, same page
+    const isExternal   = link.hostname && link.hostname !== window.location.hostname;
+    const isHash       = href.startsWith("#");
+    const isMailOrTel  = href.startsWith("mailto:") || href.startsWith("tel:");
+    const isBlank      = link.target === "_blank";
+    const isSamePage   = link.href === window.location.href;
+
+    if (isExternal || isHash || isMailOrTel || isBlank || isSamePage) return;
+
+    e.preventDefault();
+
+    // Reset curtain below screen, then slide UP to cover
+    gsap.fromTo(
+      curtain,
+      { y: "100%" },
+      {
+        y: "0%",
+        duration: 0.65,
+        ease: "power3.inOut",
+        onStart() { curtain.style.pointerEvents = "all"; },
+        onComplete() { window.location.href = href; },
+      }
+    );
+  });
+
+  console.log("%c✅ Page transitions ready", "color:#00b894;font-size:12px;");
 }
 
 
