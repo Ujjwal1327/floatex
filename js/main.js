@@ -620,6 +620,7 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
   initPageTransitions();   // first — curtain reveal plays immediately
+  initProjHero();
 
   const libs = verifyLibraries();
 
@@ -731,6 +732,66 @@ function initCulture() {
 
   onScroll();
   console.log("%c✅ Culture initialized", "color:#00b894;font-size:12px;");
+}
+
+/* ---- PROJECTS HERO — mosaic tile flip reveal ---- */
+function initProjHero() {
+  const section  = document.getElementById("proj-hero");
+  const tileWrap = document.getElementById("proj-hero-tiles");
+  const content  = document.getElementById("proj-hero-content");
+  if (!section || !tileWrap || !content) return;
+
+  const COLS = 6, ROWS = 5, TOTAL = COLS * ROWS; // 30 tiles
+
+  // Build tiles
+  for (let i = 0; i < TOTAL; i++) {
+    const tile = document.createElement("div");
+    tile.className = "proj-hero__tile";
+    tileWrap.appendChild(tile);
+  }
+
+  const tiles = Array.from(tileWrap.querySelectorAll(".proj-hero__tile"));
+
+  // Shuffle helper
+  function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  // Pick 1 random tile to start already open (opacity 0)
+  const openIdx = Math.floor(Math.random() * TOTAL);
+  gsap.set(tiles[openIdx], { opacity: 0 });
+
+  // Remaining 11 tiles flip away in random order after a short pause
+  const remaining = shuffle(tiles.filter((_, i) => i !== openIdx));
+
+  const tl = gsap.timeline({ delay: 0.6 });
+
+  remaining.forEach((tile, i) => {
+    tl.to(tile, {
+      rotateX:         -90,
+      opacity:         0,
+      duration:        0.55,
+      ease:            "power2.in",
+      transformOrigin: "50% 0%",
+    }, i * 0.08);   // 0.08s between each tile = ~0.88s total
+  });
+
+  // Content fades in as last tiles flip away
+  tl.to(content, {
+    opacity:  1,
+    y:        0,
+    duration: 0.7,
+    ease:     "power3.out",
+  }, "-=0.3");
+
+  // Set content start position
+  gsap.set(content, { y: 24 });
+
+  console.log("%c✅ Projects hero ready", "color:#00b894;font-size:12px;");
 }
 
 /* ---- PAGE TRANSITIONS ---- */

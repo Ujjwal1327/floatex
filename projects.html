@@ -291,7 +291,30 @@
   ============================================ -->
   <main id="projects-main">
 
-    <!-- Projects content goes here -->
+    <!-- ================================================
+         PROJECTS HERO — Mosaic tile reveal
+    ================================================= -->
+    <section class="proj-hero" id="proj-hero">
+
+      <!-- Background image -->
+      <div class="proj-hero__bg"
+        style="background-image:url('https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1800&q=85')">
+      </div>
+
+      <!-- Dark gradient overlay -->
+      <div class="proj-hero__overlay"></div>
+
+      <!-- 4×3 tile grid — filled by JS -->
+      <div class="proj-hero__tiles" id="proj-hero-tiles" aria-hidden="true"></div>
+
+      <!-- Content — reveals after tiles flip away -->
+      <div class="proj-hero__content" id="proj-hero-content">
+        <span class="proj-hero__eyebrow"><span class="dot"></span> Our Projects</span>
+        <h1 class="proj-hero__title">Built on <span class="text--primary">water.</span><br>Powering the <span class="text--primary">nation.</span></h1>
+        <p class="proj-hero__desc">From reservoirs to canals — every installation engineered for maximum yield, minimum footprint.</p>
+      </div>
+
+    </section>
 
   </main>
 
