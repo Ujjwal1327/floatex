@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:floatexsolar.com)",
+      "Bash(sed -n '16,130p' c:/flt/floatex/css/styles.css)",
+      "Bash(sed -n '270,393p' c:/flt/floatex/css/styles.css)",
+      "Bash(sed -n '131,269p' c:/flt/floatex/css/styles.css)",
+      "Bash(sed -n '394,835p' c:/flt/floatex/css/styles.css)",
+      "Bash(sed -n '2370,2611p' c:/flt/floatex/css/styles.css)",
+      "Bash(python3 /tmp/gen_projects.py)",
+      "Bash(where python:*)",
+      "Bash(where python3:*)",
+      "Bash(where py:*)",
+      "Bash(node gen_projects.js)"
+    ]
+  }
+}
