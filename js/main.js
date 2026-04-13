@@ -621,6 +621,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   initPageTransitions();   // first — curtain reveal plays immediately
   initProjHero();
+  initProjTimeline();
 
   const libs = verifyLibraries();
 
@@ -792,6 +793,101 @@ function initProjHero() {
   gsap.set(content, { y: 24 });
 
   console.log("%c✅ Projects hero ready", "color:#00b894;font-size:12px;");
+}
+
+/* ---- PROJECTS TIMELINE ---- */
+function initProjTimeline() {
+  if (!document.getElementById("proj-timeline")) return;
+  if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
+
+  /* 1. Progressive line fill — scrubs with scroll */
+  gsap.to("#tl-fill", {
+    scaleY: 1,
+    ease: "none",
+    scrollTrigger: {
+      trigger: ".proj-tl__body",
+      start: "top 80%",
+      end:   "bottom 20%",
+      scrub: 1,
+    },
+  });
+
+  /* 2. Year badges — scale + fade in */
+  gsap.utils.toArray("[data-tl-year]").forEach((el) => {
+    gsap.fromTo(
+      el,
+      { scale: 0.65, opacity: 0, y: 12 },
+      {
+        scale: 1, opacity: 1, y: 0,
+        duration: 0.55,
+        ease: "back.out(1.7)",
+        scrollTrigger: { trigger: el, start: "top 88%" },
+      }
+    );
+  });
+
+  /* 3. Cards slide in from their respective sides */
+  gsap.utils.toArray("[data-tl-card]").forEach((row) => {
+    const isLeft = row.classList.contains("proj-tl__row--left");
+    const card   = row.querySelector(".proj-tl__card");
+    const dot    = row.querySelector(".proj-tl__dot");
+
+    if (card) {
+      gsap.fromTo(
+        card,
+        { x: isLeft ? -70 : 70, opacity: 0 },
+        {
+          x: 0, opacity: 1,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: { trigger: row, start: "top 85%" },
+        }
+      );
+    }
+
+    if (dot) {
+      gsap.fromTo(
+        dot,
+        { scale: 0, opacity: 0 },
+        {
+          scale: 1, opacity: 1,
+          duration: 0.4,
+          ease: "back.out(2.2)",
+          delay: 0.2,
+          scrollTrigger: { trigger: row, start: "top 85%" },
+        }
+      );
+    }
+  });
+
+  /* 4. Image cycling on card hover */
+  document.querySelectorAll(".proj-tl__card").forEach((card) => {
+    const imgs = Array.from(card.querySelectorAll(".proj-tl__card-img"));
+    if (imgs.length < 2) return;
+
+    let timer = null;
+    let current = 0;
+
+    card.addEventListener("mouseenter", () => {
+      current = 0; // always start from first on enter
+      timer = setInterval(() => {
+        imgs[current].classList.remove("is-active");
+        current = (current + 1) % imgs.length;
+        imgs[current].classList.add("is-active");
+      }, 900);
+    });
+
+    card.addEventListener("mouseleave", () => {
+      clearInterval(timer);
+      timer = null;
+      // reset to first image
+      imgs.forEach((img) => img.classList.remove("is-active"));
+      imgs[0].classList.add("is-active");
+      current = 0;
+    });
+  });
+
+  console.log("%c✅ Projects timeline ready", "color:#00b894;font-size:12px;");
 }
 
 /* ---- PAGE TRANSITIONS ---- */

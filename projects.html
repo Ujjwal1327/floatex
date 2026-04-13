@@ -111,8 +111,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" defer></script>
 
-  <!-- STYLESHEET -->
-  <link rel="stylesheet" href="css/styles.css" />
+  <!-- STYLESHEETS -->
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/projects.css" />
 </head>
 
 <body>
@@ -314,6 +316,205 @@
         <p class="proj-hero__desc">From reservoirs to canals — every installation engineered for maximum yield, minimum footprint.</p>
       </div>
 
+    </section>
+
+    <!-- ================================================
+         PROJECTS TIMELINE
+    ================================================= -->
+    <section class="proj-tl" id="proj-timeline">
+
+      <div class="proj-tl__header">
+        <span class="proj-tl__eyebrow"><span class="dot"></span> Our Journey</span>
+        <h2 class="proj-tl__title">Projects <em class="text--primary">Timeline</em></h2>
+        <p class="proj-tl__subtitle">From 22 MW pilots to India's largest floating solar — every project, a milestone.</p>
+      </div>
+
+      <div class="proj-tl__body">
+
+        <!-- Vertical track line -->
+        <div class="proj-tl__track" aria-hidden="true">
+          <div class="proj-tl__track-fill" id="tl-fill"></div>
+        </div>
+
+        <!-- ── 2020 ── -->
+        <div class="proj-tl__year-stamp" data-tl-year>
+          <span class="proj-tl__year-badge">2020</span>
+        </div>
+
+        <div class="proj-tl__row proj-tl__row--left" data-tl-card>
+          <a href="projects/ntpc-bhel-kayamkulam.html" class="proj-tl__card">
+            <div class="proj-tl__card-imgs">
+              <img class="proj-tl__card-img is-active" src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=700&q=85" alt="NTPC BHEL Kayamkulam" loading="lazy" />
+              <img class="proj-tl__card-img" src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=700&q=85" alt="" loading="lazy" aria-hidden="true" />
+              <img class="proj-tl__card-img" src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=700&q=85" alt="" loading="lazy" aria-hidden="true" />
+            </div>
+            <div class="proj-tl__card-overlay">
+              <span class="proj-tl__card-mw">22 MW</span>
+              <h3 class="proj-tl__card-title">NTPC — BHEL</h3>
+              <p class="proj-tl__card-loc"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Kayamkulam, Kerala</p>
+            </div>
+          </a>
+          <div class="proj-tl__dot-wrap" aria-hidden="true"><div class="proj-tl__dot"></div></div>
+          <div class="proj-tl__spacer"></div>
+        </div>
+
+        <!-- ── 2021 ── -->
+        <div class="proj-tl__year-stamp" data-tl-year>
+          <span class="proj-tl__year-badge">2021</span>
+        </div>
+
+        <div class="proj-tl__row proj-tl__row--right" data-tl-card>
+          <div class="proj-tl__spacer"></div>
+          <div class="proj-tl__dot-wrap" aria-hidden="true"><div class="proj-tl__dot"></div></div>
+          <a href="projects/jindal-stainless.html" class="proj-tl__card">
+            <div class="proj-tl__card-imgs">
+              <img class="proj-tl__card-img is-active" src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=700&q=85" alt="Jindal Stainless" loading="lazy" />
+              <img class="proj-tl__card-img" src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=700&q=85" alt="" loading="lazy" aria-hidden="true" />
+              <img class="proj-tl__card-img" src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=700&q=85" alt="" loading="lazy" aria-hidden="true" />
+            </div>
+            <div class="proj-tl__card-overlay">
+              <span class="proj-tl__card-mw">1.5 MW</span>
+              <h3 class="proj-tl__card-title">Jindal Stainless</h3>
+              <p class="proj-tl__card-loc"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Hisar, Haryana</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="proj-tl__row proj-tl__row--left" data-tl-card>
+          <a href="projects/dalmia-cement.html" class="proj-tl__card">
+            <div class="proj-tl__card-imgs">
+              <img class="proj-tl__card-img is-active" src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=700&q=85" alt="Dalmia Cement" loading="lazy" />
+              <img class="proj-tl__card-img" src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=700&q=85" alt="" loading="lazy" aria-hidden="true" />
+              <img class="proj-tl__card-img" src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=700&q=85" alt="" loading="lazy" aria-hidden="true" />
+            </div>
+            <div class="proj-tl__card-overlay">
+              <span class="proj-tl__card-mw">4 MW</span>
+              <h3 class="proj-tl__card-title">Dalmia Cement</h3>
+              <p class="proj-tl__card-loc"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Bihar</p>
+            </div>
+          </a>
+          <div class="proj-tl__dot-wrap" aria-hidden="true"><div class="proj-tl__dot"></div></div>
+          <div class="proj-tl__spacer"></div>
+        </div>
+
+        <!-- ── 2022 ── -->
+        <div class="proj-tl__year-stamp" data-tl-year>
+          <span class="proj-tl__year-badge">2022</span>
+        </div>
+
+        <div class="proj-tl__row proj-tl__row--right" data-tl-card>
+          <div class="proj-tl__spacer"></div>
+          <div class="proj-tl__dot-wrap" aria-hidden="true"><div class="proj-tl__dot"></div></div>
+          <a href="projects/ntpc-bhel-simhadri.html" class="proj-tl__card">
+            <div class="proj-tl__card-imgs">
+              <img class="proj-tl__card-img is-active" src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=700&q=85" alt="NTPC BHEL Simhadri" loading="lazy" />
+              <img class="proj-tl__card-img" src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=700&q=85" alt="" loading="lazy" aria-hidden="true" />
+              <img class="proj-tl__card-img" src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=700&q=85" alt="" loading="lazy" aria-hidden="true" />
+            </div>
+            <div class="proj-tl__card-overlay">
+              <span class="proj-tl__card-mw">22 MW</span>
+              <h3 class="proj-tl__card-title">NTPC BHEL — Simhadri</h3>
+              <p class="proj-tl__card-loc"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Visakhapatnam, AP</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="proj-tl__row proj-tl__row--left" data-tl-card>
+          <a href="projects/ntpc-vikram-solar.html" class="proj-tl__card">
+            <div class="proj-tl__card-imgs">
+              <img class="proj-tl__card-img is-active" src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=700&q=85" alt="NTPC Vikram Solar Kawas" loading="lazy" />
+              <img class="proj-tl__card-img" src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=700&q=85" alt="" loading="lazy" aria-hidden="true" />
+              <img class="proj-tl__card-img" src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=700&q=85" alt="" loading="lazy" aria-hidden="true" />
+            </div>
+            <div class="proj-tl__card-overlay">
+              <span class="proj-tl__card-mw">33 MW</span>
+              <h3 class="proj-tl__card-title">NTPC — Vikram Solar</h3>
+              <p class="proj-tl__card-loc"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Kawas, Gujarat</p>
+            </div>
+          </a>
+          <div class="proj-tl__dot-wrap" aria-hidden="true"><div class="proj-tl__dot"></div></div>
+          <div class="proj-tl__spacer"></div>
+        </div>
+
+        <!-- ── 2023 ── -->
+        <div class="proj-tl__year-stamp" data-tl-year>
+          <span class="proj-tl__year-badge">2023</span>
+        </div>
+
+        <div class="proj-tl__row proj-tl__row--right" data-tl-card>
+          <div class="proj-tl__spacer"></div>
+          <div class="proj-tl__dot-wrap" aria-hidden="true"><div class="proj-tl__dot"></div></div>
+          <a href="projects/bpcl-illios-power.html" class="proj-tl__card">
+            <div class="proj-tl__card-imgs">
+              <img class="proj-tl__card-img is-active" src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=700&q=85" alt="BPCL Illios Kochi" loading="lazy" />
+              <img class="proj-tl__card-img" src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=700&q=85" alt="" loading="lazy" aria-hidden="true" />
+              <img class="proj-tl__card-img" src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=700&q=85" alt="" loading="lazy" aria-hidden="true" />
+            </div>
+            <div class="proj-tl__card-overlay">
+              <span class="proj-tl__card-mw">15 MW</span>
+              <h3 class="proj-tl__card-title">BPCL — Illios Power</h3>
+              <p class="proj-tl__card-loc"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Kochi Refinery, Kerala</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="proj-tl__row proj-tl__row--left" data-tl-card>
+          <a href="projects/ntpc-bhel-ramagundam.html" class="proj-tl__card">
+            <div class="proj-tl__card-imgs">
+              <img class="proj-tl__card-img is-active" src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=700&q=85" alt="NTPC BHEL Ramagundam" loading="lazy" />
+              <img class="proj-tl__card-img" src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=700&q=85" alt="" loading="lazy" aria-hidden="true" />
+              <img class="proj-tl__card-img" src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=700&q=85" alt="" loading="lazy" aria-hidden="true" />
+            </div>
+            <div class="proj-tl__card-overlay">
+              <span class="proj-tl__card-mw">130 MW</span>
+              <h3 class="proj-tl__card-title">NTPC BHEL — Ramagundam</h3>
+              <p class="proj-tl__card-loc"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Ramagundam, Telangana</p>
+            </div>
+          </a>
+          <div class="proj-tl__dot-wrap" aria-hidden="true"><div class="proj-tl__dot"></div></div>
+          <div class="proj-tl__spacer"></div>
+        </div>
+
+        <!-- ── 2024 ── -->
+        <div class="proj-tl__year-stamp" data-tl-year>
+          <span class="proj-tl__year-badge">2024</span>
+        </div>
+
+        <div class="proj-tl__row proj-tl__row--right" data-tl-card>
+          <div class="proj-tl__spacer"></div>
+          <div class="proj-tl__dot-wrap" aria-hidden="true"><div class="proj-tl__dot"></div></div>
+          <a href="projects/rumsl-amp-energy.html" class="proj-tl__card">
+            <div class="proj-tl__card-imgs">
+              <img class="proj-tl__card-img is-active" src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=700&q=85" alt="RUMSL Amp Energy Omkareshwar" loading="lazy" />
+              <img class="proj-tl__card-img" src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=700&q=85" alt="" loading="lazy" aria-hidden="true" />
+              <img class="proj-tl__card-img" src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=700&q=85" alt="" loading="lazy" aria-hidden="true" />
+            </div>
+            <div class="proj-tl__card-overlay">
+              <span class="proj-tl__card-mw">140 MW</span>
+              <h3 class="proj-tl__card-title">RUMSL — Amp Energy</h3>
+              <p class="proj-tl__card-loc"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Omkareshwar, MP</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="proj-tl__row proj-tl__row--left" data-tl-card>
+          <a href="projects/rumsl-tata-power.html" class="proj-tl__card">
+            <div class="proj-tl__card-imgs">
+              <img class="proj-tl__card-img is-active" src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=700&q=85" alt="RUMSL TATA Power Omkareshwar" loading="lazy" />
+              <img class="proj-tl__card-img" src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=700&q=85" alt="" loading="lazy" aria-hidden="true" />
+              <img class="proj-tl__card-img" src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=700&q=85" alt="" loading="lazy" aria-hidden="true" />
+            </div>
+            <div class="proj-tl__card-overlay">
+              <span class="proj-tl__card-mw">126 MW</span>
+              <h3 class="proj-tl__card-title">RUMSL — TATA Power</h3>
+              <p class="proj-tl__card-loc"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Omkareshwar, MP</p>
+            </div>
+          </a>
+          <div class="proj-tl__dot-wrap" aria-hidden="true"><div class="proj-tl__dot"></div></div>
+          <div class="proj-tl__spacer"></div>
+        </div>
+
+      </div>
     </section>
 
   </main>
