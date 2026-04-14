@@ -2078,7 +2078,7 @@
 .services__inner {
   /* max-width: 100%; */
   margin: 0 auto;
-   padding: 0 clamp(2.5rem, 7vw, 6rem);
+  padding: 0 clamp(2.5rem, 7vw, 6rem);
 }
 
 /* ---- Header ---- */
@@ -2123,8 +2123,6 @@
 }
 
 
-
-/* ---- Card base ---- */
 .svc-card {
   background: #fff;
   border-radius: var(--radius-xl);
@@ -2134,40 +2132,74 @@
   gap: 0.75rem;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
   border: 1px solid rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    background-color 0.35s ease,
+    border-color 0.35s ease;
   opacity: 0;
   transform: translateY(28px);
-}
-
-.svc-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.1);
-  background-color: var(--color-primary);
   cursor: pointer;
 }
 
-.svc-card:hover .svc-card__desc {
-  font-size: 0.82rem;
-  flex: 1;
-  line-height: 1.6;
-  color: rgba(10, 10, 10, 1);
+/* Hover — yellow fill for regular cards only */
+.svc-card:hover {
+  transform: translateY(-6px);
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  box-shadow: 0 20px 48px rgba(252, 175, 23, 0.28);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.25);
 }
 
+/* Number */
 .svc-card:hover .svc-card__num {
-  color: white;
+  color: rgba(0, 0, 0, 0.3);
 }
-.svc-card:hover .svc-card__icon-wrap{
-  background-color: white;
+
+/* Icon circle */
+.svc-card:hover .svc-card__icon-wrap {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+.svc-card:hover .svc-card__icon-wrap svg {
+  stroke: var(--color-dark);
+}
+
+/* Title */
+.svc-card:hover .svc-card__title {
+  color: var(--color-dark);
+}
+
+/* Description */
+.svc-card:hover .svc-card__desc {
+  color: rgba(0, 0, 0, 0.65);
+}
+
+/* Transition on inner elements */
+.svc-card__num,
+.svc-card__title,
+.svc-card__desc,
+.svc-card__icon-wrap,
+.svc-card__icon-wrap svg {
+  transition: color 0.35s ease, background-color 0.35s ease,
+    border-color 0.35s ease, stroke 0.35s ease;
+}
+
+/* Featured card hover — subtle lift only */
+.svc-card--featured:hover {
+  /* transform: translateY(-6px);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.25); */
 }
 
 /* ---- Icon circle ---- */
 .svc-card__icon-wrap {
-  width: 56px;
-  height: 56px;
+  width: 58px;
+  height: 58px;
   border-radius: 50%;
-  /* background: rgba(252, 175, 23, 0.08); */
-  /* border: 1px solid rgba(252, 175, 23, 0.2); */
-  border: 1px solid var(--color-primary);
+  background: rgba(252, 175, 23, 0.06);
+  border: 1.5px solid var(--color-primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2176,17 +2208,19 @@
 }
 
 .svc-card__icon-wrap svg {
-  width: 40px;
-  height: 40px;
-  font-weight: 700;
+  width: 32px;
+  height: 32px;
   stroke: var(--color-primary);
+  stroke-width: 3;
+  /* thicker strokes */
 }
 
 /* ---- Text ---- */
 .svc-card__num {
   font-size: 0.7rem;
+  font-weight: 700;
   letter-spacing: 0.1em;
-  color: rgba(10, 10, 10, 0.4);
+  color: rgba(10, 10, 10, 0.25);
 }
 
 .svc-card__title {
@@ -2202,6 +2236,7 @@
   line-height: 1.6;
   flex: 1;
 }
+
 
 /* ---- Responsive ---- */
 @media (max-width: 1024px) {
