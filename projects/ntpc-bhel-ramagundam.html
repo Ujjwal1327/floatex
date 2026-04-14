@@ -61,17 +61,48 @@
           <span class="nav__hamburger-bar"></span><span class="nav__hamburger-bar"></span><span class="nav__hamburger-bar"></span>
         </button>
       </div>
-      <div class="nav__mobile" id="mobile-menu" aria-hidden="true">
-        <ul class="nav__mobile-links" role="list">
-          <li><a href="../index.html" class="nav__mobile-link">Home</a></li>
-          <li><a href="../projects.html" class="nav__mobile-link">Projects</a></li>
-          <li><a href="/news" class="nav__mobile-link">News</a></li>
-          <li><a href="/enquiry" class="nav__mobile-link">Enquiry</a></li>
-          <li><a href="/contact" class="nav__mobile-cta">let's Start Now</a></li>
-        </ul>
-      </div>
     </nav>
   </header>
+
+  <!-- Mobile Menu — outside <header> so position:fixed escapes the header's transform context -->
+  <div class="nav__mobile" id="mobile-menu" aria-hidden="true">
+    <ul class="nav__mobile-links" role="list">
+      <li><a href="../index.html" class="nav__mobile-link">Home</a></li>
+
+      <li class="nav__mobile-item--accordion">
+        <button class="nav__mobile-link nav__mobile-trigger" aria-expanded="false" aria-controls="mobile-submenu-about">
+          About
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+        <ul class="nav__mobile-submenu" id="mobile-submenu-about" role="list">
+          <li><a href="/about" class="nav__mobile-sublink">Our Company</a></li>
+          <li><a href="/team" class="nav__mobile-sublink">Our Team</a></li>
+          <li><a href="/sustainability" class="nav__mobile-sublink">Sustainability</a></li>
+        </ul>
+      </li>
+
+      <li><a href="../projects.html" class="nav__mobile-link">Projects</a></li>
+
+      <li class="nav__mobile-item--accordion">
+        <button class="nav__mobile-link nav__mobile-trigger" aria-expanded="false" aria-controls="mobile-submenu-services">
+          Services
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+        <ul class="nav__mobile-submenu" id="mobile-submenu-services" role="list">
+          <li><a href="#" class="nav__mobile-sublink">FSPV</a></li>
+          <li><a href="#" class="nav__mobile-sublink">Electrical Utility Barges</a></li>
+        </ul>
+      </li>
+
+      <li><a href="/news" class="nav__mobile-link">News</a></li>
+      <li><a href="/enquiry" class="nav__mobile-link">Enquiry</a></li>
+      <li><a href="/contact" class="nav__mobile-cta">let's Start Now</a></li>
+    </ul>
+  </div>
 
   <main>
 

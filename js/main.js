@@ -212,7 +212,14 @@ function initNav() {
       mobileMenu.classList.toggle("is-open");
       hamburger.setAttribute("aria-expanded", String(!isOpen));
       mobileMenu.setAttribute("aria-hidden", String(isOpen));
-      document.body.style.overflow = isOpen ? "" : "hidden";
+      // Lock / unlock scroll (body + Lenis)
+      if (isOpen) {
+        document.body.style.overflow = "";
+        if (lenis) lenis.start();
+      } else {
+        document.body.style.overflow = "hidden";
+        if (lenis) lenis.stop();
+      }
     });
   }
 
@@ -396,6 +403,24 @@ function initHero() {
     },
     { once: true },
   );
+}
+
+/* ---- SERVICES — stagger cards on scroll ---- */
+function initServices() {
+  const cards = gsap.utils.toArray("[data-svc]");
+  if (!cards.length) return;
+
+  gsap.to(cards, {
+    opacity: 1,
+    y: 0,
+    duration: 0.6,
+    ease: "power3.out",
+    stagger: 0.07,
+    scrollTrigger: {
+      trigger: ".services__grid",
+      start: "top 82%",
+    },
+  });
 }
 
 /* ---- CTA BANNER — fade-in content ---- */
@@ -632,6 +657,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   initCursor();
   initCtaBanner();
+  initServices();
   initNav();
   initHero();
   initClients();
@@ -664,6 +690,7 @@ window.addEventListener(
       hamburger?.classList.remove("is-open");
       mobileMenu?.classList.remove("is-open");
       document.body.style.overflow = "";
+      if (lenis) lenis.start();
     }
   }, 250),
 );
@@ -742,7 +769,7 @@ function initProjHero() {
   const content  = document.getElementById("proj-hero-content");
   if (!section || !tileWrap || !content) return;
 
-  const COLS = 6, ROWS = 5, TOTAL = COLS * ROWS; // 30 tiles
+  const COLS = 4, ROWS = 3, TOTAL = COLS * ROWS; // 12 tiles
 
   // Build tiles
   for (let i = 0; i < TOTAL; i++) {
