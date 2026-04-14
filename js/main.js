@@ -647,6 +647,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initPageTransitions();   // first — curtain reveal plays immediately
   initProjHero();
   initProjTimeline();
+  initContactHero();
 
   const libs = verifyLibraries();
 
@@ -760,6 +761,21 @@ function initCulture() {
 
   onScroll();
   console.log("%c✅ Culture initialized", "color:#00b894;font-size:12px;");
+}
+
+/* ---- CONTACT HERO — content fade-in after curtain ---- */
+function initContactHero() {
+  const content = document.getElementById("contact-hero-content");
+  if (!content) return;
+
+  gsap.set(content, { opacity: 0, y: 28 });
+  gsap.to(content, {
+    opacity: 1,
+    y: 0,
+    duration: 0.9,
+    ease: "power3.out",
+    delay: 0.7,
+  });
 }
 
 /* ---- PROJECTS HERO — mosaic tile flip reveal ---- */
