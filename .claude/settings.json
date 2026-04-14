@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(grep -n \"nav__cta\\\\|let's Start Now\" /c/flt/floatex/index.html /c/flt/floatex/projects.html /c/flt/floatex/projects/*.html)",
-      "Bash(grep -h \"nav__cta\\\\|nav__mobile-cta\" /c/flt/floatex/index.html /c/flt/floatex/projects.html /c/flt/floatex/projects/*.html)"
+      "Bash(grep -h \"nav__cta\\\\|nav__mobile-cta\" /c/flt/floatex/index.html /c/flt/floatex/projects.html /c/flt/floatex/projects/*.html)",
+      "Bash(grep -rl \"FSPV\\\\|Electrical Utility Barges\" /c/flt/floatex/index.html /c/flt/floatex/projects.html /c/flt/floatex/contact.html /c/flt/floatex/projects/*.html)"
     ]
   }
 }
