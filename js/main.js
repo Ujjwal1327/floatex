@@ -647,7 +647,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initPageTransitions();   // first — curtain reveal plays immediately
   initProjHero();
   initProjTimeline();
-  initContactHero();
 
   const libs = verifyLibraries();
 
@@ -659,6 +658,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initCursor();
   initCtaBanner();
   initServices();
+  initContactHero();
   initNav();
   initHero();
   initClients();
