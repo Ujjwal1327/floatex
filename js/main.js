@@ -653,7 +653,10 @@ document.addEventListener("DOMContentLoaded", () => {
   if (libs.Lenis) initLenis();
 
   // GSAP must come after Lenis so the bridge is live
-  if (libs.GSAP && libs.ScrollTrigger) initGSAP();
+  if (libs.GSAP && libs.ScrollTrigger) {
+    initGSAP();
+    initProjGallery();
+  }
 
   initCursor();
   initCtaBanner();
@@ -935,6 +938,41 @@ function initProjTimeline() {
   window.addEventListener("resize", debounce(() => goTo(current), 250));
 
   console.log("%c✅ Projects timeline ready", "color:#00b894;font-size:12px;");
+}
+
+/* ---- PROJECTS GALLERY — scroll-driven horizontal strip ---- */
+function initProjGallery() {
+  const section = document.getElementById("proj-gallery");
+  if (!section) return;
+  if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
+
+  const track    = document.getElementById("gallery-track");
+  const progress = document.getElementById("gallery-progress");
+  if (!track) return;
+
+  /* On small touch screens keep native scroll instead */
+  if (window.innerWidth < 480) return;
+
+  const getTravelDist = () => track.scrollWidth - window.innerWidth;
+
+  gsap.to(track, {
+    x: () => -getTravelDist(),
+    ease: "none",
+    scrollTrigger: {
+      trigger: section,
+      start: "top top",
+      end: () => `+=${getTravelDist()}`,
+      pin: true,
+      scrub: 1.2,
+      anticipatePin: 1,
+      invalidateOnRefresh: true,
+      onUpdate: (self) => {
+        if (progress) progress.style.transform = `scaleX(${self.progress})`;
+      },
+    },
+  });
+
+  console.log("%c✅ Projects gallery ready", "color:#00b894;font-size:12px;");
 }
 
 /* ---- PAGE TRANSITIONS ---- */
