@@ -838,97 +838,101 @@ function initProjHero() {
   console.log("%c✅ Projects hero ready", "color:#00b894;font-size:12px;");
 }
 
-/* ---- PROJECTS TIMELINE ---- */
+/* ---- PROJECTS TIMELINE — horizontal carousel ---- */
 function initProjTimeline() {
-  if (!document.getElementById("proj-timeline")) return;
-  if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
+  const section  = document.getElementById("proj-timeline");
+  if (!section) return;
 
-  /* 1. Progressive line fill — scrubs with scroll */
-  gsap.to("#tl-fill", {
-    scaleY: 1,
-    ease: "none",
-    scrollTrigger: {
-      trigger: ".proj-tl__body",
-      start: "top 80%",
-      end:   "bottom 20%",
-      scrub: 1,
-    },
-  });
+  const viewport = document.getElementById("tl-viewport");
+  const carousel = document.getElementById("tl-carousel");
+  const tlInner  = document.getElementById("tl-inner");
+  const tlWrap   = section.querySelector(".proj-tl__tl-wrap");
+  const prevBtn  = document.getElementById("tl-prev");
+  const nextBtn  = document.getElementById("tl-next");
+  const cards    = Array.from(section.querySelectorAll(".proj-tl__card"));
+  const ticks    = Array.from(section.querySelectorAll(".proj-tl__tick"));
 
-  /* 2. Year badges — scale + fade in */
-  gsap.utils.toArray("[data-tl-year]").forEach((el) => {
-    gsap.fromTo(
-      el,
-      { scale: 0.65, opacity: 0, y: 12 },
-      {
-        scale: 1, opacity: 1, y: 0,
-        duration: 0.55,
-        ease: "back.out(1.7)",
-        scrollTrigger: { trigger: el, start: "top 88%" },
-      }
-    );
-  });
+  if (!carousel || !tlInner || !cards.length) return;
 
-  /* 3. Cards slide in from their respective sides */
-  gsap.utils.toArray("[data-tl-card]").forEach((row) => {
-    const isLeft = row.classList.contains("proj-tl__row--left");
-    const card   = row.querySelector(".proj-tl__card");
-    const dot    = row.querySelector(".proj-tl__dot");
+  const GAP    = 20;
+  const TICK_W = 110;
+  let current  = 0;
+  const TOTAL  = cards.length;
 
-    if (card) {
-      gsap.fromTo(
-        card,
-        { x: isLeft ? -70 : 70, opacity: 0 },
-        {
-          x: 0, opacity: 1,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: { trigger: row, start: "top 85%" },
-        }
-      );
-    }
+  function cardW() {
+    return cards[0].offsetWidth || (window.innerWidth <= 600 ? 300 : 420);
+  }
 
-    if (dot) {
-      gsap.fromTo(
-        dot,
-        { scale: 0, opacity: 0 },
-        {
-          scale: 1, opacity: 1,
-          duration: 0.4,
-          ease: "back.out(2.2)",
-          delay: 0.2,
-          scrollTrigger: { trigger: row, start: "top 85%" },
-        }
-      );
-    }
-  });
+  function goTo(idx) {
+    idx = Math.max(0, Math.min(TOTAL - 1, idx));
+    current = idx;
 
-  /* 4. Image cycling on card hover */
-  document.querySelectorAll(".proj-tl__card").forEach((card) => {
-    const imgs = Array.from(card.querySelectorAll(".proj-tl__card-img"));
-    if (imgs.length < 2) return;
+    const CW   = cardW();
+    const STEP = CW + GAP;
 
-    let timer = null;
-    let current = 0;
+    /* Center active card in viewport */
+    const vpW  = viewport.offsetWidth;
+    carousel.style.transform = `translateX(${-(idx * STEP) + vpW / 2 - CW / 2}px)`;
 
-    card.addEventListener("mouseenter", () => {
-      current = 0; // always start from first on enter
-      timer = setInterval(() => {
-        imgs[current].classList.remove("is-active");
-        current = (current + 1) % imgs.length;
-        imgs[current].classList.add("is-active");
-      }, 900);
+    /* Center active tick in track wrap */
+    const tlW  = tlWrap.offsetWidth;
+    tlInner.style.transform  = `translateX(${-(idx * TICK_W) + tlW / 2 - TICK_W / 2}px)`;
+
+    /* Card states */
+    cards.forEach((card, i) => {
+      const diff = Math.abs(i - idx);
+      card.classList.toggle("is-active",   i === idx);
+      card.classList.toggle("is-adjacent", diff === 1);
     });
 
-    card.addEventListener("mouseleave", () => {
-      clearInterval(timer);
-      timer = null;
-      // reset to first image
-      imgs.forEach((img) => img.classList.remove("is-active"));
-      imgs[0].classList.add("is-active");
-      current = 0;
+    /* Tick states */
+    ticks.forEach((tick, i) => tick.classList.toggle("is-active", i === idx));
+
+    /* Arrow disabled states */
+    if (prevBtn) prevBtn.disabled = idx === 0;
+    if (nextBtn) nextBtn.disabled = idx === TOTAL - 1;
+  }
+
+  /* Arrow clicks */
+  prevBtn?.addEventListener("click", () => goTo(current - 1));
+  nextBtn?.addEventListener("click", () => goTo(current + 1));
+
+  /* Tick clicks */
+  ticks.forEach((tick, i) => tick.addEventListener("click", () => goTo(i)));
+
+  /* Non-active card click → focus it; active card follows link naturally */
+  cards.forEach((card, i) => {
+    card.addEventListener("click", (e) => {
+      if (i !== current) { e.preventDefault(); goTo(i); }
     });
   });
+
+  /* Pointer drag / swipe */
+  let startX = 0, dragging = false;
+  viewport.addEventListener("pointerdown", (e) => {
+    startX = e.clientX; dragging = false;
+    viewport.setPointerCapture(e.pointerId);
+  });
+  viewport.addEventListener("pointermove", (e) => {
+    if (Math.abs(e.clientX - startX) > 6) dragging = true;
+  });
+  viewport.addEventListener("pointerup", (e) => {
+    const dx = e.clientX - startX;
+    if (dragging && Math.abs(dx) > 55) goTo(dx < 0 ? current + 1 : current - 1);
+    dragging = false;
+  });
+  viewport.addEventListener("click", (e) => { if (dragging) e.preventDefault(); }, true);
+
+  /* Keyboard arrows when section is in view */
+  document.addEventListener("keydown", (e) => {
+    const r = section.getBoundingClientRect();
+    if (r.top > window.innerHeight || r.bottom < 0) return;
+    if (e.key === "ArrowLeft")  { e.preventDefault(); goTo(current - 1); }
+    if (e.key === "ArrowRight") { e.preventDefault(); goTo(current + 1); }
+  });
+
+  requestAnimationFrame(() => goTo(0));
+  window.addEventListener("resize", debounce(() => goTo(current), 250));
 
   console.log("%c✅ Projects timeline ready", "color:#00b894;font-size:12px;");
 }

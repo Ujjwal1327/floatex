@@ -93,17 +93,22 @@
    PROJECTS PAGE — TIMELINE SECTION
 ============================================ */
 
-/* -- Section wrapper -- */
+/* -- Section wrapper — full viewport height -- */
 .proj-tl {
-  background: #ffffff;
-  padding: clamp(5rem, 9vw, 8rem) 0 clamp(5rem, 10vw, 9rem);
+  background: #f5f7fa;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2.5rem, 4vw, 3.5rem) 0 clamp(1.5rem, 2.5vw, 2rem);
+  overflow: hidden;
 }
 
 /* -- Header -- */
 .proj-tl__header {
   text-align: center;
   max-width: 620px;
-  margin: 0 auto clamp(4rem, 7vw, 6rem);
+  margin: 0 auto clamp(3rem, 5vw, 4.5rem);
   padding: 0 var(--container-pad);
   display: flex;
   flex-direction: column;
@@ -129,7 +134,6 @@
   line-height: 1.1;
   letter-spacing: -0.03em;
   margin: 0;
-  font-style: normal;
 }
 
 .proj-tl__title em {
@@ -143,261 +147,242 @@
   margin: 0;
 }
 
-/* -- Body -- */
-.proj-tl__body {
-  position: relative;
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: 0 var(--container-pad);
-}
+/* ============================================
+   CAROUSEL VIEWPORT + CARDS
+============================================ */
 
-/* -- Vertical center track line -- */
-.proj-tl__track {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 2px;
-  background: rgba(0,0,0,0.08);
-  z-index: 0;
-  border-radius: 2px;
-}
-
-.proj-tl__track-fill {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    to bottom,
-    var(--color-primary) 0%,
-    rgba(252,175,23,0.6) 100%
-  );
-  transform: scaleY(0);
-  transform-origin: top center;
-  border-radius: 2px;
-}
-
-/* -- Year stamp -- */
-.proj-tl__year-stamp {
-  display: flex;
-  justify-content: center;
-  position: relative;
-  z-index: 3;
-  margin: clamp(3rem, 5vw, 5rem) 0 clamp(1.5rem, 2.5vw, 2.5rem);
-}
-
-.proj-tl__year-badge {
-  display: inline-block;
-  font-size: clamp(1rem, 2vw, 1.35rem);
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  color: var(--color-primary-dark);
-  background: #ffffff;
-  border: 1.5px solid rgba(252,175,23,0.45);
-  padding: 0.5rem 1.8rem;
-  border-radius: var(--radius-full);
-  line-height: 1;
-  box-shadow: 0 2px 16px rgba(252,175,23,0.12);
-}
-
-/* -- Row grid: [left card col] [dot col 48px] [right card col] -- */
-.proj-tl__row {
-  display: grid;
-  grid-template-columns: 1fr 48px 1fr;
-  align-items: center;
-  gap: 0;
-  position: relative;
-  margin-bottom: clamp(2rem, 3.5vw, 3rem);
-  z-index: 1;
-}
-
-/* -- Dot wrap (center column) -- */
-.proj-tl__dot-wrap {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 2;
-  position: relative;
-}
-
-.proj-tl__dot {
-  width: 13px;
-  height: 13px;
-  border-radius: 50%;
-  background: var(--color-primary);
-  border: 2.5px solid #ffffff;
-  box-shadow:
-    0 0 0 3px rgba(252,175,23,0.25),
-    0 0 12px rgba(252,175,23,0.2);
-  flex-shrink: 0;
-}
-
-/* -- Card — full image with overlay -- */
-.proj-tl__card {
-  display: block;
-  text-decoration: none;
-  color: inherit;
-  position: relative;
-  aspect-ratio: 5 / 3;
-  border-radius: var(--radius-md);
+.proj-tl__carousel-viewport {
   overflow: hidden;
-  box-shadow: 0 6px 30px rgba(0,0,0,0.12);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  padding: 1.5rem 0 3.5rem; /* bottom room for active card lift + shadow */
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.proj-tl__carousel-viewport:active { cursor: grabbing; }
+
+.proj-tl__carousel {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 }
 
-.proj-tl__card:hover {
-  transform: translateY(-7px);
-  box-shadow: 0 16px 48px rgba(0,0,0,0.18);
-}
-
-/* -- Images container — all stacked absolutely -- */
-.proj-tl__card-imgs {
-  position: absolute;
-  inset: 0;
-}
-
-.proj-tl__card-img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 0.75s ease;
-  will-change: opacity;
-}
-
-.proj-tl__card-img.is-active {
+/* Card */
+.proj-tl__card {
+  flex-shrink: 0;
+  width: 440px;
+  height: 300px;
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  text-decoration: none;
+  color: #fff;
+  transition:
+    transform   0.65s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity     0.65s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow  0.65s ease;
   opacity: 1;
 }
 
-/* -- Gradient overlay — fades out on hover -- */
-.proj-tl__card-overlay {
+.proj-tl__card.is-adjacent {
+  transform: scale(0.9);
+}
+
+.proj-tl__card.is-active {
+  transform: scale(1.08) translateY(-6px);
+  box-shadow: 0 28px 64px rgba(0,0,0,0.3), 0 0 0 2.5px rgba(252,175,23,0.6);
+  z-index: 2;
+}
+
+/* Dark dim overlay on all non-active cards */
+.proj-tl__card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.52);
+  transition: opacity 0.65s ease;
+  z-index: 3;
+  pointer-events: none;
+}
+.proj-tl__card.is-adjacent::after { opacity: 0.6; }
+.proj-tl__card.is-active::after   { opacity: 0; }
+
+/* Background image */
+.proj-tl__card-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.65s ease;
+}
+.proj-tl__card.is-active .proj-tl__card-bg { transform: scale(1.04); }
+
+/* Gradient overlay */
+.proj-tl__card-info {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(5, 10, 20, 0.88) 0%,
-    rgba(5, 10, 20, 0.35) 45%,
-    transparent 100%
+    rgba(5,12,28,0.95) 0%,
+    rgba(5,12,28,0.45) 50%,
+    rgba(5,12,28,0.08) 100%
   );
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: clamp(1rem, 2vw, 1.5rem);
-  z-index: 2;
-  transition: opacity 0.4s ease;
+  padding: 1.1rem 1.25rem;
 }
 
-.proj-tl__card:hover .proj-tl__card-overlay {
-  opacity: 0;
-}
-
-/* -- Overlay text -- */
 .proj-tl__card-mw {
   display: block;
-  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-size: 2.4rem;
   font-weight: 900;
   color: var(--color-primary);
   line-height: 1;
   letter-spacing: -0.03em;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.3rem;
 }
 
-.proj-tl__card-title {
-  font-size: clamp(0.82rem, 1.4vw, 0.95rem);
+.proj-tl__card-name {
+  font-size: 1.05rem;
   font-weight: 700;
   color: #fff;
-  margin: 0 0 0.35rem;
-  letter-spacing: -0.005em;
+  margin: 0 0 0.3rem;
+  line-height: 1.3;
 }
 
 .proj-tl__card-loc {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  font-size: 0.65rem;
-  color: rgba(255,255,255,0.6);
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.55);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-weight: 600;
   margin: 0;
 }
 
-.proj-tl__card-loc svg {
+/* ============================================
+   NAV BAR — arrows + timeline track
+============================================ */
+
+.proj-tl__nav-bar {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 2.5rem);
+}
+
+/* Arrow buttons */
+.proj-tl__arrow {
   flex-shrink: 0;
-  fill: var(--color-primary);
-  opacity: 0.8;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0,0,0,0.15);
+  background: #ffffff;
+  color: rgba(0,0,0,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: background 0.25s, border-color 0.25s, color 0.25s, transform 0.2s, box-shadow 0.25s;
+}
+.proj-tl__arrow:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+  transform: scale(1.1);
+  box-shadow: 0 4px 16px rgba(252,175,23,0.4);
+}
+.proj-tl__arrow:disabled {
+  opacity: 0.28;
+  pointer-events: none;
+}
+
+/* Timeline track wrapper */
+.proj-tl__tl-wrap {
+  flex: 1;
+  position: relative;
+  height: 72px;
+  overflow: hidden;
+}
+
+/* Static horizontal line — sits at 28px from top (where dots live) */
+.proj-tl__tl-line {
+  position: absolute;
+  top: 28px;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: rgba(0,0,0,0.1);
+  z-index: 0;
+}
+
+/* Scrolling strip of ticks */
+.proj-tl__tl-inner {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 20px;
+  transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+  position: relative;
+  z-index: 1;
+}
+
+/* Single tick */
+.proj-tl__tick {
+  flex-shrink: 0;
+  width: 110px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.proj-tl__tick-dot {
+  display: block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.18);
+  border: 1.5px solid rgba(0,0,0,0.15);
+  transition: background 0.35s, border-color 0.35s, transform 0.35s, box-shadow 0.35s;
+  flex-shrink: 0;
+}
+.proj-tl__tick.is-active .proj-tl__tick-dot {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  transform: scale(1.6);
+  box-shadow: 0 0 0 4px rgba(252,175,23,0.22), 0 0 12px rgba(252,175,23,0.45);
+}
+
+.proj-tl__tick-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.35);
+  transition: color 0.35s, font-size 0.35s, font-weight 0.35s;
+  white-space: nowrap;
+}
+.proj-tl__tick.is-active .proj-tl__tick-label {
+  color: var(--color-primary-dark);
+  font-size: 0.88rem;
+  font-weight: 800;
 }
 
 /* ============================================
-   PROJECTS TIMELINE — MOBILE
-   Line moves to left side; all cards right
+   CAROUSEL — MOBILE
 ============================================ */
-@media (max-width: 767px) {
-
-  .proj-tl {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .proj-tl__body {
-    padding-left: 2.25rem;
-    padding-right: var(--container-pad);
-  }
-
-  /* Line at 20px from body left edge */
-  .proj-tl__track {
-    left: 20px;
-    transform: none;
-  }
-
-  /* Year stamp aligned to card column */
-  .proj-tl__year-stamp {
-    justify-content: flex-start;
-    padding-left: 44px;
-  }
-
-  .proj-tl__year-badge {
-    font-size: 0.9rem;
-    padding: 0.4rem 1.1rem;
-  }
-
-  /* All rows: [dot 40px] [card 1fr] — ignore spacer */
-  .proj-tl__row {
-    grid-template-columns: 40px 1fr;
-  }
-
-  .proj-tl__spacer { display: none; }
-
-  /* Left rows: card is DOM child 1, dot child 2, spacer child 3
-     → assign explicitly to swap */
-  .proj-tl__row--left .proj-tl__card {
-    grid-column: 2;
-    grid-row: 1;
-    padding-right: 0;
-    padding-left: 1rem;
-  }
-  .proj-tl__row--left .proj-tl__card::after { display: none; }
-  .proj-tl__row--left .proj-tl__dot-wrap {
-    grid-column: 1;
-    grid-row: 1;
-  }
-
-  /* Right rows: spacer child 1 (hidden), dot child 2, card child 3
-     → dot already in col 1 area (since spacer hidden), card col 2 */
-  .proj-tl__row--right .proj-tl__dot-wrap {
-    grid-column: 1;
-    grid-row: 1;
-  }
-  .proj-tl__row--right .proj-tl__card {
-    grid-column: 2;
-    grid-row: 1;
-    padding-left: 1rem;
-  }
-  .proj-tl__row--right .proj-tl__card::before { display: none; }
-
-  .proj-tl__card-mw { font-size: 1.8rem; }
+@media (max-width: 600px) {
+  .proj-tl__card      { width: 300px; height: 210px; border-radius: 4px; }
+  .proj-tl__nav-bar   { gap: 0.75rem; padding: 0 1rem; }
+  .proj-tl__tick      { width: 88px; }
+  .proj-tl__card-mw   { font-size: 1.8rem; }
+  .proj-tl__card-name { font-size: 0.9rem; }
 }
 
 /* ============================================
