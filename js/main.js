@@ -423,6 +423,24 @@ function initServices() {
   });
 }
 
+/* ---- SERVICES V2 — radial items stagger ---- */
+function initServicesV2() {
+  const items = gsap.utils.toArray("[data-svc2]");
+  if (!items.length) return;
+
+  gsap.to(items, {
+    opacity: 1,
+    y: 0,
+    duration: 0.55,
+    ease: "power3.out",
+    stagger: 0.08,
+    scrollTrigger: {
+      trigger: ".svc-radial",
+      start: "top 80%",
+    },
+  });
+}
+
 /* ---- CTA BANNER — fade-in content ---- */
 function initCtaBanner() {
   const section = document.querySelector(".cta-banner");
@@ -658,6 +676,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initCursor();
   initCtaBanner();
   initServices();
+  initServicesV2();
   initContactHero();
   initNav();
   initHero();
