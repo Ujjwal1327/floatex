@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <!-- PRIMARY SEO -->
+  <title>News & Insights | Floatex Solar — Floating Solar Updates</title>
+  <meta name="description"
+    content="Stay up to date with the latest news, project announcements, policy updates, and industry insights from Floatex Solar — India's leading floating solar energy company." />
+  <meta name="keywords"
+    content="floatex solar news, floating solar news india, FSPV updates, solar energy india news, renewable energy news, floating solar policy, floatex announcements" />
+  <meta name="author" content="Floatex Solar" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://floatexsolar.com/news" />
+
+  <!-- OPEN GRAPH -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Floatex Solar" />
+  <meta property="og:title" content="News & Insights | Floatex Solar" />
+  <meta property="og:description"
+    content="Project milestones, policy developments, and floating solar industry news from India's leading FPV energy company." />
+  <meta property="og:image" content="https://floatexsolar.com/assets/images/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:url" content="https://floatexsolar.com/news" />
+  <meta property="og:locale" content="en_IN" />
+
+  <!-- TWITTER CARD -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="News & Insights | Floatex Solar" />
+  <meta name="twitter:description"
+    content="The latest from India's floating solar leader — project wins, industry analysis, and clean energy updates." />
+  <meta name="twitter:image" content="https://floatexsolar.com/assets/images/og-image.png" />
+
+  <!-- FAVICON -->
+  <link rel="icon" type="image/x-icon" href="assets/favicons/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/favicons/favicon-48x48.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png" />
+  <meta name="theme-color" content="#FCAF17" />
+
+  <!-- FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Caveat:wght@600;700&display=swap"
+    rel="stylesheet" />
+
+  <!-- STRUCTURED DATA -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Floatex Solar News & Insights",
+    "url": "https://floatexsolar.com/news",
+    "description": "Latest news, project announcements, and industry insights from Floatex Solar — India's leading floating photovoltaic energy company.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Floatex Solar",
+      "url": "https://floatexsolar.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://floatexsolar.com/assets/images/logo.png",
+        "width": 280,
+        "height": 88
+      }
+    },
+    "inLanguage": "en-IN"
+  }
+  </script>
+
+  <!-- CDN LIBRARIES -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" defer></script>
+
+  <!-- STYLESHEETS -->
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/news.css" />
+</head>
+
+<body>
+  <!-- Page transition curtain -->
+  <div id="pg-transition" aria-hidden="true">
+    <img src="assets/images/logo.png" alt="" class="pg-transition__logo" />
+  </div>
+
+  <!-- Custom cursor -->
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+
+  <!-- ============================================
+       HEADER / NAV
+  ============================================ -->
+  <header class="site-header" id="site-header">
+    <nav class="nav" aria-label="Main navigation">
+      <div class="nav__inner">
+
+        <!-- Logo -->
+        <a href="index.html" class="nav__logo" aria-label="Floatex Solar — Home">
+          <img src="assets/images/logo.png" alt="Floatex Solar" width="140" height="44" loading="eager" />
+        </a>
+
+        <!-- Desktop Links -->
+        <ul class="nav__links" role="list">
+          <span class="nav__pill" aria-hidden="true"></span>
+          <li class="nav__item">
+            <a href="index.html" class="nav__link">Home</a>
+          </li>
+
+          <!-- About dropdown -->
+          <li class="nav__item nav__item--dropdown">
+            <button class="nav__link nav__link--trigger" aria-haspopup="true" aria-expanded="false"
+              aria-controls="dropdown-about">
+              About
+              <svg class="nav__chevron" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </button>
+            <div class="nav__dropdown" id="dropdown-about" role="region" aria-label="About submenu">
+              <ul class="nav__dropdown-list" role="list">
+                <li>
+                  <a href="/about" class="nav__dropdown-link">
+                    <span>
+                      <strong>Our Company</strong>
+                      <small>Story, mission &amp; vision</small>
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a href="/team" class="nav__dropdown-link">
+                    <span>
+                      <strong>Our Team</strong>
+                      <small>Meet the experts</small>
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a href="/sustainability" class="nav__dropdown-link">
+                    <span>
+                      <strong>Sustainability</strong>
+                      <small>Our green commitment</small>
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="nav__item">
+            <a href="projects.html" class="nav__link">Projects</a>
+          </li>
+
+          <!-- Services dropdown -->
+          <li class="nav__item nav__item--dropdown">
+            <button class="nav__link nav__link--trigger" aria-haspopup="true" aria-expanded="false"
+              aria-controls="dropdown-services">
+              Services
+              <svg class="nav__chevron" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </button>
+            <div class="nav__dropdown" id="dropdown-services" role="region" aria-label="Services submenu">
+              <ul class="nav__dropdown-list" role="list">
+                <li>
+                  <a href="#" class="nav__dropdown-link">
+                    <span><strong>FSPV</strong></span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="nav__dropdown-link">
+                    <span><strong>Electrical Utility Barges</strong></span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="nav__item">
+            <a href="news.html" class="nav__link nav__link--active" aria-current="page">News</a>
+          </li>
+
+          <!-- <li class="nav__item">
+            <a href="/enquiry" class="nav__link">Enquiry</a>
+          </li> -->
+        </ul>
+
+        <!-- CTA Button -->
+        <a href="contact.html" class="nav__cta" aria-label="Get started with Floatex Solar">
+          let's Start Now
+        </a>
+
+        <!-- Hamburger — mobile only -->
+        <button class="nav__hamburger" id="nav-hamburger" aria-label="Open navigation menu" aria-expanded="false"
+          aria-controls="mobile-menu">
+          <span class="nav__hamburger-bar"></span>
+          <span class="nav__hamburger-bar"></span>
+          <span class="nav__hamburger-bar"></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="nav__mobile" id="mobile-menu" aria-hidden="true">
+    <ul class="nav__mobile-links" role="list">
+      <li><a href="index.html" class="nav__mobile-link">Home</a></li>
+
+      <li class="nav__mobile-item--accordion">
+        <button class="nav__mobile-link nav__mobile-trigger" aria-expanded="false" aria-controls="mobile-submenu-about">
+          About
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </button>
+        <ul class="nav__mobile-submenu" id="mobile-submenu-about" role="list">
+          <li><a href="/about" class="nav__mobile-sublink">Our Company</a></li>
+          <li><a href="/team" class="nav__mobile-sublink">Our Team</a></li>
+          <li><a href="/sustainability" class="nav__mobile-sublink">Sustainability</a></li>
+        </ul>
+      </li>
+
+      <li><a href="projects.html" class="nav__mobile-link">Projects</a></li>
+
+      <li class="nav__mobile-item--accordion">
+        <button class="nav__mobile-link nav__mobile-trigger" aria-expanded="false"
+          aria-controls="mobile-submenu-services">
+          Services
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </button>
+        <ul class="nav__mobile-submenu" id="mobile-submenu-services" role="list">
+          <li><a href="#" class="nav__mobile-sublink">Floating Solar Systems</a></li>
+          <li><a href="#" class="nav__mobile-sublink">Utility Barges</a></li>
+          <li><a href="#" class="nav__mobile-sublink">Access Systems</a></li>
+        </ul>
+      </li>
+
+      <li><a href="news.html" class="nav__mobile-link">News</a></li>
+      <!-- <li><a href="/enquiry" class="nav__mobile-link">Enquiry</a></li> -->
+      <li><a href="contact.html" class="nav__mobile-cta">let's Start Now</a></li>
+    </ul>
+  </div>
+
+  <!-- ============================================
+       MAIN CONTENT
+  ============================================ -->
+  <main id="news-main">
+
+    <!-- ============================================
+         NEWS HERO
+    ============================================ -->
+    <section class="news-hero" id="news-hero">
+
+      <!-- Background image -->
+      <div class="news-hero__bg" aria-hidden="true">
+        <img
+          src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=1800&q=85"
+          alt=""
+          loading="eager"
+          class="news-hero__bg-img" />
+        <div class="news-hero__overlay"></div>
+      </div>
+
+      <!-- Content -->
+      <div class="news-hero__content" id="news-hero-content">
+        <span class="news-hero__eyebrow">
+          <span class="dot"></span> Latest Updates
+        </span>
+        <h1 class="news-hero__title">
+          News &amp; <span class="text--primary">Insights</span>
+        </h1>
+        <p class="news-hero__sub">
+          Project milestones, policy developments, and industry analysis<br class="hide-mobile" />
+          from India's leading floating solar company.
+        </p>
+      </div>
+
+    </section>
+
+    <!-- ============================================
+         NEWS INTRO
+    ============================================ -->
+    <section class="news-intro" aria-labelledby="news-intro-heading">
+      <div class="news-intro__inner">
+        <div class="news-intro__left">
+          <span class="news-intro__eyebrow"><span class="dot"></span> News &amp; Insights</span>
+          <h2 class="news-intro__heading" id="news-intro-heading">
+            Straight from<br /><span class="text--primary">the field.</span>
+          </h2>
+        </div>
+        <div class="news-intro__right">
+          <p class="news-intro__para">
+            Project milestones, policy shifts, and market analysis — all the stories shaping India's floating solar landscape, curated by the team building it.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         FEATURED ARTICLE (full-width latest blog)
+    ============================================ -->
+    <section class="news-featured" aria-labelledby="featured-article-title">
+      <div class="news-featured__inner">
+
+        <article class="news-featured__article" itemscope itemtype="https://schema.org/BlogPosting">
+          <meta itemprop="publisher" content="Floatex Solar" />
+
+          <div class="news-featured__meta">
+            <time class="news-featured__date" datetime="2026-04-22" itemprop="datePublished">Apr 22, 2026</time>
+            <span class="news-featured__badge">Latest</span>
+          </div>
+
+          <h2 class="news-featured__title" id="featured-article-title" itemprop="headline">
+            Floatex Commissions India's Largest Canal-Top Solar Installation at 14.2 MW
+          </h2>
+
+          <div class="news-featured__author" itemprop="author" itemscope itemtype="https://schema.org/Organization">
+            <span>by <strong itemprop="name">Floatex Solar</strong></span>
+          </div>
+
+          <p class="news-featured__excerpt" itemprop="description">
+            The installation spans 3.4 km of the Indira Sagar canal network, delivering clean power to over 18,000 rural households while reducing evaporation losses by an estimated 40% — a landmark in India's floating photovoltaic journey.
+          </p>
+
+          <a href="#" class="news-featured__read" aria-label="Read full article about Floatex canal-top solar installation">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            Read Article
+          </a>
+        </article>
+
+        <div class="news-featured__image-wrap">
+          <img
+            src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1200&q=85"
+            alt="Floatex Solar 14.2 MW canal-top floating solar installation in India"
+            class="news-featured__image"
+            width="800" height="540"
+            loading="eager"
+            itemprop="image" />
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================
+         BLOG GRID — 2 × 3 (6 articles)
+    ============================================ -->
+    <section class="news-grid" aria-labelledby="news-grid-heading">
+      <div class="news-grid__inner">
+        <h2 class="sr-only" id="news-grid-heading">More Articles</h2>
+
+        <div class="news-grid__list" role="list">
+
+          <!-- Article 1 -->
+          <article class="news-card" role="listitem" itemscope itemtype="https://schema.org/BlogPosting">
+            <div class="news-card__top">
+              <time class="news-card__date" datetime="2026-04-15" itemprop="datePublished">Apr 15, 2026</time>
+              <h3 class="news-card__title" itemprop="headline">
+                <a href="#">India's New FSPV Policy: What Changes for Developers in 2026</a>
+              </h3>
+            </div>
+            <a href="#" class="news-card__image-link" aria-hidden="true" tabindex="-1">
+              <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&q=80"
+                alt="India FSPV policy update 2026" class="news-card__img" loading="lazy" width="600" height="380" />
+            </a>
+            <div class="news-card__body">
+              <p class="news-card__author" itemprop="author">by <strong>Floatex Solar</strong></p>
+              <p class="news-card__excerpt" itemprop="description">The Ministry of New and Renewable Energy has revised tariff norms and land-use guidelines for floating PV projects above 5 MW.</p>
+              <a href="#" class="news-card__read" aria-label="Read article: India's New FSPV Policy">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                Read Article
+              </a>
+            </div>
+          </article>
+
+          <!-- Article 2 -->
+          <article class="news-card" role="listitem" itemscope itemtype="https://schema.org/BlogPosting">
+            <div class="news-card__top">
+              <time class="news-card__date" datetime="2026-04-08" itemprop="datePublished">Apr 8, 2026</time>
+              <h3 class="news-card__title" itemprop="headline">
+                <a href="#">Reservoir:Water Bodies Are the Next Frontier for Clean Energy</a>
+              </h3>
+            </div>
+            <a href="#" class="news-card__image-link" aria-hidden="true" tabindex="-1">
+              <img src="https://images.unsplash.com/photo-1497440001374-f26997328c1b?w=800&q=80"
+                alt="Reservoir floating solar installation India" class="news-card__img" loading="lazy" width="600" height="380" />
+            </a>
+            <div class="news-card__body">
+              <p class="news-card__author" itemprop="author">by <strong>Floatex Solar</strong></p>
+              <p class="news-card__excerpt" itemprop="description">With over 5,000 suitable reservoirs identified across India, FSPV is poised to contribute 280 GW to the national clean energy target.</p>
+              <a href="#" class="news-card__read" aria-label="Read article: Reservoir Solar Frontier">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                Read Article
+              </a>
+            </div>
+          </article>
+
+          <!-- Article 3 -->
+          <article class="news-card" role="listitem" itemscope itemtype="https://schema.org/BlogPosting">
+            <div class="news-card__top">
+              <time class="news-card__date" datetime="2026-04-01" itemprop="datePublished">Apr 1, 2026</time>
+              <h3 class="news-card__title" itemprop="headline">
+                <a href="#">Floatex Secures EPC Contract for 22 MW NTPC Reservoir Project in Telangana</a>
+              </h3>
+            </div>
+            <a href="#" class="news-card__image-link" aria-hidden="true" tabindex="-1">
+              <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80"
+                alt="NTPC floating solar EPC project Telangana" class="news-card__img" loading="lazy" width="600" height="380" />
+            </a>
+            <div class="news-card__body">
+              <p class="news-card__author" itemprop="author">by <strong>Floatex Solar</strong></p>
+              <p class="news-card__excerpt" itemprop="description">Expected live by Q1 2027, the project will power over 30,000 homes and is financed under the KUSUM-C scheme.</p>
+              <a href="#" class="news-card__read" aria-label="Read article: NTPC Telangana EPC contract">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                Read Article
+              </a>
+            </div>
+          </article>
+
+          <!-- Article 4 -->
+          <article class="news-card" role="listitem" itemscope itemtype="https://schema.org/BlogPosting">
+            <div class="news-card__top">
+              <time class="news-card__date" datetime="2026-03-24" itemprop="datePublished">Mar 24, 2026</time>
+              <h3 class="news-card__title" itemprop="headline">
+                <a href="#">Study Confirms FPV Panels Reduce Reservoir Evaporation by Up to 70%</a>
+              </h3>
+            </div>
+            <a href="#" class="news-card__image-link" aria-hidden="true" tabindex="-1">
+              <img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&q=80"
+                alt="Floating solar water evaporation reduction study" class="news-card__img" loading="lazy" width="600" height="380" />
+            </a>
+            <div class="news-card__body">
+              <p class="news-card__author" itemprop="author">by <strong>Floatex Solar</strong></p>
+              <p class="news-card__excerpt" itemprop="description">New IIT Delhi research validates that floating panels deliver significant water conservation benefits alongside clean power generation.</p>
+              <a href="#" class="news-card__read" aria-label="Read article: FPV evaporation reduction study">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                Read Article
+              </a>
+            </div>
+          </article>
+
+          <!-- Article 5 -->
+          <article class="news-card" role="listitem" itemscope itemtype="https://schema.org/BlogPosting">
+            <div class="news-card__top">
+              <time class="news-card__date" datetime="2026-03-15" itemprop="datePublished">Mar 15, 2026</time>
+              <h3 class="news-card__title" itemprop="headline">
+                <a href="#">Grid Parity Achieved: Floating Solar Now Cost-Competitive with Coal in India</a>
+              </h3>
+            </div>
+            <a href="#" class="news-card__image-link" aria-hidden="true" tabindex="-1">
+              <img src="https://images.unsplash.com/photo-1548337138-e87d889cc369?w=800&q=80"
+                alt="India solar energy grid parity milestone" class="news-card__img" loading="lazy" width="600" height="380" />
+            </a>
+            <div class="news-card__body">
+              <p class="news-card__author" itemprop="author">by <strong>Floatex Solar</strong></p>
+              <p class="news-card__excerpt" itemprop="description">CERC data shows floating PV levelised costs have dropped below ₹2.8/kWh, crossing grid parity for the first time.</p>
+              <a href="#" class="news-card__read" aria-label="Read article: Grid parity floating solar">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                Read Article
+              </a>
+            </div>
+          </article>
+
+          <!-- Article 6 -->
+          <article class="news-card" role="listitem" itemscope itemtype="https://schema.org/BlogPosting">
+            <div class="news-card__top">
+              <time class="news-card__date" datetime="2026-03-05" itemprop="datePublished">Mar 5, 2026</time>
+              <h3 class="news-card__title" itemprop="headline">
+                <a href="#">Floatex Expands to UAE: First Floating Solar Pilot on Dubai's Hatta Reservoir</a>
+              </h3>
+            </div>
+            <a href="#" class="news-card__image-link" aria-hidden="true" tabindex="-1">
+              <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=800&q=80"
+                alt="Floatex Solar UAE expansion Hatta reservoir pilot" class="news-card__img" loading="lazy" width="600" height="380" />
+            </a>
+            <div class="news-card__body">
+              <p class="news-card__author" itemprop="author">by <strong>Floatex Solar</strong></p>
+              <p class="news-card__excerpt" itemprop="description">Our international debut — a 1.2 MW pilot on Hatta Dam, paving the way for GCC market expansion across 2026–27.</p>
+              <a href="#" class="news-card__read" aria-label="Read article: Floatex UAE expansion">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                Read Article
+              </a>
+            </div>
+          </article>
+
+        </div><!-- /.news-grid__list -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================
+       FOOTER
+  ============================================ -->
+  <footer class="site-footer" aria-label="Site footer">
+
+    <div class="footer__main">
+      <div class="footer__main-inner">
+
+        <div class="footer__left">
+          <a href="index.html" class="footer__logo" aria-label="Floatex Solar Home">
+            <img src="assets/images/logo.png" alt="Floatex Solar" width="130" loading="lazy" />
+          </a>
+
+          <div class="footer__nav">
+            <ul class="footer__nav-col">
+              <li><a href="index.html" class="footer__nav-link">Home</a></li>
+              <li><a href="/about" class="footer__nav-link">About Us</a></li>
+              <li><a href="/solutions" class="footer__nav-link">Solutions</a></li>
+            </ul>
+            <ul class="footer__nav-col">
+              <li><a href="projects.html" class="footer__nav-link">Projects</a></li>
+              <li><a href="news.html" class="footer__nav-link">News</a></li>
+              <li><a href="contact.html" class="footer__nav-link">Contact Us</a></li>
+            </ul>
+            <div class="footer__addresses">
+              <div class="footer__address">
+                <span class="footer__address-label">India</span>
+                <p>1st Floor, City Tower, Netaji Subhash Place,<br />Pitampura, Delhi – 110034</p>
+                <a href="tel:+918448806092">+91 84488 06092</a>
+              </div>
+              <div class="footer__address">
+                <span class="footer__address-label">UAE</span>
+                <p>Compass Building, Al Shohada Road,<br />AL Hamra Industrial Zone-FZ, RAK</p>
+                <a href="tel:+971503944988">+971 503 944 988</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer__right">
+          <span class="footer__eyebrow">Got a project in mind?</span>
+          <a href="contact.html" class="footer__talk">
+            Let's <em>start</em>
+            <svg class="footer__talk-arrow" width="48" height="48" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </a>
+          <a href="mailto:info@floatexsolar.com" class="footer__email-link">info@floatexsolar.com</a>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer__divider"></div>
+
+    <div class="footer__bottom">
+      <div class="footer__bottom-inner">
+        <div class="footer__legal">
+          <a href="/cookies" class="footer__legal-link">Cookies Policy</a>
+          <a href="/terms" class="footer__legal-link">Legal Terms</a>
+          <a href="/privacy" class="footer__legal-link">Privacy Policy</a>
+        </div>
+        <div class="footer__socials">
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="footer__social"
+            aria-label="YouTube">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+            </svg>
+          </a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="footer__social"
+            aria-label="LinkedIn">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+            </svg>
+          </a>
+          <a href="mailto:info@floatexsolar.com" class="footer__social" aria-label="Email">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </footer>
+
+  <script src="js/main.js" defer></script>
+</body>
+
+</html>

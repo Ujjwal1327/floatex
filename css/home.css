@@ -2102,9 +2102,9 @@
 
 .services__title {
   font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--color-dark);
   font-weight: 800;
   line-height: 1.15;
-  color: var(--color-dark);
   margin-bottom: 0.9rem;
 }
 

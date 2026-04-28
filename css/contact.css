@@ -32,19 +32,22 @@
 }
 
 @keyframes heroZoom {
-  from { transform: scale(1);    }
-  to   { transform: scale(1.18); }
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.18);
+  }
 }
 
 .contact-hero__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(10, 30, 80, 0.80) 0%,
-    rgba(15, 50, 120, 0.60) 50%,
-    rgba(5, 25, 70, 0.45) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba(10, 30, 80, 0.80) 0%,
+      rgba(15, 50, 120, 0.60) 50%,
+      rgba(5, 25, 70, 0.45) 100%);
 }
 
 /* ---- Content ---- */
@@ -167,15 +170,28 @@
 }
 
 @keyframes scrollPulse {
-  0%, 100% { opacity: 0.3; transform: scaleY(1); }
-  50%       { opacity: 1;   transform: scaleY(0.6); }
+
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scaleY(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scaleY(0.6);
+  }
 }
 
 /* ---- Responsive ---- */
-.hide-mobile { display: inline; }
+.hide-mobile {
+  display: inline;
+}
 
 @media (max-width: 600px) {
-  .hide-mobile { display: none; }
+  .hide-mobile {
+    display: none;
+  }
 }
 
 /* ============================================
@@ -208,6 +224,13 @@
   text-transform: uppercase;
   color: var(--color-primary);
   margin-bottom: 1rem;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 8%;
+  background: var(--color-primary);
 }
 
 .contact-form__title {
@@ -341,10 +364,10 @@
 }
 
 /* Label floats up when input has content or is focused */
-.form-group input:focus ~ label,
-.form-group input:not(:placeholder-shown) ~ label,
-.form-group textarea:focus ~ label,
-.form-group textarea:not(:placeholder-shown) ~ label {
+.form-group input:focus~label,
+.form-group input:not(:placeholder-shown)~label,
+.form-group textarea:focus~label,
+.form-group textarea:not(:placeholder-shown)~label {
   top: 0.42rem;
   font-size: 0.68rem;
   font-weight: 600;
@@ -364,7 +387,7 @@
   z-index: 1;
 }
 
-.form-group--select select:focus ~ label {
+.form-group--select select:focus~label {
   color: var(--color-primary);
 }
 
@@ -379,11 +402,11 @@
   transition: transform 0.25s ease, color 0.25s ease;
 }
 
-.form-group select:hover ~ .form-group__chevron {
+.form-group select:hover~.form-group__chevron {
   color: rgba(10, 10, 10, 0.55);
 }
 
-.form-group select:focus ~ .form-group__chevron {
+.form-group select:focus~.form-group__chevron {
   transform: translateY(-50%) rotate(180deg);
   color: var(--color-primary);
 }
@@ -437,7 +460,7 @@
 }
 
 .contact-info__title {
-  font-size: 1.1rem;
+  font-size: var(--text-xl);
   font-weight: 700;
   color: var(--color-dark);
   margin-bottom: 1.75rem;
@@ -480,8 +503,8 @@
 
 .contact-info__label {
   display: block;
-  font-size: 0.72rem;
-  font-weight: 700;
+  font-size: var(--text-sm);
+  font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: rgba(10, 10, 10, 0.35);

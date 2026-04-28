@@ -30,32 +30,7 @@
    CUSTOM CURSOR
 ============================================ */
 .cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: var(--color-primary);
-  pointer-events: none;
-  z-index: 99999;
-  transform: translate(-50%, -50%);
-  transition: width 0.25s ease, height 0.25s ease, opacity 0.25s ease;
-  opacity: 0;
-  will-change: left, top;
-}
-
-.cursor.is-visible {
-  opacity: 0.85;
-}
-
-/* .cursor.is-hovering {
-  width: 40px;
-  height: 40px;
-} */
-
-.cursor.is-on-nav {
-  opacity: 0 !important;
+  display: none;
 }
 
 html {
