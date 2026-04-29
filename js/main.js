@@ -37,6 +37,7 @@ function verifyLibraries() {
     2. LENIS SMOOTH SCROLL
   ============================================ */
 let lenis;
+let prevWidth = window.innerWidth;
 
 function initLenis() {
   lenis = new Lenis({
@@ -68,8 +69,8 @@ function initGSAP() {
 
   if (lenis) {
     lenis.on("scroll", ScrollTrigger.update);
-    ScrollTrigger.addEventListener("refresh", () => lenis.resize());
   }
+
   ScrollTrigger.refresh();
 
   console.log(
@@ -757,10 +758,16 @@ initProcess();
 window.addEventListener(
   "resize",
   debounce(() => {
-    ScrollTrigger.refresh();
-    if (lenis) lenis.resize();
+    // Only refresh ScrollTrigger if the screen width actually changed
+    // This prevents jumps when the mobile address bar hides/shows (vertical resize only)
+    const currentWidth = window.innerWidth;
+    if (currentWidth !== prevWidth) {
+      ScrollTrigger.refresh();
+      if (lenis) lenis.resize();
+      prevWidth = currentWidth;
+    }
 
-    if (window.innerWidth > 900) {
+    if (currentWidth > 900) {
       const hamburger = document.getElementById("nav-hamburger");
       const mobileMenu = document.getElementById("mobile-menu");
       hamburger?.classList.remove("is-open");

@@ -409,7 +409,7 @@ body {
 
   /* MW stays bottom-left */
   .pd__mw-display { bottom: calc(1.1rem + 80px + 1.4rem); }
-  .pd__mw-digit   { font-size: clamp(2.8rem, 8vw, 4.5rem); }
+  .pd__mw-digit   { font-size: clamp(3.2rem, 10vw, 5rem); }
   .pd__zone       { bottom: calc(1.1rem + 80px); }
 }
 
@@ -419,6 +419,11 @@ body {
   .pd__details-col--right { display: none !important; }
   .pd__stats-grid         { display: none !important; }
   .pd__cursor             { display: none !important; }
+
+  /* MW stays bottom-left, just larger as requested */
+  .pd__mw-display { bottom: calc(0.75rem + 64px + 1.2rem); }
+  .pd__mw-digit   { font-size: clamp(3.5rem, 18vw, 5.5rem); }
+  .pd__mw-unit    { font-size: 1rem; margin-left: 0.3em; }
 
   /* Strip: 1 item full-width, mobile label hidden */
   .pd__strip        { display: flex; }
