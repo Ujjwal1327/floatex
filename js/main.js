@@ -424,7 +424,7 @@ function initServices() {
   });
 }
 
-/* ---- SERVICES V2 — radial items stagger ---- */
+/* ---- SERVICES V2 — radial items stagger + center image hover swap ---- */
 function initServicesV2() {
   const items = gsap.utils.toArray("[data-svc2]");
   if (!items.length) return;
@@ -439,6 +439,34 @@ function initServicesV2() {
       trigger: ".svc-radial",
       start: "top 80%",
     },
+  });
+
+  const centerImg = document.getElementById("svc-center-img");
+  if (!centerImg) return;
+  const defaultSrc = centerImg.src;
+  let hoverTimer = null;
+
+  items.forEach((item) => {
+    const hoverSrc = item.dataset.img;
+    if (!hoverSrc) return;
+
+    item.addEventListener("mouseenter", () => {
+      clearTimeout(hoverTimer);
+      centerImg.style.opacity = "0";
+      hoverTimer = setTimeout(() => {
+        centerImg.src = hoverSrc;
+        centerImg.style.opacity = "1";
+      }, 250);
+    });
+
+    item.addEventListener("mouseleave", () => {
+      clearTimeout(hoverTimer);
+      centerImg.style.opacity = "0";
+      hoverTimer = setTimeout(() => {
+        centerImg.src = defaultSrc;
+        centerImg.style.opacity = "1";
+      }, 250);
+    });
   });
 }
 
