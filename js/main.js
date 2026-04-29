@@ -429,6 +429,7 @@ function initServicesV2() {
   const items = gsap.utils.toArray("[data-svc2]");
   if (!items.length) return;
 
+  // Stagger entry
   gsap.to(items, {
     opacity: 1,
     y: 0,
@@ -441,32 +442,58 @@ function initServicesV2() {
     },
   });
 
-  const centerImg = document.getElementById("svc-center-img");
-  if (!centerImg) return;
-  const defaultSrc = centerImg.src;
-  let hoverTimer = null;
+  const img1 = document.getElementById("svc-img-1");
+  const img2 = document.getElementById("svc-img-2");
+  if (!img1 || !img2) return;
+
+  const defaultSrc = img1.src;
+  // Initialize second image with same source to avoid flicker
+  img2.src = defaultSrc;
+
+  function switchImage(newSrc) {
+    // Determine which image is currently active based on opacity
+    const img1Opacity = gsap.getProperty(img1, "opacity");
+    const active = img1Opacity > 0.5 ? img1 : img2;
+    const next = img1Opacity > 0.5 ? img2 : img1;
+
+    // Normalize URLs for comparison
+    const currentSrc = active.src.split('?')[0];
+    const incomingSrc = newSrc.split('?')[0];
+    if (currentSrc === incomingSrc && active.style.opacity === "1") return;
+
+    // Prepare next image
+    next.src = newSrc;
+    
+    // Kill existing animations to prevent conflicts
+    gsap.killTweensOf([img1, img2]);
+
+    // Stack correctly: 'next' comes to top, 'active' goes behind
+    gsap.set(next, { zIndex: 3, opacity: 0, scale: 1.05 });
+    gsap.set(active, { zIndex: 2 });
+
+    // Fade in 'next'
+    gsap.to(next, {
+      opacity: 1,
+      scale: 1,
+      duration: 0.5,
+      ease: "power2.inOut"
+    });
+
+    // Fade out 'active'
+    gsap.to(active, {
+      opacity: 0,
+      scale: 1.08, // Subtle zoom out as it disappears
+      duration: 0.5,
+      ease: "power2.inOut"
+    });
+  }
 
   items.forEach((item) => {
     const hoverSrc = item.dataset.img;
     if (!hoverSrc) return;
 
-    item.addEventListener("mouseenter", () => {
-      clearTimeout(hoverTimer);
-      centerImg.style.opacity = "0";
-      hoverTimer = setTimeout(() => {
-        centerImg.src = hoverSrc;
-        centerImg.style.opacity = "1";
-      }, 250);
-    });
-
-    item.addEventListener("mouseleave", () => {
-      clearTimeout(hoverTimer);
-      centerImg.style.opacity = "0";
-      hoverTimer = setTimeout(() => {
-        centerImg.src = defaultSrc;
-        centerImg.style.opacity = "1";
-      }, 250);
-    });
+    item.addEventListener("mouseenter", () => switchImage(hoverSrc));
+    item.addEventListener("mouseleave", () => switchImage(defaultSrc));
   });
 }
 

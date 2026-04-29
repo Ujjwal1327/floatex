@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Requirements Guide — Floatex Solar</title>
+    <style>
+        :root {
+            --primary: #FCAF17;
+            --dark: #1a1a1a;
+            --grey: #f4f4f4;
+            --border: #ddd;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #fff;
+        }
+
+        header {
+            border-bottom: 3px solid var(--primary);
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 28px;
+            color: var(--dark);
+        }
+
+        .instructions {
+            background: #fff8e1;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 5px solid var(--primary);
+        }
+
+        .print-btn {
+            background: var(--dark);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: transform 0.2s;
+        }
+
+        .print-btn:hover {
+            transform: translateY(-2px);
+            background: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 50px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border: 1px solid var(--border);
+        }
+
+        th {
+            background-color: var(--dark);
+            color: white;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        tr:nth-child(even) {
+            background-color: var(--grey);
+        }
+
+        .page-header {
+            background-color: var(--primary) !important;
+            color: var(--dark);
+            font-weight: 800;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .dim-tag {
+            background: #e3f2fd;
+            color: #1565c0;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-weight: bold;
+        }
+
+        .resp-tag {
+            background: #f1f8e9;
+            color: #2e7d32;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .important {
+            color: #d32f2f;
+            font-weight: bold;
+        }
+
+        @media print {
+            .print-btn, .instructions {
+                display: none;
+            }
+            body {
+                padding: 0;
+            }
+            table {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div>
+            <h1>Floatex Solar — Image Asset Requirements</h1>
+            <p>Guide for Graphics Design & Photography Team</p>
+        </div>
+        <button class="print-btn" onclick="window.print()">Print to PDF</button>
+    </header>
+
+    <div class="instructions">
+        <strong>Dear Designer:</strong> Please provide all images in <strong>High Quality WebP or JPG</strong>. 
+        For Hero sections, ensure the horizontal version is 16:9 and the vertical version is 9:16. 
+        Keep the aesthetic clean, engineering-focused, and sustainable.
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Section</th>
+                <th>Image Description</th>
+                <th>Required Dimensions</th>
+                <th>Notes / Responsive</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- HOME PAGE -->
+            <tr>
+                <td colspan="4" class="page-header">PAGE: HOME (index.html)</td>
+            </tr>
+            <tr>
+                <td><strong>Hero Background</strong></td>
+                <td>Aerial cinematic view of floating solar panels on water.</td>
+                <td><span class="dim-tag">1920 x 1080px</span></td>
+                <td><span class="resp-tag">Mobile: 1080 x 1920px (Vertical)</span> Needs space for text overlay.</td>
+            </tr>
+            <tr>
+                <td><strong>Solutions Image</strong></td>
+                <td>Modern FSPV plant with infrastructure detail.</td>
+                <td><span class="dim-tag">1200 x 800px</span></td>
+                <td>Landscape for desktop. High clarity.</td>
+            </tr>
+            <tr>
+                <td><strong>Project Cards (7)</strong></td>
+                <td>Portfolio shots of different site locations across India.</td>
+                <td><span class="dim-tag">800 x 600px</span></td>
+                <td>7 unique images required. Consistent grading.</td>
+            </tr>
+            <tr>
+                <td><strong>Radial Services (10)</strong></td>
+                <td>Specific parts: Mooring, Walkways, Barges, Floats, etc.</td>
+                <td><span class="dim-tag">600 x 600px</span></td>
+                <td><span class="important">SQUARE CROP.</span> Will be clipped to circles.</td>
+            </tr>
+            <tr>
+                <td><strong>CTA Banner</strong></td>
+                <td>Wide sunset/sunrise view of a floating solar site.</td>
+                <td><span class="dim-tag">1600 x 600px</span></td>
+                <td><span class="important">Dark Image</span> or compatible with white text.</td>
+            </tr>
+            <tr>
+                <td><strong>Blog Thumbnails</strong></td>
+                <td>Editorial style clean-tech photography.</td>
+                <td><span class="dim-tag">600 x 400px</span></td>
+                <td>3 images for the latest news section.</td>
+            </tr>
+
+            <!-- PROJECTS PAGE -->
+            <tr>
+                <td colspan="4" class="page-header">PAGE: PROJECTS (projects.html)</td>
+            </tr>
+            <tr>
+                <td><strong>Projects Hero</strong></td>
+                <td>Wide landscape of a major reservoir project (e.g. Omkareshwar).</td>
+                <td><span class="dim-tag">1920 x 800px</span></td>
+                <td><span class="resp-tag">Mobile: 1080 x 1200px</span> High resolution.</td>
+            </tr>
+            <tr>
+                <td><strong>Timeline Cards (15)</strong></td>
+                <td>Site photos for each of the 15 commissioned projects.</td>
+                <td><span class="dim-tag">800 x 600px</span></td>
+                <td>15 unique site photos.</td>
+            </tr>
+
+            <!-- NEWS PAGE -->
+            <tr>
+                <td colspan="4" class="page-header">PAGE: NEWS & INSIGHTS (news.html)</td>
+            </tr>
+            <tr>
+                <td><strong>News Hero</strong></td>
+                <td>Professional abstract shot of water or solar glass.</td>
+                <td><span class="dim-tag">1920 x 600px</span></td>
+                <td>Modern, corporate look.</td>
+            </tr>
+            <tr>
+                <td><strong>Featured Article</strong></td>
+                <td>Main thumbnail for the top news story.</td>
+                <td><span class="dim-tag">1200 x 800px</span></td>
+                <td>High-impact photography.</td>
+            </tr>
+            <tr>
+                <td><strong>News Grid Cards</strong></td>
+                <td>General imagery relating to policy, tech, or international news.</td>
+                <td><span class="dim-tag">600 x 400px</span></td>
+                <td>6 images for the grid.</td>
+            </tr>
+
+            <!-- GLOBAL -->
+            <tr>
+                <td colspan="4" class="page-header">GLOBAL / BRAND ASSETS</td>
+            </tr>
+            <tr>
+                <td><strong>Main Logo</strong></td>
+                <td>Floatex Solar official logo.</td>
+                <td><span class="dim-tag">SVG or PNG</span></td>
+                <td>Transparent background. Min width 600px.</td>
+            </tr>
+            <tr>
+                <td><strong>OG Image</strong></td>
+                <td>Summary image for link sharing (Social Media).</td>
+                <td><span class="dim-tag">1200 x 630px</span></td>
+                <td>Must include brand logo + solar imagery.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <footer style="text-align: center; color: #888; font-size: 12px; margin-top: 50px;">
+        Generated by Antigravity Code Editor for Floatex Solar Project.
+    </footer>
+
+</body>
+</html>
