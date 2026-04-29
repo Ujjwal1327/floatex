@@ -920,7 +920,7 @@ function initAutoHideHeader() {
   if (!header) return;
 
   let hideTimer = null;
-  let isHidden = false;
+  let isHidden  = false;
 
   function hideHeader() {
     header.classList.add("nav--hidden");
@@ -932,10 +932,11 @@ function initAutoHideHeader() {
     isHidden = false;
   }
 
-  /* Hide after 3 seconds on load */
+  /* Only auto-hide on screens wider than 900px */
+  if (window.innerWidth <= 900) return;
+
   hideTimer = setTimeout(hideHeader, 3000);
 
-  /* Mouse moves near top → show; moves away → start hide timer */
   document.addEventListener("mousemove", (e) => {
     if (e.clientY < 80) {
       clearTimeout(hideTimer);
@@ -945,6 +946,14 @@ function initAutoHideHeader() {
         clearTimeout(hideTimer);
         hideTimer = setTimeout(hideHeader, 2500);
       }
+    }
+  });
+
+  /* If user resizes to <= 900px mid-session, restore header */
+  window.addEventListener("resize", () => {
+    if (window.innerWidth <= 900) {
+      clearTimeout(hideTimer);
+      showHeader();
     }
   });
 }
