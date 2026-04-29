@@ -66,9 +66,10 @@ function initGSAP() {
   gsap.registerPlugin(ScrollTrigger);
   gsap.defaults({ ease: "power2.out", duration: 1 });
 
-  lenis.on("scroll", ScrollTrigger.update);
-
-  ScrollTrigger.addEventListener("refresh", () => lenis.resize());
+  if (lenis) {
+    lenis.on("scroll", ScrollTrigger.update);
+    ScrollTrigger.addEventListener("refresh", () => lenis.resize());
+  }
   ScrollTrigger.refresh();
 
   console.log(

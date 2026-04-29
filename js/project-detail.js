@@ -833,24 +833,41 @@ function switchProject(newIdx, animate = true) {
   updateStrip(newIdx, animate);
 }
 
+function getStripVisible() {
+  const w = window.innerWidth;
+  if (w < 640)  return 1;
+  if (w < 900)  return 2;
+  if (w < 1024) return 3;
+  if (w < 1440) return 4;
+  return 5;
+}
+
 function updateStrip(activeIdx, animate) {
-  const track = document.getElementById("pd-strip-track");
+  const track   = document.getElementById("pd-strip-track");
   const btnPrev = document.getElementById("pd-nav-prev");
   const btnNext = document.getElementById("pd-nav-next");
   if (!track) return;
 
-  const VISIBLE = 5;
+  const VISIBLE  = getStripVisible();
+  const pct      = 100 / VISIBLE;
   const maxSlide = PROJECTS.length - VISIBLE;
-  const slide = Math.min(Math.max(activeIdx - Math.floor(VISIBLE / 2), 0), maxSlide);
+  const slide    = Math.min(Math.max(activeIdx - Math.floor(VISIBLE / 2), 0), maxSlide);
 
-  /* Update active class on items */
   track.querySelectorAll(".pd__strip-item").forEach((el, i) => {
     el.classList.toggle("is-active", i === activeIdx);
   });
 
-  /* Slide track */
   track.style.transition = animate ? "transform 0.4s cubic-bezier(0.4,0,0.2,1)" : "none";
-  track.style.transform = `translateX(-${slide * 20}%)`;
+  track.style.transform  = `translateX(-${slide * pct}%)`;
+
+  /* Mobile compact label */
+  const p       = PROJECTS[activeIdx];
+  const num     = String(activeIdx + 1).padStart(2, "0");
+  const total   = String(PROJECTS.length).padStart(2, "0");
+  const mobCtr  = document.getElementById("pd-strip-mob-counter");
+  const mobName = document.getElementById("pd-strip-mob-name");
+  if (mobCtr)  mobCtr.textContent  = `${num} / ${total}`;
+  if (mobName) mobName.textContent = p.name;
 
   if (btnPrev) btnPrev.disabled = activeIdx <= 0;
   if (btnNext) btnNext.disabled = activeIdx >= PROJECTS.length - 1;
@@ -956,6 +973,9 @@ function initProjectDetail() {
   currentIdx = activeIdx;
   buildBottomStrip(activeIdx);
   initAutoHideHeader();
+
+  /* Re-calc strip on resize (breakpoint changes visible count) */
+  window.addEventListener("resize", () => updateStrip(currentIdx, false));
 
   console.log(`%c✅ Project detail ready — ${project.name}`, "color:#FCAF17;font-size:12px;");
 }

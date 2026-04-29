@@ -312,3 +312,136 @@ body {
   z-index: 9999;
   pointer-events: auto;
 }
+
+/* ============================================
+   RESPONSIVE
+============================================ */
+
+/* ---- Mobile strip label (hidden on desktop) ---- */
+.pd__strip-mobile {
+  display: none;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.18rem;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(0,0,0,0.07);
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+  box-shadow: 0 4px 28px rgba(0,0,0,0.15);
+  padding: 0.5rem 1rem;
+  min-height: 52px;
+  overflow: hidden;
+}
+.pd__strip-mob-counter {
+  font-size: 0.54rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.35);
+  line-height: 1;
+}
+.pd__strip-mob-name {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #111;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* ---- 1440px+ large desktop ---- */
+@media (min-width: 1440px) {
+  .pd__mw-digit { font-size: 7.5rem; }
+  .pd__stat-card { padding: 0.8rem 1.15rem; min-width: 118px; }
+  .pd__stat-card .pd__stat-val { font-size: 1.25rem; }
+  .pd__stats-grid { gap: 8px; }
+}
+
+/* ---- 1024px–1439px: 4 items ---- */
+@media (max-width: 1439px) {
+  .pd__strip-item { width: 25%; }
+}
+
+/* ---- 900px–1023px tablet: 3 items ---- */
+@media (max-width: 1023px) {
+  .pd__strip-item { width: 33.333%; }
+
+  /* Columns: smaller cards */
+  .pd__details-col .pd__stat-card,
+  .pd__stat-card { padding: 0.55rem 0.78rem; min-width: 82px; }
+  .pd__stat-card .pd__stat-val   { font-size: 0.98rem; }
+  .pd__stat-card .pd__stat-label { font-size: 0.5rem; }
+
+  /* MW: slightly smaller */
+  .pd__mw-digit { font-size: clamp(3rem, 6.5vw, 5.5rem); }
+
+  .pd__mw-display,
+  .pd__stats-grid { bottom: calc(1.1rem + 88px + 2rem); }
+  .pd__zone       { bottom: calc(1.1rem + 88px); }
+}
+
+/* ---- 640px–899px: 2 items ---- */
+@media (max-width: 899px) {
+  .pd__details-col,
+  .pd__details-col--right { display: none !important; }
+
+  /* Hide cursor — no precision mouse on mobile */
+  .pd__cursor { display: none !important; }
+
+  /* Strip: 2 items */
+  .pd__strip-item { width: 50%; }
+  .pd__strip-name { font-size: 0.65rem; }
+  .pd__strip-loc  { font-size: 0.55rem; }
+  .pd__strip-num  { font-size: 0.5rem; }
+  .pd__strip-item { padding: 0.8rem 0.9rem; }
+
+  /* Stats: compact, bottom-right */
+  .pd__stats-grid { gap: 5px; bottom: calc(1.1rem + 80px + 1.4rem); }
+  .pd__stat-card  { padding: 0.48rem 0.62rem; min-width: 68px; }
+  .pd__stat-card .pd__stat-val   { font-size: 0.82rem; }
+  .pd__stat-card .pd__stat-label { font-size: 0.48rem; }
+
+  /* MW stays bottom-left */
+  .pd__mw-display { bottom: calc(1.1rem + 80px + 1.4rem); }
+  .pd__mw-digit   { font-size: clamp(2.8rem, 8vw, 4.5rem); }
+  .pd__zone       { bottom: calc(1.1rem + 80px); }
+}
+
+/* ---- < 640px mobile: 1 item ---- */
+@media (max-width: 639px) {
+  .pd__details-col,
+  .pd__details-col--right { display: none !important; }
+  .pd__stats-grid         { display: none !important; }
+  .pd__cursor             { display: none !important; }
+
+  /* Strip: 1 item full-width, mobile label hidden */
+  .pd__strip        { display: flex; }
+  .pd__strip-mobile { display: none !important; }
+  .pd__strip-item   { width: 100%; padding: 0.7rem 1rem; }
+  .pd__strip-name   { font-size: 0.75rem; }
+  .pd__strip-loc    { font-size: 0.58rem; }
+  .pd__strip-num    { font-size: 0.5rem; }
+
+  /* Zones: 50/50, stop above strip */
+  .pd__zone        { width: 50%; bottom: calc(0.75rem + 64px); }
+  .pd__zone--left  { left: 0; }
+  .pd__zone--right { right: 0; }
+
+  /* MW stays bottom-left, just smaller */
+  .pd__mw-display { bottom: calc(0.75rem + 64px + 1.2rem); }
+  .pd__mw-digit   { font-size: clamp(2.4rem, 14vw, 3.8rem); }
+  .pd__mw-unit    { font-size: 0.85rem; margin-left: 0.3em; }
+
+  .pd__strip-wrapper { bottom: 0.75rem; gap: 0; }
+
+  .pd__strip-nav { width: 48px; border-radius: 0; flex-shrink: 0; }
+  .pd__strip-nav:first-child { border-radius: 8px 0 0 8px; }
+  .pd__strip-nav:last-child  { border-radius: 0 8px 8px 0; }
+  .pd__strip-nav svg { width: 16px; height: 16px; }
+}
