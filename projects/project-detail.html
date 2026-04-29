@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project — Floatex Solar</title>
+  <link rel="icon" type="image/x-icon" href="../assets/favicons/favicon.ico" />
+  <meta name="theme-color" content="#FCAF17" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Caveat:wght@600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/project-detail.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="site-header" id="site-header">
+    <nav class="nav" aria-label="Main navigation">
+      <div class="nav__inner">
+        <a href="../index.html" class="nav__logo" aria-label="Floatex Solar — Home">
+          <img src="../assets/images/logo.png" alt="Floatex Solar" width="140" height="44" loading="eager" />
+        </a>
+        <ul class="nav__links" role="list">
+          <span class="nav__pill" aria-hidden="true"></span>
+          <li class="nav__item"><a href="../index.html" class="nav__link">Home</a></li>
+          <li class="nav__item nav__item--dropdown">
+            <button class="nav__link nav__link--trigger" aria-haspopup="true" aria-expanded="false" aria-controls="dropdown-about">About
+              <svg class="nav__chevron" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="nav__dropdown" id="dropdown-about" role="region">
+              <ul class="nav__dropdown-list" role="list">
+                <li><a href="/about" class="nav__dropdown-link"><span><strong>Our Company</strong><small>Story, mission &amp; vision</small></span></a></li>
+                <li><a href="/team" class="nav__dropdown-link"><span><strong>Our Team</strong><small>Meet the experts</small></span></a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav__item"><a href="../projects.html" class="nav__link nav__link--active" aria-current="page">Projects</a></li>
+          <li class="nav__item nav__item--dropdown">
+            <button class="nav__link nav__link--trigger" aria-haspopup="true" aria-expanded="false" aria-controls="dropdown-services">Services
+              <svg class="nav__chevron" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="nav__dropdown" id="dropdown-services" role="region">
+              <ul class="nav__dropdown-list" role="list">
+                <li><a href="#" class="nav__dropdown-link"><span><strong>Floating Solar Systems</strong></span></a></li>
+                <li><a href="#" class="nav__dropdown-link"><span><strong>Utility Barges</strong></span></a></li>
+                <li><a href="#" class="nav__dropdown-link"><span><strong>Access Systems</strong></span></a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav__item"><a href="../news.html" class="nav__link">News</a></li>
+        </ul>
+        <a href="../contact.html" class="nav__cta">let's Start Now</a>
+        <button class="nav__hamburger" id="nav-hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span class="nav__hamburger-bar"></span>
+          <span class="nav__hamburger-bar"></span>
+          <span class="nav__hamburger-bar"></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Mobile menu -->
+  <div class="nav__mobile" id="mobile-menu" aria-hidden="true">
+    <ul class="nav__mobile-links" role="list">
+      <li><a href="../index.html" class="nav__mobile-link">Home</a></li>
+      <li class="nav__mobile-item--accordion">
+        <button class="nav__mobile-link nav__mobile-trigger" aria-expanded="false" aria-controls="mobile-submenu-about">About
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <ul class="nav__mobile-submenu" id="mobile-submenu-about" role="list">
+          <li><a href="/about" class="nav__mobile-sublink">Our Company</a></li>
+          <li><a href="/team" class="nav__mobile-sublink">Our Team</a></li>
+        </ul>
+      </li>
+      <li><a href="../projects.html" class="nav__mobile-link">Projects</a></li>
+      <li class="nav__mobile-item--accordion">
+        <button class="nav__mobile-link nav__mobile-trigger" aria-expanded="false" aria-controls="mobile-submenu-services">Services
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <ul class="nav__mobile-submenu" id="mobile-submenu-services" role="list">
+          <li><a href="#" class="nav__mobile-sublink">Floating Solar Systems</a></li>
+          <li><a href="#" class="nav__mobile-sublink">Utility Barges</a></li>
+          <li><a href="#" class="nav__mobile-sublink">Access Systems</a></li>
+        </ul>
+      </li>
+      <li><a href="../news.html" class="nav__mobile-link">News</a></li>
+      <li><a href="../contact.html" class="nav__mobile-cta">let's Start Now</a></li>
+    </ul>
+  </div>
+
+  <!-- FULLSCREEN BG -->
+  <div class="pd__hero-bg" id="pd-hero-bg"></div>
+  <div class="pd__hero-overlay"></div>
+
+  <!-- MW DISPLAY — bottom-left over hero -->
+  <div class="pd__mw-display" id="pd-mw-display"></div>
+
+  <!-- DETAILS COLUMN — left center -->
+  <div class="pd__details-col" id="pd-details-col">
+    <div class="pd__stat-card" id="pd-det-developer">
+      <span class="pd__stat-val"></span>
+      <span class="pd__stat-label">Developer</span>
+    </div>
+    <div class="pd__stat-card" id="pd-det-epc">
+      <span class="pd__stat-val"></span>
+      <span class="pd__stat-label">EPC</span>
+    </div>
+    <div class="pd__stat-card" id="pd-det-supply">
+      <span class="pd__stat-val"></span>
+      <span class="pd__stat-label">Float Supply</span>
+    </div>
+  </div>
+
+  <!-- WATER BODY COLUMN — right center -->
+  <div class="pd__details-col pd__details-col--right" id="pd-water-col">
+    <div class="pd__stat-card" id="pd-det-type">
+      <span class="pd__stat-val"></span>
+      <span class="pd__stat-label">Type</span>
+    </div>
+    <div class="pd__stat-card" id="pd-det-variation">
+      <span class="pd__stat-val"></span>
+      <span class="pd__stat-label">Water Variation</span>
+    </div>
+    <div class="pd__stat-card" id="pd-det-commissioned">
+      <span class="pd__stat-val"></span>
+      <span class="pd__stat-label">Commissioned</span>
+    </div>
+  </div>
+
+  <!-- STATS GRID — bottom-right over hero -->
+  <div class="pd__stats-grid" id="pd-stats-grid">
+    <div class="pd__stat-card" id="pd-stat-modules">
+      <span class="pd__stat-val"></span>
+      <span class="pd__stat-label">Modules</span>
+    </div>
+    <div class="pd__stat-card" id="pd-stat-area">
+      <span class="pd__stat-val"></span>
+      <span class="pd__stat-label">Area</span>
+    </div>
+    <div class="pd__stat-card" id="pd-stat-floats">
+      <span class="pd__stat-val"></span>
+      <span class="pd__stat-label">Floats</span>
+    </div>
+    <div class="pd__stat-card" id="pd-stat-yield">
+      <span class="pd__stat-val"></span>
+      <span class="pd__stat-label">Annual Yield</span>
+    </div>
+  </div>
+
+  <!-- IMAGE CLICK ZONES -->
+  <div class="pd__zone pd__zone--left"  id="pd-zone-left"></div>
+  <div class="pd__zone pd__zone--right" id="pd-zone-right"></div>
+
+  <!-- CUSTOM CURSOR -->
+  <div class="pd__cursor" id="pd-cursor">
+    <span class="pd__cursor-text" id="pd-cursor-text"></span>
+  </div>
+
+  <!-- BOTTOM PROJECT NAV STRIP -->
+  <div class="pd__strip-wrapper">
+    <button class="pd__strip-nav" id="pd-nav-prev" aria-label="Previous project">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <nav class="pd__strip" id="pd-strip" aria-label="Project navigation">
+      <div class="pd__strip-track" id="pd-strip-track"></div>
+    </nav>
+    <button class="pd__strip-nav" id="pd-nav-next" aria-label="Next project">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+
+  <script src="../js/main.js" defer></script>
+  <script src="../js/project-detail.js" defer></script>
+</body>
+</html>
