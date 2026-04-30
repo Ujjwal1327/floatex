@@ -1,266 +1,601 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Requirements Guide — Floatex Solar</title>
+    <title>Image Specification Guide — Floatex Solar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --primary: #FCAF17;
-            --dark: #1a1a1a;
-            --grey: #f4f4f4;
-            --border: #ddd;
+            --primary-light: #ffd175;
+            --dark-bg: #0a0a0a;
+            --card-bg: #141414;
+            --text-main: #ffffff;
+            --text-dim: #a0a0a0;
+            --border: #2a2a2a;
+            --success: #00c853;
+            --danger: #ff1744;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-main);
             line-height: 1.6;
-            color: #333;
-            max-width: 1100px;
-            margin: 0 auto;
             padding: 40px 20px;
-            background-color: #fff;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         header {
-            border-bottom: 3px solid var(--primary);
-            margin-bottom: 40px;
-            padding-bottom: 20px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-end;
+            margin-bottom: 50px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
         }
 
-        h1 {
-            margin: 0;
-            font-size: 28px;
-            color: var(--dark);
+        .brand h1 {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 5px;
         }
 
-        .instructions {
-            background: #fff8e1;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            border-left: 5px solid var(--primary);
+        .brand h1 span {
+            color: var(--primary);
         }
 
-        .print-btn {
-            background: var(--dark);
-            color: white;
-            border: none;
+        .brand p {
+            color: var(--text-dim);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .btn {
             padding: 12px 24px;
-            border-radius: 5px;
+            border-radius: 8px;
+            font-weight: 600;
             cursor: pointer;
-            font-weight: bold;
-            font-size: 16px;
-            transition: transform 0.2s;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+            font-size: 14px;
         }
 
-        .print-btn:hover {
-            transform: translateY(-2px);
-            background: #333;
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--border);
+        }
+
+        .instructions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .inst-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .inst-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+        }
+
+        .inst-card h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .inst-card ul {
+            list-style: none;
+        }
+
+        .inst-card li {
+            font-size: 14px;
+            color: var(--text-dim);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .inst-card li::before {
+            content: '→';
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .table-wrap {
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            margin-bottom: 60px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 50px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+            text-align: left;
         }
 
-        th, td {
-            padding: 15px;
-            text-align: left;
-            border: 1px solid var(--border);
+        thead {
+            background: rgba(252, 175, 23, 0.05);
         }
 
         th {
-            background-color: var(--dark);
-            color: white;
+            padding: 20px;
+            color: var(--primary);
+            font-weight: 700;
             text-transform: uppercase;
-            font-size: 13px;
-            letter-spacing: 1px;
-        }
-
-        tr:nth-child(even) {
-            background-color: var(--grey);
-        }
-
-        .page-header {
-            background-color: var(--primary) !important;
-            color: var(--dark);
-            font-weight: 800;
-            font-size: 18px;
-            text-align: center;
-        }
-
-        .dim-tag {
-            background: #e3f2fd;
-            color: #1565c0;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-family: monospace;
-            font-weight: bold;
-        }
-
-        .resp-tag {
-            background: #f1f8e9;
-            color: #2e7d32;
-            padding: 4px 8px;
-            border-radius: 4px;
             font-size: 12px;
-            display: block;
-            margin-top: 5px;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--border);
         }
 
-        .important {
-            color: #d32f2f;
-            font-weight: bold;
+        td {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+            vertical-align: middle;
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .page-row {
+            background: rgba(252, 175, 23, 0.12);
+        }
+
+        .page-row td {
+            font-weight: 800;
+            color: var(--primary);
+            font-size: 16px;
+            text-align: center;
+            padding: 15px;
+            text-transform: uppercase;
+        }
+
+        .section-name {
+            font-weight: 700;
+            display: block;
+            margin-bottom: 4px;
+            color: #fff;
+            font-size: 15px;
+        }
+
+        .section-quote {
+            font-size: 12px;
+            color: var(--text-dim);
+            font-style: italic;
+            display: block;
+            line-height: 1.2;
+        }
+
+        .size-tag {
+            font-family: 'JetBrains Mono', monospace;
+            background: #2a2a2a;
+            padding: 6px 12px;
+            border-radius: 6px;
+            color: var(--primary-light);
+            font-weight: 600;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        .mobile-badge {
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .badge-yes {
+            background: rgba(0, 200, 83, 0.15);
+            color: var(--success);
+            border: 1px solid rgba(0, 200, 83, 0.3);
+        }
+
+        .badge-no {
+            background: rgba(255, 23, 68, 0.1);
+            color: var(--danger);
+            border: 1px solid rgba(255, 23, 68, 0.2);
+        }
+
+        .desc-text {
+            line-height: 1.5;
+            color: var(--text-dim);
+        }
+
+        .desc-text strong {
+            color: #fff;
         }
 
         @media print {
-            .print-btn, .instructions {
-                display: none;
-            }
             body {
+                background: white;
+                color: black;
                 padding: 0;
             }
-            table {
+
+            .container {
+                max-width: 100%;
+            }
+
+            .btn-outline,
+            .inst-card::before {
+                display: none;
+            }
+
+            .table-wrap {
+                border: 1px solid #ddd;
                 box-shadow: none;
+            }
+
+            th {
+                color: #333;
+                background: #eee;
+            }
+
+            td {
+                border-bottom: 1px solid #eee;
+                color: #333;
+            }
+
+            .size-tag {
+                background: #eee;
+                color: #000;
+                border: 1px solid #ccc;
+            }
+
+            .page-row {
+                background: #f0f0f0;
+            }
+
+            .page-row td {
+                color: #000;
+            }
+
+            .section-name {
+                color: #000;
+            }
+
+            .badge-yes,
+            .badge-no {
+                border: 1px solid #ccc;
+                color: #000;
             }
         }
     </style>
 </head>
+
 <body>
 
-    <header>
-        <div>
-            <h1>Floatex Solar — Image Asset Requirements</h1>
-            <p>Guide for Graphics Design & Photography Team</p>
-        </div>
-        <button class="print-btn" onclick="window.print()">Print to PDF</button>
-    </header>
+    <div class="container">
+        <header>
+            <div class="brand">
+                <h1>FLOATEX <span>SOLAR</span> — IMAGE REQUIREMENTS</h1>
+                <p>Comprehensive Media Guide for Graphic Designers</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-outline" onclick="window.print()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6z" />
+                    </svg>
+                    Save as PDF
+                </button>
+            </div>
+        </header>
 
-    <div class="instructions">
-        <strong>Dear Designer:</strong> Please provide all images in <strong>High Quality WebP or JPG</strong>. 
-        For Hero sections, ensure the horizontal version is 16:9 and the vertical version is 9:16. 
-        Keep the aesthetic clean, engineering-focused, and sustainable.
+        <div class="instructions-grid">
+            <div class="inst-card">
+                <h3><span>📁</span> Formats & Quality</h3>
+                <ul>
+                    <li>Primary Format: <strong>WebP</strong> (lossy, 80% quality).</li>
+                    <li>Fallback: <strong>JPG</strong> for photos, <strong>PNG</strong> for graphics.</li>
+                    <li>Keep file sizes under <strong>200KB</strong> where possible.</li>
+                </ul>
+            </div>
+            <div class="inst-card">
+                <h3><span>📐</span> Aspect Ratios</h3>
+                <ul>
+                    <li>Standard Desktop: <strong>16:9</strong></li>
+                    <li>Standard Mobile: <strong>9:16</strong> (Vertical) or <strong>4:3</strong></li>
+                    <li>Service Items: <strong>1:1</strong> (Perfect Square)</li>
+                </ul>
+            </div>
+            <div class="inst-card">
+                <h3><span>💡</span> Pro-Tip for GD</h3>
+                <ul>
+                    <li>Do <strong>NOT</strong> put text on images. (Text is done in code).</li>
+                    <li>Ensure important subjects are <strong>Centered</strong> for cropping.</li>
+                    <li>Match names to the <strong>Section Name</strong> in the table.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 12%;">Page</th>
+                        <th style="width: 25%;">Section</th>
+                        <th style="width: 28%;">Description</th>
+                        <th style="width: 15%;">Size (Desktop)</th>
+                        <th style="width: 10%;">Mobile?</th>
+                        <th style="width: 10%;">Size (Mobile)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- HOME PAGE -->
+                    <tr class="page-row">
+                        <td colspan="6">PAGE: HOME (index.html)</td>
+                    </tr>
+                    <tr>
+                        <td>Home Page</td>
+                        <td>
+                            <span class="section-name">Hero Section</span>
+                            <span class="section-quote">"Powering India with 1GW+ Floats."</span>
+                        </td>
+                        <td>
+                            <div class="desc-text"><strong>Fallback image</strong> for background video. High-impact
+                                aerial shot of solar floats.</div>
+                        </td>
+                        <td><span class="size-tag">1920 x 1080</span></td>
+                        <td><span class="mobile-badge badge-yes">YES</span></td>
+                        <td><span class="size-tag">600 x 500</span></td>
+                    </tr>
+                    <tr>
+                        <td>Home Page</td>
+                        <td>
+                            <span class="section-name">Solution Section</span>
+                            <span class="section-quote">"Clean energy solutions for Reservoirs..."</span>
+                        </td>
+                        <td>
+                            <div class="desc-text"><strong>Right-side image</strong>. Showing engineering or
+                                environmental impact.</div>
+                        </td>
+                        <td><span class="size-tag">600 x 500</span></td>
+                        <td><span class="mobile-badge badge-no">NO</span></td>
+                        <td><span class="size-tag">—</span></td>
+                    </tr>
+                    <tr>
+                        <td>Home Page</td>
+                        <td>
+                            <span class="section-name">Our Projects</span>
+                            <span class="section-quote">"Installations across India."</span>
+                        </td>
+                        <td>
+                            <div class="desc-text"><strong>Portfolio Grid:</strong><br>• 1 Tall Image: <strong>400 x
+                                    800</strong><br>• 4 Standard: <strong>400 x 350</strong></div>
+                        </td>
+                        <td><span class="size-tag">Mixed Sizes</span></td>
+                        <td><span class="mobile-badge badge-no">NO</span></td>
+                        <td><span class="size-tag">—</span></td>
+                    </tr>
+                    <tr>
+                        <td>Home Page</td>
+                        <td>
+                            <span class="section-name">Engineering Insight</span>
+                            <span class="section-quote">"Powering a global shift to clean energy..."</span>
+                        </td>
+                        <td>
+                            <div class="desc-text"><strong>Background image</strong>. High-contrast, tech-focused. Needs
+                                a dark overlay.<br>• 1 Background: <strong>1920 x 1080</strong><br>• 4 Supporting: <strong>400 x 350</strong></div>
+                        </td>
+                        <td><span class="size-tag">Mixed</span></td>
+                        <td><span class="mobile-badge badge-no">NO</span></td>
+                        <td><span class="size-tag">—</span></td>
+                    </tr>
+                    <tr>
+                        <td>Home Page</td>
+                        <td>
+                            <span class="section-name">Services Section</span>
+                            <span class="section-quote">"End-to-End Floating Solar Solutions"</span>
+                        </td>
+                        <td>
+                            <div class="desc-text"><strong>10 Square Images</strong> for radial items. Must be 1:1
+                                ratio. No background text.</div>
+                        </td>
+                        <td><span class="size-tag">600 x 600</span></td>
+                        <td><span class="mobile-badge badge-no">NO</span></td>
+                        <td><span class="size-tag">—</span></td>
+                    </tr>
+                    <tr>
+                        <td>Home Page</td>
+                        <td>
+                            <span class="section-name">Latest News</span>
+                            <span class="section-quote">"Latest News & Insights"</span>
+                        </td>
+                        <td>
+                            <div class="desc-text"><strong>3 Thumbnails</strong> for blog cards. Clean, corporate
+                                photography.</div>
+                        </td>
+                        <td><span class="size-tag">600 x 400</span></td>
+                        <td><span class="mobile-badge badge-no">NO</span></td>
+                        <td><span class="size-tag">—</span></td>
+                    </tr>
+
+                    <!-- ABOUT PAGE -->
+                    <tr class="page-row">
+                        <td colspan="6">PAGE: ABOUT (about.html)</td>
+                    </tr>
+                    <tr>
+                        <td>About Page</td>
+                        <td><span class="section-name">About Hero</span></td>
+                        <td>
+                            <div class="desc-text"><strong>Wide Banner</strong>. Cinematic shot of a floating solar farm at sunset.</div>
+                        </td>
+                        <td><span class="size-tag">1920 x 800</span></td>
+                        <td><span class="mobile-badge badge-yes">YES</span></td>
+                        <td><span class="size-tag">600 x 800</span></td>
+                    </tr>
+                    <tr>
+                        <td>About Page</td>
+                        <td><span class="section-name">Our Story / Team</span></td>
+                        <td>
+                            <div class="desc-text"><strong>Action shot</strong> of engineers on a platform.</div>
+                        </td>
+                        <td><span class="size-tag">800 x 600</span></td>
+                        <td><span class="mobile-badge badge-no">NO</span></td>
+                        <td><span class="size-tag">—</span></td>
+                    </tr>
+
+                    <!-- PROJECTS PAGE -->
+                    <tr class="page-row">
+                        <td colspan="6">PAGE: PROJECTS (projects.html)</td>
+                    </tr>
+                    <tr>
+                        <td>Projects</td>
+                        <td><span class="section-name">Projects Hero</span></td>
+                        <td>
+                            <div class="desc-text"><strong>Wide Banner</strong>. Cinematic shot of a flagship project
+                                (e.g., Omkareshwar).</div>
+                        </td>
+                        <td><span class="size-tag">1800 x 800</span></td>
+                        <td><span class="mobile-badge badge-yes">YES</span></td>
+                        <td><span class="size-tag">600 x 800</span></td>
+                    </tr>
+
+
+                    <!-- SERVICE PAGES -->
+                    <tr class="page-row">
+                        <td colspan="6">SERVICE PAGES (Sub-pages)</td>
+                    </tr>
+                    <tr>
+                        <td>Services</td>
+                        <td><span class="section-name">Service Hero</span></td>
+                        <td>
+                            <div class="desc-text"><strong>Header Banner</strong> for FSPV, Utility Barges, and Access
+                                Systems. Dark/Blurred.</div>
+                        </td>
+                        <td><span class="size-tag">1920 x 600</span></td>
+                        <td><span class="mobile-badge badge-no">NO</span></td>
+                        <td><span class="size-tag">—</span></td>
+                    </tr>
+
+                    <!-- CONTACT PAGE -->
+                    <tr class="page-row">
+                        <td colspan="6">PAGE: CONTACT (contact.html)</td>
+                    </tr>
+                    <tr>
+                        <td>Contact Page</td>
+                        <td>
+                            <span class="section-name">Contact Hero</span>
+                            <span class="section-quote">"Let's Build Something Remarkable Together"</span>
+                        </td>
+                        <td>
+                            <div class="desc-text">
+                                <strong>Wide Banner Photo.</strong><br>
+                                Professional abstract or site shot. Should have a dark overlay to ensure text readability.
+                            </div>
+                        </td>
+                        <td><span class="size-tag">1800 x 850</span></td>
+                        <td><span class="mobile-badge badge-yes">YES</span></td>
+                        <td><span class="size-tag">600 x 800</span></td>
+                    </tr>
+
+                    <!-- PROJECT DETAIL PAGE -->
+                    <tr class="page-row">
+                        <td colspan="6">PAGE: PROJECT DETAILS (project-detail.html)</td>
+                    </tr>
+                    <tr>
+                        <td>Project Detail</td>
+                        <td>
+                            <span class="section-name">Project Backgrounds</span>
+                            <span class="section-quote">"Fullscreen Cinematic View"</span>
+                        </td>
+                        <td>
+                            <div class="desc-text">
+                                <strong>3-4 Unique Photos per Project.</strong><br>
+                                These images will cycle in the background. Must be high-resolution and visually diverse (wide shots, close-ups, aerial).
+                            </div>
+                        </td>
+                        <td><span class="size-tag">1920 x 1080</span></td>
+                        <td><span class="mobile-badge badge-yes">YES</span></td>
+                        <td><span class="size-tag">800 x 1200</span></td>
+                    </tr>
+
+                    <!-- GLOBAL / BRANDING -->
+                    <tr class="page-row">
+                        <td colspan="6">GLOBAL & BRAND ASSETS</td>
+                    </tr>
+                    <tr>
+                        <td>Global</td>
+                        <td><span class="section-name">Main Logo</span></td>
+                        <td>
+                            <div class="desc-text"><strong>Transparent PNG/SVG</strong>. High resolution original
+                                source.</div>
+                        </td>
+                        <td><span class="size-tag">Auto</span></td>
+                        <td><span class="mobile-badge badge-yes">YES</span></td>
+                        <td><span class="size-tag">Auto</span></td>
+                    </tr>
+                    <tr>
+                        <td>SEO</td>
+                        <td><span class="section-name">OG Image</span></td>
+                        <td>
+                            <div class="desc-text"><strong>Link Preview</strong>. Must include Logo + Solar site
+                                background.</div>
+                        </td>
+                        <td><span class="size-tag">1200 x 630</span></td>
+                        <td><span class="mobile-badge badge-no">NO</span></td>
+                        <td><span class="size-tag">—</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <footer style="text-align: center; color: var(--text-dim); font-size: 12px; padding-bottom: 40px;">
+            <p>© 2026 Floatex Solar Asset Management. Strictly follow dimensions to avoid site breakdown.</p>
+        </footer>
     </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Section</th>
-                <th>Image Description</th>
-                <th>Required Dimensions</th>
-                <th>Notes / Responsive</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- HOME PAGE -->
-            <tr>
-                <td colspan="4" class="page-header">PAGE: HOME (index.html)</td>
-            </tr>
-            <tr>
-                <td><strong>Hero Background</strong></td>
-                <td>Aerial cinematic view of floating solar panels on water.</td>
-                <td><span class="dim-tag">1920 x 1080px</span></td>
-                <td><span class="resp-tag">Mobile: 1080 x 1920px (Vertical)</span> Needs space for text overlay.</td>
-            </tr>
-            <tr>
-                <td><strong>Solutions Image</strong></td>
-                <td>Modern FSPV plant with infrastructure detail.</td>
-                <td><span class="dim-tag">1200 x 800px</span></td>
-                <td>Landscape for desktop. High clarity.</td>
-            </tr>
-            <tr>
-                <td><strong>Project Cards (7)</strong></td>
-                <td>Portfolio shots of different site locations across India.</td>
-                <td><span class="dim-tag">800 x 600px</span></td>
-                <td>7 unique images required. Consistent grading.</td>
-            </tr>
-            <tr>
-                <td><strong>Radial Services (10)</strong></td>
-                <td>Specific parts: Mooring, Walkways, Barges, Floats, etc.</td>
-                <td><span class="dim-tag">600 x 600px</span></td>
-                <td><span class="important">SQUARE CROP.</span> Will be clipped to circles.</td>
-            </tr>
-            <tr>
-                <td><strong>CTA Banner</strong></td>
-                <td>Wide sunset/sunrise view of a floating solar site.</td>
-                <td><span class="dim-tag">1600 x 600px</span></td>
-                <td><span class="important">Dark Image</span> or compatible with white text.</td>
-            </tr>
-            <tr>
-                <td><strong>Blog Thumbnails</strong></td>
-                <td>Editorial style clean-tech photography.</td>
-                <td><span class="dim-tag">600 x 400px</span></td>
-                <td>3 images for the latest news section.</td>
-            </tr>
-
-            <!-- PROJECTS PAGE -->
-            <tr>
-                <td colspan="4" class="page-header">PAGE: PROJECTS (projects.html)</td>
-            </tr>
-            <tr>
-                <td><strong>Projects Hero</strong></td>
-                <td>Wide landscape of a major reservoir project (e.g. Omkareshwar).</td>
-                <td><span class="dim-tag">1920 x 800px</span></td>
-                <td><span class="resp-tag">Mobile: 1080 x 1200px</span> High resolution.</td>
-            </tr>
-            <tr>
-                <td><strong>Timeline Cards (15)</strong></td>
-                <td>Site photos for each of the 15 commissioned projects.</td>
-                <td><span class="dim-tag">800 x 600px</span></td>
-                <td>15 unique site photos.</td>
-            </tr>
-
-            <!-- NEWS PAGE -->
-            <tr>
-                <td colspan="4" class="page-header">PAGE: NEWS & INSIGHTS (news.html)</td>
-            </tr>
-            <tr>
-                <td><strong>News Hero</strong></td>
-                <td>Professional abstract shot of water or solar glass.</td>
-                <td><span class="dim-tag">1920 x 600px</span></td>
-                <td>Modern, corporate look.</td>
-            </tr>
-            <tr>
-                <td><strong>Featured Article</strong></td>
-                <td>Main thumbnail for the top news story.</td>
-                <td><span class="dim-tag">1200 x 800px</span></td>
-                <td>High-impact photography.</td>
-            </tr>
-            <tr>
-                <td><strong>News Grid Cards</strong></td>
-                <td>General imagery relating to policy, tech, or international news.</td>
-                <td><span class="dim-tag">600 x 400px</span></td>
-                <td>6 images for the grid.</td>
-            </tr>
-
-            <!-- GLOBAL -->
-            <tr>
-                <td colspan="4" class="page-header">GLOBAL / BRAND ASSETS</td>
-            </tr>
-            <tr>
-                <td><strong>Main Logo</strong></td>
-                <td>Floatex Solar official logo.</td>
-                <td><span class="dim-tag">SVG or PNG</span></td>
-                <td>Transparent background. Min width 600px.</td>
-            </tr>
-            <tr>
-                <td><strong>OG Image</strong></td>
-                <td>Summary image for link sharing (Social Media).</td>
-                <td><span class="dim-tag">1200 x 630px</span></td>
-                <td>Must include brand logo + solar imagery.</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <footer style="text-align: center; color: #888; font-size: 12px; margin-top: 50px;">
-        Generated by Antigravity Code Editor for Floatex Solar Project.
-    </footer>
-
 </body>
+
 </html>
