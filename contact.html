@@ -268,19 +268,21 @@
             <!-- Row: Name + Phone -->
             <div class="contact-form__row">
               <div class="form-group">
-                <input type="text" id="cf-name" name="name" placeholder=" " autocomplete="name" required />
+                <input type="text" id="cf-name" name="name" placeholder=" " autocomplete="name" required aria-describedby="cf-name-error" />
                 <label for="cf-name">Full Name</label>
+                <span class="form-error" id="cf-name-error" aria-live="polite"></span>
               </div>
               <div class="form-group">
-                <input type="tel" id="cf-phone" name="phone" placeholder=" " autocomplete="tel" required />
+                <input type="tel" id="cf-phone" name="phone" placeholder=" " autocomplete="tel" required aria-describedby="cf-phone-error" />
                 <label for="cf-phone">Phone Number</label>
+                <span class="form-error" id="cf-phone-error" aria-live="polite"></span>
               </div>
             </div>
 
             <!-- Row: Country + Service -->
             <div class="contact-form__row">
               <div class="form-group form-group--select">
-                <select id="cf-country" name="country" required>
+                <select id="cf-country" name="country" required aria-describedby="cf-country-error">
                   <option value="" disabled selected hidden></option>
                   <option value="IN">India</option>
                   <option value="AE">UAE</option>
@@ -300,10 +302,11 @@
                   <path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
                     stroke-linejoin="round" />
                 </svg>
+                <span class="form-error" id="cf-country-error" aria-live="polite"></span>
               </div>
 
               <div class="form-group form-group--select">
-                <select id="cf-service" name="service" required>
+                <select id="cf-service" name="service" required aria-describedby="cf-service-error">
                   <option value="" disabled selected hidden></option>
                   <option value="float-manufacturing">Float Manufacturing</option>
                   <option value="pre-engineering">Pre-engineering &amp; Feasibility</option>
@@ -324,14 +327,24 @@
                   <path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
                     stroke-linejoin="round" />
                 </svg>
+                <span class="form-error" id="cf-service-error" aria-live="polite"></span>
               </div>
             </div>
 
             <!-- Message -->
             <div class="form-group form-group--textarea">
-              <textarea id="cf-message" name="message" placeholder=" " rows="5" required></textarea>
+              <textarea id="cf-message" name="message" placeholder=" " rows="5" aria-describedby="cf-message-error"></textarea>
               <label for="cf-message">Your Message</label>
+              <span class="form-error" id="cf-message-error" aria-live="polite"></span>
             </div>
+
+            <!-- Honeypot — bots fill this; humans never see it -->
+            <div class="cf-honeypot" aria-hidden="true">
+              <label for="cf-website">Website</label>
+              <input type="text" id="cf-website" name="website" tabindex="-1" autocomplete="off" />
+            </div>
+            <!-- Page-load timestamp -->
+            <input type="hidden" id="cf-t" name="_t" />
 
             <!-- Submit -->
             <button type="submit" class="contact-form__submit">
@@ -578,6 +591,7 @@
   </footer>
 
   <script src="js/main.js" defer></script>
+  <script src="js/contact-form.js" defer></script>
 </body>
 
 </html>
