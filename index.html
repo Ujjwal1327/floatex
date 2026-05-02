@@ -136,6 +136,7 @@
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/components.css" />
   <link rel="stylesheet" href="css/home.css" />
+  <link rel="stylesheet" href="css/news.css" />
 </head>
 
 <body>
@@ -973,68 +974,74 @@
         <!-- Cards Grid -->
         <div class="magazine__grid">
           <!-- Card 1 -->
-          <article class="magazine__card">
-            <div class="magazine__card-img-wrap">
-              <img class="magazine__card-img"
-                src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&q=80"
-                alt="Floating solar panels on a reservoir" loading="lazy" />
-              <span class="magazine__tag">LinkedIn</span>
-            </div>
-            <div class="magazine__card-body">
-              <span class="magazine__read-time">10 minutes reading time</span>
-              <h3 class="magazine__card-title">
-                Photovoltaic subsidies 2026: BAFA &amp; alternatives
+          <article class="news-card" itemscope itemtype="https://schema.org/BlogPosting">
+            <div class="news-card__top">
+              <time class="news-card__date" datetime="2026-04-15" itemprop="datePublished">Apr 15, 2026</time>
+              <h3 class="news-card__title" itemprop="headline">
+                <a href="#">India's New FSPV Policy: What Changes for Developers in 2026</a>
               </h3>
-              <p class="magazine__card-desc">
-                Subsidies for photovoltaic systems can significantly reduce
-                investment costs. We show you which grants, loans, and tax
-                advantages are currently available and what you should pay
-                attention to when applying.
-              </p>
+            </div>
+            <a href="#" class="news-card__image-link" aria-hidden="true" tabindex="-1">
+              <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&q=80"
+                alt="India FSPV policy update 2026" class="news-card__img" loading="lazy" width="600" height="380" />
+            </a>
+            <div class="news-card__body">
+              <p class="news-card__author" itemprop="author">by <strong>Floatex Solar</strong></p>
+              <p class="news-card__excerpt" itemprop="description">The Ministry of New and Renewable Energy has revised tariff norms and land-use guidelines for floating PV projects above 5 MW.</p>
+              <a href="#" class="news-card__read" aria-label="Read article: India's New FSPV Policy">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                Read Article
+              </a>
             </div>
           </article>
 
           <!-- Card 2 -->
-          <article class="magazine__card">
-            <div class="magazine__card-img-wrap">
-              <img class="magazine__card-img"
-                src="https://images.unsplash.com/photo-1497440001374-f26997328c1b?w=800&q=80"
-                alt="Engineers reviewing solar panel installation plans" loading="lazy" />
-              <span class="magazine__tag">LinkedIn</span>
-            </div>
-            <div class="magazine__card-body">
-              <span class="magazine__read-time">3-minute read</span>
-              <h3 class="magazine__card-title">
-                Individual solar solution: Every roof has its own special
-                features.
+          <article class="news-card" itemscope itemtype="https://schema.org/BlogPosting">
+            <div class="news-card__top">
+              <time class="news-card__date" datetime="2026-04-08" itemprop="datePublished">Apr 8, 2026</time>
+              <h3 class="news-card__title" itemprop="headline">
+                <a href="#">Reservoir Water Bodies Are the Next Frontier for Clean Energy</a>
               </h3>
-              <p class="magazine__card-desc">
-                Every home is different — and every photovoltaic system should
-                be too. We show why individual planning is crucial for a solar
-                system and how a tailor-made solar solution is created.
-              </p>
+            </div>
+            <a href="#" class="news-card__image-link" aria-hidden="true" tabindex="-1">
+              <img src="https://images.unsplash.com/photo-1497440001374-f26997328c1b?w=800&q=80"
+                alt="Reservoir floating solar installation India" class="news-card__img" loading="lazy" width="600" height="380" />
+            </a>
+            <div class="news-card__body">
+              <p class="news-card__author" itemprop="author">by <strong>Floatex Solar</strong></p>
+              <p class="news-card__excerpt" itemprop="description">With over 5,000 suitable reservoirs identified across India, FSPV is poised to contribute 280 GW to the national clean energy target.</p>
+              <a href="#" class="news-card__read" aria-label="Read article: Reservoir Solar Frontier">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                Read Article
+              </a>
             </div>
           </article>
 
           <!-- Card 3 -->
-          <article class="magazine__card">
-            <div class="magazine__card-img-wrap">
-              <img class="magazine__card-img"
-                src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&q=80"
-                alt="Solar panels close-up with energy concept" loading="lazy" />
-              <span class="magazine__tag">Blogs</span>
-            </div>
-            <div class="magazine__card-body">
-              <span class="magazine__read-time">5-minute read</span>
-              <h3 class="magazine__card-title">
-                Dynamic electricity tariffs — useful or not?
+          <article class="news-card" itemscope itemtype="https://schema.org/BlogPosting">
+            <div class="news-card__top">
+              <time class="news-card__date" datetime="2026-04-01" itemprop="datePublished">Apr 1, 2026</time>
+              <h3 class="news-card__title" itemprop="headline">
+                <a href="#">Floatex Secures EPC Contract for 22 MW NTPC Reservoir Project in Telangana</a>
               </h3>
-              <p class="magazine__card-desc">
-                Dynamic electricity tariffs adjust the electricity price to
-                supply and demand. We explain how they work, who they are
-                actually worthwhile for, and how you can save on electricity
-                costs in the long term.
-              </p>
+            </div>
+            <a href="#" class="news-card__image-link" aria-hidden="true" tabindex="-1">
+              <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80"
+                alt="NTPC floating solar EPC project Telangana" class="news-card__img" loading="lazy" width="600" height="380" />
+            </a>
+            <div class="news-card__body">
+              <p class="news-card__author" itemprop="author">by <strong>Floatex Solar</strong></p>
+              <p class="news-card__excerpt" itemprop="description">Expected live by Q1 2027, the project will power over 30,000 homes and is financed under the KUSUM-C scheme.</p>
+              <a href="#" class="news-card__read" aria-label="Read article: NTPC Telangana EPC contract">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                Read Article
+              </a>
             </div>
           </article>
         </div>
