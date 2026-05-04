@@ -217,6 +217,11 @@ button {
   /* pill is positioned relative to this */
 }
 
+/* Pill host — valid li wrapper, invisible to layout */
+.nav__pill-wrap {
+  display: contents;
+}
+
 /* Sliding pill — JS sets left + width */
 .nav__pill {
   position: absolute;
@@ -786,6 +791,12 @@ body:has(.nav__mobile.is-open) .nav__inner {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 1rem;
+}
+
+.footer__copyright {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.25);
+  white-space: nowrap;
 }
 
 .footer__legal {

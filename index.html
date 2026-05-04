@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 
 <head>
@@ -52,8 +52,7 @@
 
   <!-- STRUCTURED DATA -->
   <script type="application/ld+json">
-  [
-    {
+  {
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "Floatex Solar",
@@ -110,22 +109,7 @@
           }
         ]
       }
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Floatex Solar",
-      "url": "https://floatexsolar.com",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": {
-          "@type": "EntryPoint",
-          "urlTemplate": "https://floatexsolar.com/search?q={search_term_string}"
-        },
-        "query-input": "required name=search_term_string"
-      }
-    }
-  ]
+  }
   </script>
 
   <!-- CDN LIBRARIES -->
@@ -140,6 +124,8 @@
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
   <!-- Page transition curtain -->
   <div id="pg-transition" aria-hidden="true">
     <img src="assets/images/logo.png" alt="" class="pg-transition__logo" />
@@ -169,7 +155,7 @@
         </button>
       </div>
       <div class="vmodal__video-wrap">
-        <video class="vmodal__video" id="vmodal-video" src="assets/videos/v.webm" controls playsinline
+        <video class="vmodal__video" id="vmodal-video" src="assets/videos/v.mp4" controls playsinline
           preload="none"></video>
         <div class="vmodal__play-hint" id="vmodal-play-hint" aria-hidden="true">
           <svg width="56" height="56" viewBox="0 0 24 24" fill="currentColor">
@@ -180,7 +166,7 @@
       </div>
       <div class="vmodal__footer">
         <p class="vmodal__caption">Floating solar installations across India's reservoirs &amp; canals.</p>
-        <a href="/projects" class="vmodal__cta">View All Projects
+        <a href="projects.html" class="vmodal__cta">View All Projects
           <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
             <path d="M4 10H16M16 10L10 4M16 10L10 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"
               stroke-linejoin="round" />
@@ -200,7 +186,7 @@
 
         <!-- Desktop Links -->
         <ul class="nav__links" role="list">
-          <span class="nav__pill" aria-hidden="true"></span>
+          <li class="nav__pill-wrap" aria-hidden="true"><span class="nav__pill"></span></li>
           <li class="nav__item">
             <a href="index.html" class="nav__link nav__link--active" aria-current="page">Home</a>
           </li>
@@ -217,14 +203,14 @@
           <!-- Services — has submenu -->
           <li class="nav__item nav__item--dropdown">
             <button class="nav__link nav__link--trigger" aria-haspopup="true" aria-expanded="false"
-              aria-controls="dropdown-projects">
+              aria-controls="dropdown-services">
               Services
               <svg class="nav__chevron" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                 <path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
                   stroke-linejoin="round" />
               </svg>
             </button>
-            <div class="nav__dropdown" id="dropdown-projects" role="region" aria-label="Projects submenu">
+            <div class="nav__dropdown" id="dropdown-services" role="region" aria-label="Services submenu">
               <ul class="nav__dropdown-list" role="list">
                 <li>
                   <a href="services/fspv.html" class="nav__dropdown-link">
@@ -256,7 +242,7 @@
 
         <!-- CTA Button -->
         <a href="contact.html" class="nav__cta" aria-label="Get started with Floatex Solar">
-          let's Start Now
+          Let's Start Now
         </a>
 
         <!-- Hamburger — mobile only -->
@@ -299,7 +285,7 @@
 
       <li><a href="news.html" class="nav__mobile-link">News</a></li>
       <!-- <li><a href="/enquiry" class="nav__mobile-link">Enquiry</a></li> -->
-      <li><a href="contact.html" class="nav__mobile-cta">let's Start Now</a></li>
+      <li><a href="contact.html" class="nav__mobile-cta">Let's Start Now</a></li>
     </ul>
   </div>
 
@@ -308,12 +294,12 @@
     ============================================ -->
   <main id="main-content">
     <!-- HERO SECTION -->
-    <section class="hero" id="hero" aria-label="Hero — Powering India with 1GW+ Floats">
+    <section class="hero" id="hero" aria-label="Hero — Powering India with 1GW+ Floating Solar">
       <div class="hero__video-wrap" aria-hidden="true">
         <video class="hero__video" autoplay muted loop playsinline poster="assets/images/hero-poster.jpg"
           preload="none">
-          <source src="assets/videos/hero.webm" type="video/webm" />
-          <source src="assets/videos/v.webm" type="video/mp4" />
+          <!-- <source src="assets/videos/v.mp4" type="video/mp4" /> -->
+          <source src="assets/videos/v.webm" type="video/webm" />
         </video>
         <div class="hero__overlay" aria-hidden="true"></div>
       </div>
@@ -323,49 +309,54 @@
           <h1 class="hero__title">
             <span class="hero__title-line">Powering India</span>
             <span class="hero__title-line">
-              <span class="hero__title-inline"> with</span>
-              <em class="hero__title-script">1GW+ </em>
-              <span class="hero__title-inline"> Floats.</span>
+              <span class="hero__title-inline">with </span><em class="hero__title-script">1GW+</em>
             </span>
+            <span class="hero__title-line">Floating Solar.</span>
           </h1>
-
-          <a href="#solutions" class="hero__cta" aria-label="Learn how Floatex Solar works">
-            <span class="hero__cta-text">How it works</span>
-            <span class="hero__cta-icon" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4.5 11H17.5M17.5 11L11.5 5M17.5 11L11.5 17" stroke="currentColor" stroke-width="2.2"
-                  stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </span>
-          </a>
 
           <p class="hero__stat-desc">
             India's leading floating photovoltaic solutions — turning idle
-            water surfaces into powerful, sustainable energy sources.
+            water surfaces into <strong>powerful, sustainable</strong> energy sources.
           </p>
 
-        </div>
-
-        <div class="hero__right">
-          <div class="hero__card" role="complementary" aria-label="Where sustainability meets style">
-            <img class="hero__card-img"
-              src="https://assets.ratedpower.com/1710418535-solar-power-station-float-water.jpg?auto=format&dpr=0.22&w=6016"
-              alt="Aerial view of Floatex floating solar installation" width="130" height="100" loading="eager" />
-            <div class="hero__card-body">
-              <h2 class="hero__card-title">Dams Turned Power Plants</h2>
-              <p class="hero__card-text">
-                Professional Floating Photovoltaic (FPV) systems are solar
-                panels mounted on buoyant structures across water bodies.
-              </p>
-            </div>
+          <div class="hero__btns">
+            <a href="#solutions" class="hero__cta" aria-label="Learn how Floatex Solar works">
+              <span class="hero__cta-text">How it works</span>
+              <span class="hero__cta-icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4.5 11H17.5M17.5 11L11.5 5M17.5 11L11.5 17" stroke="currentColor" stroke-width="2.2"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+            </a>
+            <a href="projects.html" class="hero__cta hero__cta--outline" aria-label="Explore Floatex Solar projects">
+              <span class="hero__cta-text">Explore Projects</span>
+              <span class="hero__cta-icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4.5 11H17.5M17.5 11L11.5 5M17.5 11L11.5 17" stroke="currentColor" stroke-width="2.2"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+            </a>
           </div>
+
         </div>
       </div>
+
     </section>
     <!-- ==========================================
            CLIENTS TICKER SECTION
       =========================================== -->
     <section class="clients" id="clients" aria-label="Our clients">
+      <!-- Crawlable client list — hidden visually, readable by search engines -->
+      <ul class="sr-only" aria-label="Our clients and partners">
+        <li>NTPC Limited</li>
+        <li>SECI — Solar Energy Corporation of India</li>
+        <li>AMPIN Energy</li>
+        <li>BHEL — Bharat Heavy Electricals Limited</li>
+        <li>Tata Power</li>
+        <li>Sterling &amp; Wilson</li>
+      </ul>
       <div class="clients__inner">
         <!-- Infinite ticker -->
         <div class="clients__ticker-wrap" id="clients-ticker-wrap">
@@ -402,7 +393,7 @@
             cleaner, smarter India.
           </p>
 
-          <a href="/services" class="solutions__cta" aria-label="Learn more about Floatex Solar solutions">
+          <a href="about.html" class="solutions__cta" aria-label="Learn more about Floatex Solar solutions">
             Learn More
           </a>
         </div>
@@ -437,7 +428,7 @@
         <div class="video-scale__card">
           <video class="video-scale__video" muted playsinline preload="auto">
             <!-- <source src="assets/videos/v.webm" type="video/webm" /> -->
-            <source src="assets/videos/v.mp4" type="video/mp4" />
+            <source src="assets/videos/v.webm" type="video/webm" />
           </video>
           <div class="video-scale__overlay" aria-hidden="true">
             <span class="video-scale__tag"><span class="dot"></span> Floatex Solar</span>
@@ -508,7 +499,7 @@
             <video class="hero__video" autoplay muted loop playsinline poster="assets/images/hero-poster.jpg"
               preload="none">
               <source src="assets/videos/hero.webm" type="video/webm" />
-              <source src="assets/videos/v.webm" type="video/mp4" />
+              <source src="assets/videos/v.webm" type="video/webm" />
             </video>
             <div class="projects__card-body">
               <span class="projects__card-tag">Pond Solar</span>
@@ -625,8 +616,8 @@
             <p class="stats__desc">End-to-end EPC projects completed on time with zero compromise on quality.</p>
           </div>
           <div class="stats__item">
-            <span class="stats__number">1,000<span class="stats__unit">MW+</span></span>
-            <strong class="stats__label">Clean Energy</strong>
+            <span class="stats__number">1<span class="stats__unit">GW+</span></span>
+            <strong class="stats__label">Clean Energy Generated</strong>
             <p class="stats__desc">Clean energy generated annually, reducing carbon emissions at scale.</p>
           </div>
           <div class="stats__item">
@@ -978,17 +969,17 @@
             <div class="news-card__top">
               <time class="news-card__date" datetime="2026-04-15" itemprop="datePublished">Apr 15, 2026</time>
               <h3 class="news-card__title" itemprop="headline">
-                <a href="#">India's New FSPV Policy: What Changes for Developers in 2026</a>
+                <a href="news.html">India's New FSPV Policy: What Changes for Developers in 2026</a>
               </h3>
             </div>
-            <a href="#" class="news-card__image-link" aria-hidden="true" tabindex="-1">
+            <a href="news.html" class="news-card__image-link" aria-hidden="true" tabindex="-1">
               <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&q=80"
                 alt="India FSPV policy update 2026" class="news-card__img" loading="lazy" width="600" height="380" />
             </a>
             <div class="news-card__body">
               <p class="news-card__author" itemprop="author">by <strong>Floatex Solar</strong></p>
               <p class="news-card__excerpt" itemprop="description">The Ministry of New and Renewable Energy has revised tariff norms and land-use guidelines for floating PV projects above 5 MW.</p>
-              <a href="#" class="news-card__read" aria-label="Read article: India's New FSPV Policy">
+              <a href="news.html" class="news-card__read" aria-label="Read article: India's New FSPV Policy">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
@@ -1002,17 +993,17 @@
             <div class="news-card__top">
               <time class="news-card__date" datetime="2026-04-08" itemprop="datePublished">Apr 8, 2026</time>
               <h3 class="news-card__title" itemprop="headline">
-                <a href="#">Reservoir Water Bodies Are the Next Frontier for Clean Energy</a>
+                <a href="news.html">Reservoir Water Bodies Are the Next Frontier for Clean Energy</a>
               </h3>
             </div>
-            <a href="#" class="news-card__image-link" aria-hidden="true" tabindex="-1">
+            <a href="news.html" class="news-card__image-link" aria-hidden="true" tabindex="-1">
               <img src="https://images.unsplash.com/photo-1497440001374-f26997328c1b?w=800&q=80"
                 alt="Reservoir floating solar installation India" class="news-card__img" loading="lazy" width="600" height="380" />
             </a>
             <div class="news-card__body">
               <p class="news-card__author" itemprop="author">by <strong>Floatex Solar</strong></p>
               <p class="news-card__excerpt" itemprop="description">With over 5,000 suitable reservoirs identified across India, FSPV is poised to contribute 280 GW to the national clean energy target.</p>
-              <a href="#" class="news-card__read" aria-label="Read article: Reservoir Solar Frontier">
+              <a href="news.html" class="news-card__read" aria-label="Read article: Reservoir Solar Frontier">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
@@ -1026,17 +1017,17 @@
             <div class="news-card__top">
               <time class="news-card__date" datetime="2026-04-01" itemprop="datePublished">Apr 1, 2026</time>
               <h3 class="news-card__title" itemprop="headline">
-                <a href="#">Floatex Secures EPC Contract for 22 MW NTPC Reservoir Project in Telangana</a>
+                <a href="news.html">Floatex Secures EPC Contract for 22 MW NTPC Reservoir Project in Telangana</a>
               </h3>
             </div>
-            <a href="#" class="news-card__image-link" aria-hidden="true" tabindex="-1">
+            <a href="news.html" class="news-card__image-link" aria-hidden="true" tabindex="-1">
               <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80"
                 alt="NTPC floating solar EPC project Telangana" class="news-card__img" loading="lazy" width="600" height="380" />
             </a>
             <div class="news-card__body">
               <p class="news-card__author" itemprop="author">by <strong>Floatex Solar</strong></p>
               <p class="news-card__excerpt" itemprop="description">Expected live by Q1 2027, the project will power over 30,000 homes and is financed under the KUSUM-C scheme.</p>
-              <a href="#" class="news-card__read" aria-label="Read article: NTPC Telangana EPC contract">
+              <a href="news.html" class="news-card__read" aria-label="Read article: NTPC Telangana EPC contract">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
@@ -1046,9 +1037,6 @@
           </article>
         </div>
       </div>
-    </section>
-
-
     </section>
   </main>
 
@@ -1114,10 +1102,10 @@
     <!-- Bottom bar -->
     <div class="footer__bottom">
       <div class="footer__bottom-inner">
+        <p class="footer__copyright">&copy; 2025 Floatex Solar Pvt. Ltd. All rights reserved.</p>
         <div class="footer__legal">
-          <a href="cookies.html" class="footer__legal-link">Cookies Policy</a>
-          <a href="terms.html" class="footer__legal-link">Legal Terms</a>
-          <a href="privacy.html" class="footer__legal-link">Privacy Policy</a>
+          <a href="terms-and-conditions.html" class="footer__legal-link">Terms &amp; Conditions</a>
+          <a href="privacy-policy.html" class="footer__legal-link">Privacy Policy</a>
         </div>
         <div class="footer__socials">
           <a href="https://www.youtube.com/@FloatexSolar/videos" target="_blank" rel="noopener noreferrer" class="footer__social"

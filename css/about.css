@@ -1,10 +1,10 @@
 /* ============================================
-   FLOATEX SOLAR — projects.css
-   All sections specific to projects.html
+   FLOATEX SOLAR — about.css
+   All sections specific to about.html
 ============================================ */
 
 /* ============================================
-   PROJECTS HERO
+   ABOUT HERO
 ============================================ */
 .abt-hero {
     position: relative;
@@ -53,7 +53,7 @@
     position: relative;
     z-index: 2;
     text-align: center;
-    /* max-width: 860px;     */
+    max-width: 920px;
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -112,6 +112,10 @@
         padding-right: clamp(1.5rem, 5vw, 3rem);
         min-height: 45vh;
     }
+
+    .abt-hero__title {
+        font-size: clamp(2.25rem, 11vw, 2.8rem);
+    }
 }
 
 /* ============================================
@@ -143,6 +147,30 @@
 }
 
 /* ============================================
+   SHARED SECTION HEADING SCALE
+============================================ */
+.abt-impact__title,
+.abt-how__title,
+.abt-legacy__title,
+.abt-mission__title,
+.abt-mission__banner-title {
+    font-size: clamp(2rem, 3.8vw, 3rem);
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    margin: 0;
+}
+
+.abt-how__card-title,
+.abt-links__heading {
+    font-size: clamp(1.15rem, 2vw, 1.35rem);
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    margin: 0;
+}
+
+/* ============================================
    IMPACT / CONNECTIONS SECTION
 ============================================ */
 .abt-impact {
@@ -151,7 +179,7 @@
 }
 
 .abt-impact__inner {
-    /* max-width: 1200px; */
+    max-width: 1200px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -164,15 +192,11 @@
     display: flex;
     flex-direction: column;
     gap: 1.6rem;
+    min-width: 0;
 }
 
 .abt-impact__title {
-    font-size: clamp(2.4rem, 4.5vw, 4rem);
-    font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -0.03em;
     color: #111;
-    margin: 0;
 }
 
 .abt-impact__desc {
@@ -229,6 +253,7 @@
     grid-template-columns: 1fr 1fr;
     gap: 0.75rem;
     height: 460px;
+    min-width: 0;
 }
 
 .abt-impact__gallery-left {
@@ -304,7 +329,7 @@
 }
 
 .abt-story__inner {
-    /* max-width: 1200px; */
+    max-width: 1200px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1.1fr 0.9fr;
@@ -316,6 +341,7 @@
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
+    min-width: 0;
 }
 
 
@@ -371,19 +397,19 @@
     width: 64px;
     height: 64px;
     border-radius: 50%;
-    background: #ff0000;
+    background: var(--color-primary);
     transition: transform 0.25s ease, background 0.25s ease;
 }
 
 .abt-story__play svg {
     position: relative;
     z-index: 1;
-    color: #fff;
+    color: #111;
     margin-left: 3px;
 }
 
 .abt-story__play:hover::before {
-    background: #cc0000;
+    background: var(--color-primary-dark);
     transform: scale(1.1);
 }
 
@@ -419,10 +445,7 @@
 }
 
 .abt-how__title {
-    font-size: clamp(1.8rem, 3.5vw, 3rem);
-    font-weight: 800;
     color: #111;
-    letter-spacing: -0.02em;
     text-align: center;
     margin: 0 0 clamp(3rem, 6vw, 5rem);
 }
@@ -456,11 +479,7 @@
 }
 
 .abt-how__card-title {
-    font-size: var(--text-lg);
-    font-weight: 700;
     color: #111;
-    margin: 0;
-    letter-spacing: -0.01em;
 }
 
 .abt-how__card-desc {
@@ -504,6 +523,7 @@
 }
 
 .abt-legacy__inner {
+    max-width: 1200px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -522,16 +542,12 @@
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
+    min-width: 0;
 }
 
 
 .abt-legacy__title {
-    font-size: clamp(2rem, 3.5vw, 3rem);
-    font-weight: 800;
     color: #fff;
-    letter-spacing: -0.02em;
-    line-height: 1.15;
-    margin: 0;
 }
 
 .abt-legacy__accent {
@@ -613,7 +629,6 @@
     font-weight: 700;
     color: #ffffff;
     display: block;
-    margin: right;
 }
 
 .abt-legacy__author-role {
@@ -637,6 +652,11 @@
     .abt-legacy__media {
         border-radius: 10px;
     }
+
+    .abt-legacy__author {
+        align-items: center;
+        text-align: center;
+    }
 }
 
 /* ============================================
@@ -648,6 +668,7 @@
 }
 
 .abt-links__inner {
+    max-width: 1200px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr auto 1fr auto 1fr;
@@ -660,6 +681,7 @@
     flex-direction: column;
     gap: 0.6rem;
     padding: 0 clamp(2rem, 4vw, 4rem);
+    min-width: 0;
 }
 
 .abt-links__col:first-child {
@@ -677,12 +699,7 @@
 }
 
 .abt-links__heading {
-    font-size: var(--text-xl);
-    font-weight: 700;
     color: #111;
-    line-height: 1.4;
-    letter-spacing: -0.01em;
-    margin: 0;
 }
 
 .abt-links__sub {
@@ -710,7 +727,7 @@
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
     .abt-links__inner {
         grid-template-columns: 1fr;
         gap: 0;
@@ -763,12 +780,7 @@
 }
 
 .abt-mission__title {
-    font-size: clamp(2rem, 3.5vw, 3rem);
-    font-weight: 800;
     color: #111;
-    letter-spacing: -0.02em;
-    line-height: 1.15;
-    margin: 0;
 }
 
 .abt-mission__sub {
@@ -827,12 +839,7 @@
 }
 
 .abt-mission__banner-title {
-    font-size: clamp(1.6rem, 3vw, 2.6rem);
-    font-weight: 800;
     color: #111;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    margin: 0;
 }
 
 .abt-mission__banner-desc {
@@ -897,5 +904,9 @@
         border-radius: 14px;
         text-align: left;
         align-items: flex-start;
+    }
+
+    .abt-mission__banner-title br {
+        display: none;
     }
 }
