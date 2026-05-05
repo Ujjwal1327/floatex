@@ -146,7 +146,9 @@
   max-width: 800px;
   margin-bottom: 60px;
 }
-
+.project-tl_title .accent{
+  color: var(--color-primary);
+}
 
 .proj-tl__inner {
   margin: 0 auto;
