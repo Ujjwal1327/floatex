@@ -41,21 +41,37 @@ let prevWidth = window.innerWidth;
 
 function initLenis() {
   lenis = new Lenis({
-    duration: 1.5,
+    duration: 1.2,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    direction: "vertical",
-    gestureDirection: "vertical",
-    smooth: true,
+    orientation: 'vertical',
+    gestureOrientation: 'vertical',
+    smoothWheel: true,
+    wheelMultiplier: 1,
     smoothTouch: false,
     touchMultiplier: 2,
     infinite: false,
   });
 
-  function rafLoop(time) {
-    lenis.raf(time);
-    requestAnimationFrame(rafLoop);
-  }
-  requestAnimationFrame(rafLoop);
+  // Sync Lenis with GSAP Ticker for frame-perfect synchronization
+  gsap.ticker.add((time) => {
+    lenis.raf(time * 1000);
+  });
+
+  // Disable lag smoothing to prevent 'jumps' during heavy rendering
+  gsap.ticker.lagSmoothing(0);
+
+  // Optimization: Disable pointer events during scroll to save CPU on hover calculations
+  const body = document.body;
+  let scrollTimeout;
+  lenis.on('scroll', () => {
+    if (!body.classList.contains('is-scrolling')) {
+      body.classList.add('is-scrolling');
+    }
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      body.classList.remove('is-scrolling');
+    }, 150);
+  });
 
   console.log("%c✅ Lenis ready", "color:#00b894;font-size:12px;");
 }
@@ -70,6 +86,14 @@ function initGSAP() {
   if (lenis) {
     lenis.on("scroll", ScrollTrigger.update);
   }
+
+  // Apple-level smoothness: Normalizes scroll behavior across browsers
+  ScrollTrigger.normalizeScroll(true);
+  
+  // Prevents jumping on mobile address bar hide/show
+  ScrollTrigger.config({ 
+    ignoreMobileResize: true 
+  });
 
   ScrollTrigger.refresh();
 
@@ -106,8 +130,8 @@ function initNav() {
   function onScroll() {
     const scrollY = lenis ? lenis.scroll : window.scrollY;
 
-    // Dark bg after hero
-    header.classList.toggle("scrolled", scrollY > SCROLL_THRESHOLD);
+    // Dark bg is now permanent via CSS, so removing JS toggle
+    // header.classList.toggle("scrolled", scrollY > SCROLL_THRESHOLD);
 
     // Hide on scroll down, show on scroll up
     // Skip hiding if mouse is over the nav
@@ -588,63 +612,93 @@ function initSolutions() {
 function initVideoScale() {
   if (prefersReducedMotion()) return;
 
-  const video = document.querySelector(".video-scale__video");
-  if (!video) return;
+  const section = document.querySelector(".video-scale");
+  const canvas = document.getElementById("video-scale-canvas");
+  if (!section || !canvas) return;
 
-  // Keep video paused — we drive currentTime manually
-  video.pause();
+  const context = canvas.getContext("2d");
+  const frameCount = 126;
+  const currentFrame = (index) => `assets/video-frames/frame_${(index + 1).toString().padStart(4, '0')}.jpg`;
 
-  const VIDEO_DURATION = 8;
-  let targetTime = 0;
-  let seeking = false;
+  const images = [];
+  const imageSeq = { frame: 0 };
+  let renderConfig = {};
+  let isInitialized = false;
 
-  function doSeek() {
-    if (Math.abs(video.currentTime - targetTime) < 0.04) {
-      seeking = false;
-      return;
+  const observer = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting && !isInitialized) {
+      isInitialized = true;
+      startLoadingAndInit();
     }
-    // fastSeek is much lighter than currentTime on supported browsers
-    if (video.fastSeek) {
-      video.fastSeek(targetTime);
-    } else {
-      video.currentTime = targetTime;
+  }, { rootMargin: "600px" });
+
+  observer.observe(section);
+
+  function startLoadingAndInit() {
+    for (let i = 0; i < frameCount; i++) {
+      const img = new Image();
+      img.src = currentFrame(i);
+      images.push(img);
     }
-    // Wait for seeked event before next seek — avoids queuing up seeks
-    video.addEventListener("seeked", onSeeked, { once: true });
-  }
 
-  function onSeeked() {
-    seeking = false;
-    // If target moved while we were seeking, seek again
-    if (Math.abs(video.currentTime - targetTime) > 0.04) {
-      seeking = true;
-      doSeek();
-    }
-  }
+    images[0].onload = () => {
+      resizeCanvas();
+      render(images[0]);
+    };
 
-  function setupScrub() {
-    const duration = Math.min(video.duration || VIDEO_DURATION, VIDEO_DURATION);
-
-    ScrollTrigger.create({
-      trigger: ".video-scale",
-      start: "top top",
-      end: "bottom bottom",
-      scrub: true,
-      onUpdate(self) {
-        targetTime = self.progress * duration;
-        if (!seeking) {
-          seeking = true;
-          doSeek();
-        }
+    gsap.to(imageSeq, {
+      frame: frameCount - 1,
+      snap: "frame",
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".video-scale",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 0.1
       },
+      onUpdate: () => render(images[Math.round(imageSeq.frame)])
     });
   }
 
-  if (video.readyState >= 1) {
-    setupScrub();
-  } else {
-    video.addEventListener("loadedmetadata", setupScrub, { once: true });
+  function resizeCanvas() {
+    // Cap resolution to 1.5x for performance — 2x/3x is too heavy for 200+ images
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    canvas.width = window.innerWidth * dpr;
+    canvas.height = window.innerHeight * dpr;
+    
+    if (images[0] && images[0].complete) {
+      calcRenderConfig(images[0]);
+    }
   }
+
+  function calcRenderConfig(img) {
+    const hRatio = canvas.width / img.width;
+    const vRatio = canvas.height / img.height;
+    const ratio  = Math.max(hRatio, vRatio);
+    renderConfig = {
+      w: img.width * ratio,
+      h: img.height * ratio,
+      x: (canvas.width - img.width * ratio) / 2,
+      y: (canvas.height - img.height * ratio) / 2
+    };
+  }
+
+  function render(img) {
+    if (!img || !img.complete || !renderConfig.w) return;
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.drawImage(
+      img, 
+      0, 0, img.width, img.height,
+      renderConfig.x, renderConfig.y, renderConfig.w, renderConfig.h
+    );
+  }
+
+  window.addEventListener("resize", debounce(() => {
+    resizeCanvas();
+    if (images.length > 0) {
+      render(images[Math.round(imageSeq.frame)] || images[0]);
+    }
+  }, 200));
 }
 
 

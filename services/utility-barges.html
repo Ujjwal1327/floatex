@@ -32,20 +32,105 @@
   <header class="site-header" id="site-header">
     <nav class="nav" aria-label="Main navigation">
       <div class="nav__inner">
-        <a href="../index.html" class="nav__logo">
-          <img src="../assets/images/logo.png" alt="Floatex Solar" width="140" height="44" />
+        <!-- Logo -->
+        <a href="../index.html" class="nav__logo" aria-label="Floatex Solar — Home">
+          <img src="../assets/images/logo.png" alt="Floatex Solar" width="140" height="44" loading="eager" />
         </a>
-        <ul class="nav__links">
-          <li class="nav__item"><a href="../index.html" class="nav__link">Home</a></li>
-          <li class="nav__item"><a href="../about.html" class="nav__link">About</a></li>
-          <li class="nav__item"><a href="../projects.html" class="nav__link">Projects</a></li>
-          <li class="nav__item"><a href="../news.html" class="nav__link">News</a></li>
-          <li class="nav__item"><a href="../contact.html" class="nav__link">Contact</a></li>
+
+        <!-- Desktop Links -->
+        <ul class="nav__links" role="list">
+          <li class="nav__pill-wrap" aria-hidden="true"><span class="nav__pill"></span></li>
+          <li class="nav__item">
+            <a href="../index.html" class="nav__link">Home</a>
+          </li>
+
+          <li class="nav__item">
+            <a href="../about.html" class="nav__link">About</a>
+          </li>
+
+          <li class="nav__item">
+            <a href="../projects.html" class="nav__link">Projects</a>
+          </li>
+
+          <!-- Services — has submenu -->
+          <li class="nav__item nav__item--dropdown">
+            <button class="nav__link nav__link--trigger nav__link--active" aria-haspopup="true" aria-expanded="false"
+              aria-controls="dropdown-services">
+              Services
+              <svg class="nav__chevron" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </button>
+            <div class="nav__dropdown" id="dropdown-services" role="region" aria-label="Services submenu">
+              <ul class="nav__dropdown-list" role="list">
+                <li>
+                  <a href="fspv.html" class="nav__dropdown-link">
+                    <span><strong>Floating Solar Systems</strong></span>
+                  </a>
+                </li>
+                <li>
+                  <a href="utility-barges.html" class="nav__dropdown-link">
+                    <span><strong>Utility Barges</strong></span>
+                  </a>
+                </li>
+                <li>
+                  <a href="access-systems.html" class="nav__dropdown-link">
+                    <span><strong>Access Systems</strong></span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="nav__item">
+            <a href="../news.html" class="nav__link">News</a>
+          </li>
         </ul>
-        <a href="../contact.html" class="nav__cta">let's Start Now</a>
+
+        <!-- CTA Button -->
+        <a href="../contact.html" class="nav__cta" aria-label="Get started with Floatex Solar">
+          Let's Start Now
+        </a>
+
+        <!-- Hamburger — mobile only -->
+        <button class="nav__hamburger" id="nav-hamburger" aria-label="Open navigation menu" aria-expanded="false"
+          aria-controls="mobile-menu">
+          <span class="nav__hamburger-bar"></span>
+          <span class="nav__hamburger-bar"></span>
+          <span class="nav__hamburger-bar"></span>
+        </button>
       </div>
     </nav>
   </header>
+
+  <!-- Mobile Menu — outside <header> so position:fixed escapes the header's transform context -->
+  <div class="nav__mobile" id="mobile-menu" aria-hidden="true">
+    <ul class="nav__mobile-links" role="list">
+      <li><a href="../index.html" class="nav__mobile-link">Home</a></li>
+      <li><a href="../about.html" class="nav__mobile-link">About</a></li>
+      <li><a href="../projects.html" class="nav__mobile-link">Projects</a></li>
+
+      <li class="nav__mobile-item--accordion">
+        <button class="nav__mobile-link nav__mobile-trigger" aria-expanded="false"
+          aria-controls="mobile-submenu-services">
+          Services
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </button>
+        <ul class="nav__mobile-submenu" id="mobile-submenu-services" role="list">
+          <li><a href="fspv.html" class="nav__mobile-sublink">Floating Solar Systems</a></li>
+          <li><a href="utility-barges.html" class="nav__mobile-sublink">Utility Barges</a></li>
+          <li><a href="access-systems.html" class="nav__mobile-sublink">Access Systems</a></li>
+        </ul>
+      </li>
+
+      <li><a href="../news.html" class="nav__mobile-link">News</a></li>
+      <li><a href="../contact.html" class="nav__mobile-cta">Let's Start Now</a></li>
+    </ul>
+  </div>
 
   <main>
     <section class="service-hero">
@@ -100,7 +185,10 @@
     </div>
   </footer>
 
-  <script src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" defer></script>
+  <script src="../js/main.js" defer></script>
 </body>
 </html>
 

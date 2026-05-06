@@ -154,16 +154,16 @@ button {
   margin: 0 auto;
   padding: 0.6rem 0.6rem 0.6rem 1.4rem;
 
-  /* Glassmorphism dark pill */
-  background: var(--nav-bg);
-  backdrop-filter: var(--nav-blur);
-  -webkit-backdrop-filter: var(--nav-blur);
-  border: 1px solid var(--nav-border);
+  /* Permanent dark pill background */
+  background: rgba(10, 15, 25, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-md);
 
   /* Subtle bottom shadow for depth */
   box-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.3),
+    0 8px 32px rgba(0, 0, 0, 0.45),
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
 
   transition:
@@ -172,12 +172,7 @@ button {
     border-color var(--ease-base);
 }
 
-/* Darker pill on scroll */
-.site-header.scrolled .nav__inner {
-  background: rgba(10, 15, 25, 0.88);
-  border-color: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
-}
+/* Removed scrolled state as background is now permanent */
 
 /* ---- Logo ---- */
 .nav__logo {
@@ -279,10 +274,10 @@ button {
   left: 50%;
   transform: translateX(-50%) translateY(-6px);
   min-width: 260px;
-  background: rgba(108, 131, 185, 0.96);
+  background: rgba(10, 15, 25, 0.96);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-md);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
   padding: var(--space-sm);
@@ -296,11 +291,7 @@ button {
     visibility var(--ease-base);
 }
 
-/* Dropdown matches dark navbar when scrolled */
-.site-header.scrolled .nav__dropdown {
-  background: rgba(10, 15, 25, 0.95);
-  border-color: rgba(255, 255, 255, 0.08);
-}
+/* Removed scrolled state as background is now permanent */
 
 /* Open state — toggled by JS */
 .nav__item--dropdown.is-open .nav__dropdown {
@@ -333,8 +324,8 @@ button {
 }
 
 .nav__dropdown-link:hover {
-  background: rgba(255, 255, 255, 0.07);
-  color: var(--color-light);
+  background: var(--color-primary);
+  color: var(--color-dark);
 }
 
 .nav__dropdown-link--all {

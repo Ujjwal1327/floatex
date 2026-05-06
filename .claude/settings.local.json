@@ -11,7 +11,13 @@
       "Bash(where python:*)",
       "Bash(where python3:*)",
       "Bash(where py:*)",
-      "Bash(node gen_projects.js)"
+      "Bash(node gen_projects.js)",
+      "Bash(pip show *)",
+      "PowerShell(python3 --version 2>&1)",
+      "PowerShell(py --version 2>&1)",
+      "PowerShell(node --version 2>&1)",
+      "PowerShell(npm list -g pptxgenjs 2>&1)",
+      "PowerShell(head -3)"
     ]
   }
 }

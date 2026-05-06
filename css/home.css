@@ -7,6 +7,10 @@
    9. HERO SECTION
 ============================================ */
 
+body.is-scrolling {
+  pointer-events: none !important;
+}
+
 .hero {
   position: relative;
   width: 100%;
@@ -27,6 +31,10 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  /* Hardware acceleration to prevent stutters on scroll up */
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .hero__overlay {
@@ -689,8 +697,7 @@
 ============================================ */
 
 .video-scale {
-  display: none;
-  height: 800vh;
+  height: 300vh;
   position: relative;
   background: #060606;
 }
@@ -710,7 +717,7 @@
   overflow: hidden;
 }
 
-.video-scale__video {
+.video-scale__canvas {
   width: 100%;
   height: 100%;
   object-fit: cover;
